@@ -4,7 +4,7 @@
 <script src="mock-api.js"></script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
-<meta name="version" content="v2.0-2026-08-09-o"/>
+<meta name="version" content="v2.1-2026-09-04"/>
 <meta name="theme-color" content="#d97706"/>
 <script>(function(){try{if(sessionStorage.getItem('_vc'))return;sessionStorage.setItem('_vc','1');var mv=document.querySelector('meta[name="version"]');var cur=mv?mv.content:null;if(!cur)return;fetch(location.pathname+'?_cb='+Date.now(),{cache:'no-store'}).then(function(r){return r.text()}).then(function(t){var m=t.match(/<meta name="version" content="([^"]+)"/);if(m&&m[1]&&m[1]!==cur){location.reload();}}).catch(function(){});}catch(e){}})();</script>
 <title>ManiPay — Agent</title>
@@ -419,9 +419,13 @@ function setTab(t){
         <div style="width:46px;height:46px;border-radius:13px;background:rgba(59,130,246,.12);display:flex;align-items:center;justify-content:center;color:#3b82f6;font-size:24px">⇄</div>
         <div style="text-align:center"><div style="font-size:13px;font-weight:700;color:#1d4ed8">Transfert</div><div style="font-size:10px;color:var(--m);margin-top:2px">Liquidité · Gratuit</div></div>
       </button>
-      <button onclick="openSh('payer')" style="background:#fdf4ff;border:1.5px solid #e9d5ff;border-radius:16px;padding:18px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;grid-column:span 2">
+      <button onclick="openSh('payer')" style="background:#fdf4ff;border:1.5px solid #e9d5ff;border-radius:16px;padding:18px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer">
         <div style="width:46px;height:46px;border-radius:13px;background:rgba(168,85,247,.12);display:flex;align-items:center;justify-content:center;color:#a855f7;font-size:22px">🏪</div>
         <div style="text-align:center"><div style="font-size:13px;font-weight:700;color:#7e22ce">Payer marchand</div><div style="font-size:10px;color:var(--m);margin-top:2px">0.5% de frais</div></div>
+      </button>
+      <button onclick="ouvrirVerifSignatureTontine()" style="background:#faf5ff;border:1.5px solid #ddd6fe;border-radius:16px;padding:18px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer">
+        <div style="width:46px;height:46px;border-radius:13px;background:rgba(124,58,237,.12);display:flex;align-items:center;justify-content:center;color:#7c3aed;font-size:22px">🎡</div>
+        <div style="text-align:center"><div style="font-size:13px;font-weight:700;color:#6d28d9">Signature Tontine</div><div style="font-size:10px;color:var(--m);margin-top:2px">300 F par vérification</div></div>
       </button>
     </div>
     <div style="background:linear-gradient(135deg,#a855f7,#7e22ce);border-radius:16px;padding:14px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between">
@@ -3684,6 +3688,197 @@ function annulerReviewSop(){
 }
 function nouveauSopRet(){if(_sopClient.ret)ouvrirScreenRetrait(_sopClient.ret);else S('s-home');}
 
+</script>
+
+<!-- SHEET VÉRIFICATION SIGNATURE TONTINE -->
+<div class="sh-ov" id="sh-verif-signature-tontine">
+  <div class="sh" style="padding-bottom:40px;max-height:92vh;overflow-y:auto">
+    <div class="sh-bar"></div>
+    <div class="sh-top"><div><div class="sh-title">🎡 Signature Tontine</div><div style="color:var(--m);font-size:12px">300 F par vérification</div></div><button class="sh-x" onclick="closeSh('verif-signature-tontine');rstVerifSignature()">✕</button></div>
+    <div style="padding:0 20px">
+
+      <div id="vst-step-recherche">
+        <div style="font-size:13px;color:var(--m);margin-bottom:10px">Numéro du participant ou de la caution</div>
+        <input id="vst-tel" type="tel" placeholder="07 XX XX XX XX" class="inp" style="margin-bottom:12px"/>
+        <div id="vst-err-recherche" style="display:none;color:var(--r);font-size:12px;margin-bottom:10px"></div>
+        <button class="btn btn-o" style="width:100%" onclick="rechercherSignatureTontine()">Rechercher</button>
+      </div>
+
+      <div id="vst-step-choix" style="display:none">
+        <div style="font-size:13px;font-weight:700;margin-bottom:10px">Résultats</div>
+        <div id="vst-liste-resultats"></div>
+        <button class="btn btn-ghost" style="width:100%;margin-top:10px" onclick="rstVerifSignatureRecherche()">← Nouvelle recherche</button>
+      </div>
+
+      <div id="vst-step-photos" style="display:none">
+        <div id="vst-cible-info" style="background:var(--s);border-radius:12px;padding:12px;margin-bottom:16px;font-size:13px"></div>
+
+        <div style="font-size:12px;font-weight:700;margin-bottom:6px">1. Photo de la personne</div>
+        <label class="vst-photo-zone" id="vst-zone-personne">
+          <input type="file" accept="image/*" capture="user" onchange="vstChoisirPhoto(this,'personne')" style="display:none"/>
+          <span id="vst-label-personne">📷 Prendre la photo</span>
+        </label>
+
+        <div style="font-size:12px;font-weight:700;margin:14px 0 6px">2. CNI — Recto</div>
+        <label class="vst-photo-zone" id="vst-zone-cniRecto">
+          <input type="file" accept="image/*" capture="environment" onchange="vstChoisirPhoto(this,'cniRecto')" style="display:none"/>
+          <span id="vst-label-cniRecto">📷 Prendre la photo</span>
+        </label>
+
+        <div style="font-size:12px;font-weight:700;margin:14px 0 6px">3. CNI — Verso</div>
+        <label class="vst-photo-zone" id="vst-zone-cniVerso">
+          <input type="file" accept="image/*" capture="environment" onchange="vstChoisirPhoto(this,'cniVerso')" style="display:none"/>
+          <span id="vst-label-cniVerso">📷 Prendre la photo</span>
+        </label>
+
+        <div style="font-size:12px;font-weight:700;margin:14px 0 6px">4. Document Tontine signé</div>
+        <label class="vst-photo-zone" id="vst-zone-documentSigne">
+          <input type="file" accept="image/*" capture="environment" onchange="vstChoisirPhoto(this,'documentSigne')" style="display:none"/>
+          <span id="vst-label-documentSigne">📷 Prendre la photo</span>
+        </label>
+
+        <div id="vst-err-photos" style="display:none;color:var(--r);font-size:12px;margin:12px 0"></div>
+        <button id="vst-btn-envoyer" class="btn btn-o" style="width:100%;margin-top:16px" onclick="envoyerSignatureTontine()">Envoyer et enregistrer</button>
+        <button class="btn btn-ghost" style="width:100%;margin-top:8px" onclick="rstVerifSignatureRecherche()">← Annuler</button>
+      </div>
+
+      <div id="vst-step-succes" style="display:none;text-align:center;padding:20px 0">
+        <div style="font-size:40px;margin-bottom:10px">✅</div>
+        <div style="font-size:15px;font-weight:700;margin-bottom:6px">Signature enregistrée</div>
+        <div id="vst-succes-msg" style="font-size:13px;color:var(--m);margin-bottom:20px"></div>
+        <button class="btn btn-o" style="width:100%" onclick="rstVerifSignatureRecherche()">Vérifier une autre signature</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<style>
+.vst-photo-zone{display:flex;align-items:center;justify-content:center;background:var(--s);border:1.5px dashed #d1d5db;border-radius:12px;padding:16px;cursor:pointer;font-size:13px;color:var(--m);font-weight:600}
+.vst-photo-zone.vst-ok{background:#f0fdf4;border-color:#86efac;color:#15803d}
+</style>
+
+<script>
+var _vstCible=null;
+var _vstPhotos={};
+
+function ouvrirVerifSignatureTontine(){
+  rstVerifSignature();
+  openSh('verif-signature-tontine');
+}
+function rstVerifSignature(){
+  _vstCible=null;_vstPhotos={};
+  document.getElementById('vst-tel').value='';
+  document.getElementById('vst-err-recherche').style.display='none';
+  document.getElementById('vst-step-recherche').style.display='';
+  document.getElementById('vst-step-choix').style.display='none';
+  document.getElementById('vst-step-photos').style.display='none';
+  document.getElementById('vst-step-succes').style.display='none';
+  ['personne','cniRecto','cniVerso','documentSigne'].forEach(function(k){
+    var zone=document.getElementById('vst-zone-'+k);
+    if(zone)zone.classList.remove('vst-ok');
+    var lbl=document.getElementById('vst-label-'+k);
+    if(lbl)lbl.textContent='📷 Prendre la photo';
+  });
+}
+function rstVerifSignatureRecherche(){
+  rstVerifSignature();
+}
+
+async function rechercherSignatureTontine(){
+  var tel=document.getElementById('vst-tel').value.trim();
+  var errEl=document.getElementById('vst-err-recherche');
+  errEl.style.display='none';
+  if(!tel){errEl.textContent='Numéro requis';errEl.style.display='';return;}
+  try{
+    var r=await get('/tontine/signatures/rechercher?telephone='+encodeURIComponent(tel));
+    var resultats=r.data||[];
+    if(resultats.length===1){
+      vstSelectionnerCible(resultats[0]);
+      return;
+    }
+    var html='';
+    resultats.forEach(function(res,i){
+      html+='<div onclick=\'vstSelectionnerCibleJSON('+i+')\' style="background:var(--s);border-radius:12px;padding:12px 14px;margin-bottom:8px;cursor:pointer">'
+        +'<div style="font-weight:700;font-size:13px">'+(res.prenom||'')+' '+(res.nom||'')+' <span style="font-weight:400;color:var(--m);font-size:11px">('+(res.type==='caution'?'Caution':'Participant')+')</span></div>'
+        +'<div style="font-size:11px;color:var(--m)">'+(res.categorie||'')+' '+F(res.montant)+' F · Groupe #'+res.groupeNumero+'</div>'
+        +'</div>';
+    });
+    window._vstResultats=resultats;
+    document.getElementById('vst-liste-resultats').innerHTML=html;
+    document.getElementById('vst-step-recherche').style.display='none';
+    document.getElementById('vst-step-choix').style.display='';
+  }catch(e){
+    errEl.textContent=e.message;
+    errEl.style.display='';
+  }
+}
+function vstSelectionnerCibleJSON(i){ vstSelectionnerCible(window._vstResultats[i]); }
+function vstSelectionnerCible(res){
+  _vstCible=res;
+  document.getElementById('vst-cible-info').innerHTML=
+    '<b>'+(res.prenom||'')+' '+(res.nom||'')+'</b> — '+(res.type==='caution'?'Caution':'Participant')+'<br>'
+    +res.categorie+' '+F(res.montant)+' F · Groupe #'+res.groupeNumero;
+  document.getElementById('vst-step-recherche').style.display='none';
+  document.getElementById('vst-step-choix').style.display='none';
+  document.getElementById('vst-step-photos').style.display='';
+}
+
+function vstChoisirPhoto(input,cle){
+  var file=input.files&&input.files[0];
+  if(!file)return;
+  _vstPhotos[cle]=file;
+  var zone=document.getElementById('vst-zone-'+cle);
+  zone.classList.add('vst-ok');
+  document.getElementById('vst-label-'+cle).textContent='✅ Photo prise — toucher pour reprendre';
+}
+
+async function vstUploadPhoto(file){
+  var fd=new FormData();
+  fd.append('file',file);
+  fd.append('upload_preset','afrim-kyc');
+  fd.append('folder','manipay/tontine-signatures');
+  var r=await fetch('https://api.cloudinary.com/v1_1/dzofjvhwu/image/upload',{method:'POST',body:fd});
+  var d=await r.json();
+  if(!r.ok||!d.secure_url)throw new Error('Échec upload photo');
+  return d.secure_url;
+}
+
+async function envoyerSignatureTontine(){
+  var errEl=document.getElementById('vst-err-photos');
+  errEl.style.display='none';
+  var manquants=['personne','cniRecto','cniVerso','documentSigne'].filter(function(k){return !_vstPhotos[k];});
+  if(manquants.length){
+    errEl.textContent='Il manque '+manquants.length+' photo(s) obligatoire(s).';
+    errEl.style.display='';
+    return;
+  }
+  var btn=document.getElementById('vst-btn-envoyer');
+  btn.disabled=true;btn.textContent='Envoi en cours...';
+  try{
+    var photoPersonneUrl=await vstUploadPhoto(_vstPhotos.personne);
+    var photoCniRectoUrl=await vstUploadPhoto(_vstPhotos.cniRecto);
+    var photoCniVersoUrl=await vstUploadPhoto(_vstPhotos.cniVerso);
+    var photoDocumentSigneUrl=await vstUploadPhoto(_vstPhotos.documentSigne);
+
+    var r=await post('/tontine/signatures/enregistrer',{
+      type:_vstCible.type,
+      id:_vstCible.id,
+      photoPersonneUrl:photoPersonneUrl,
+      photoCniRectoUrl:photoCniRectoUrl,
+      photoCniVersoUrl:photoCniVersoUrl,
+      photoDocumentSigneUrl:photoDocumentSigneUrl
+    });
+
+    document.getElementById('vst-step-photos').style.display='none';
+    document.getElementById('vst-succes-msg').textContent=r.data.message||'300 F ajoutés à votre historique de gains.';
+    document.getElementById('vst-step-succes').style.display='';
+  }catch(e){
+    errEl.textContent=e.message;
+    errEl.style.display='';
+  }finally{
+    btn.disabled=false;btn.textContent='Envoyer et enregistrer';
+  }
+}
 </script>
 
 <!-- SHEET CHOIX OPÉRATION après scan QR accueil -->

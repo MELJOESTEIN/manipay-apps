@@ -10,7 +10,7 @@
 (function () {
   'use strict';
 
-  var DB_KEY = 'manipay_mock_db_v2';
+  var DB_KEY = 'manipay_mock_db_v3';
   var ORIG_FETCH = window.fetch.bind(window);
 
   // ───────────────────────── Utilitaires ─────────────────────────────
@@ -149,7 +149,7 @@
     // Client1 (KYC3, relevé plus haut) : en attente de cautions, avec un
     // mix réaliste de statuts (accepté/en attente/refusé) pour montrer
     // l'écran de suivi des invitations dès la connexion.
-    var pC1 = { id: 'tp_client1', utilisateurId: 'u_client1', statut: 'attente_cautions', montant: 10000, categorie: 'hebdo', position: null, signaturePhysiqueFaite: false, scanUrl: null, groupeId: null };
+    var pC1 = { id: 'tp_client1', utilisateurId: 'u_client1', statut: 'attente_cautions', montant: 10000, categorie: 'hebdo', position: null, signaturePhysiqueFaite: false, scanUrl: null, photoPersonne: null, photoCniRecto: null, photoCniVerso: null, photoDocumentSigne: null, groupeId: null };
     var tontineParticipants = [pC1];
     var tontineCautions = [
       { id: 'tc_1', participantId: pC1.id, ordre: 1, garantNom: 'Seydou Diallo', garantTelephone: '+2250700000031', statut: 'accepte', signaturePhysiqueFaite: false, dateInvitation: nowIso(), dateSignature: nowIso() },
@@ -161,16 +161,17 @@
     // Client4 (KYC3) + 4 participants filler : groupe déjà actif (en_cours),
     // tour 3 = client4 bénéficiaire, sa propre cotisation encore à régler
     // (pour montrer le bouton "Payer ma cotisation maintenant").
-    var pC4 = { id: 'tp_client4', utilisateurId: 'u_client4', statut: 'inscrit', montant: 25000, categorie: 'mensuel', position: 3, signaturePhysiqueFaite: true, scanUrl: 'logo-principal-512.png', groupeId: 'grp_demo1' };
-    var pF1 = { id: 'tp_f1', utilisateurId: 'u_tf1', statut: 'inscrit', montant: 25000, categorie: 'mensuel', position: 1, signaturePhysiqueFaite: true, scanUrl: 'logo-principal-512.png', groupeId: 'grp_demo1' };
-    var pF2 = { id: 'tp_f2', utilisateurId: 'u_tf2', statut: 'inscrit', montant: 25000, categorie: 'mensuel', position: 2, signaturePhysiqueFaite: true, scanUrl: 'logo-principal-512.png', groupeId: 'grp_demo1' };
-    var pF3 = { id: 'tp_f3', utilisateurId: 'u_tf3', statut: 'inscrit', montant: 25000, categorie: 'mensuel', position: 4, signaturePhysiqueFaite: true, scanUrl: 'logo-principal-512.png', groupeId: 'grp_demo1' };
-    var pF4 = { id: 'tp_f4', utilisateurId: 'u_tf4', statut: 'inscrit', montant: 25000, categorie: 'mensuel', position: 5, signaturePhysiqueFaite: true, scanUrl: 'logo-principal-512.png', groupeId: 'grp_demo1' };
+    var demoPhotos = { photoPersonne: 'logo-principal-512.png', photoCniRecto: 'logo-principal-512.png', photoCniVerso: 'logo-principal-512.png', photoDocumentSigne: 'logo-principal-512.png' };
+    var pC4 = Object.assign({ id: 'tp_client4', utilisateurId: 'u_client4', statut: 'inscrit', montant: 25000, categorie: 'mensuel', position: 3, signaturePhysiqueFaite: true, scanUrl: 'logo-principal-512.png', groupeId: 'grp_demo1' }, demoPhotos);
+    var pF1 = Object.assign({ id: 'tp_f1', utilisateurId: 'u_tf1', statut: 'inscrit', montant: 25000, categorie: 'mensuel', position: 1, signaturePhysiqueFaite: true, scanUrl: 'logo-principal-512.png', groupeId: 'grp_demo1' }, demoPhotos);
+    var pF2 = Object.assign({ id: 'tp_f2', utilisateurId: 'u_tf2', statut: 'inscrit', montant: 25000, categorie: 'mensuel', position: 2, signaturePhysiqueFaite: true, scanUrl: 'logo-principal-512.png', groupeId: 'grp_demo1' }, demoPhotos);
+    var pF3 = Object.assign({ id: 'tp_f3', utilisateurId: 'u_tf3', statut: 'inscrit', montant: 25000, categorie: 'mensuel', position: 4, signaturePhysiqueFaite: true, scanUrl: 'logo-principal-512.png', groupeId: 'grp_demo1' }, demoPhotos);
+    var pF4 = Object.assign({ id: 'tp_f4', utilisateurId: 'u_tf4', statut: 'inscrit', montant: 25000, categorie: 'mensuel', position: 5, signaturePhysiqueFaite: true, scanUrl: 'logo-principal-512.png', groupeId: 'grp_demo1' }, demoPhotos);
     tontineParticipants.push(pC4, pF1, pF2, pF3, pF4);
 
     function mkAcceptedCautions(prefix, participantId, noms) {
       return noms.map(function (n, i) {
-        return { id: prefix + '_c' + (i + 1), participantId: participantId, ordre: i + 1, garantNom: n.nom, garantTelephone: n.tel, statut: 'accepte', signaturePhysiqueFaite: true, dateInvitation: nowIso(), dateSignature: nowIso() };
+        return Object.assign({ id: prefix + '_c' + (i + 1), participantId: participantId, ordre: i + 1, garantNom: n.nom, garantTelephone: n.tel, statut: 'accepte', signaturePhysiqueFaite: true, scanUrl: 'logo-principal-512.png', dateInvitation: nowIso(), dateSignature: nowIso() }, demoPhotos);
       });
     }
     tontineCautions = tontineCautions.concat(
@@ -214,7 +215,7 @@
       users: users, comptes: comptes, transactions: transactions,
       commissions: [], kycDocuments: tontineKycDocs, tickets: ticketsSeed, alertes: alertesSeed, gels: [],
       notifications: [], logsAudit: [], refreshTokens: [],
-      tontine: { groupes: tontineGroupes, participants: tontineParticipants, cautions: tontineCautions },
+      tontine: { groupes: tontineGroupes, participants: tontineParticipants, cautions: tontineCautions, gainsSignatures: [] },
       seq: 1,
     };
   }
@@ -1088,7 +1089,7 @@
     if (ctx.user.kycNiveau !== 'KYC3' || !docApprouve(ctx.user.id, 'justificatif_domicile') || !docApprouve(ctx.user.id, 'document_tontine')) {
       return fail(403, 'AP-RBAC-002', "Vous n'êtes pas encore éligible à la Tontine");
     }
-    var p = { id: uid('tp'), utilisateurId: ctx.user.id, statut: 'attente_cautions', montant: pal.montant, categorie: pal.categorie, position: null, signaturePhysiqueFaite: false, scanUrl: null, groupeId: null };
+    var p = { id: uid('tp'), utilisateurId: ctx.user.id, statut: 'attente_cautions', montant: pal.montant, categorie: pal.categorie, position: null, signaturePhysiqueFaite: false, scanUrl: null, photoPersonne: null, photoCniRecto: null, photoCniVerso: null, photoDocumentSigne: null, groupeId: null };
     DB.tontine.participants.push(p); saveDB();
     return ok({ id: p.id }, 'Inscription enregistrée', 201);
   }));
@@ -1112,7 +1113,7 @@
     var garants = (ctx.body.garants || []).slice(0, 4);
     if (garants.length < 4) return fail(422, 'AP-VAL-001', 'Les 4 numéros de téléphone sont obligatoires');
     garants.forEach(function (g, i) {
-      DB.tontine.cautions.push({ id: uid('caut'), participantId: p.id, ordre: i + 1, garantNom: g.nom || null, garantTelephone: g.telephone, statut: 'invite', signaturePhysiqueFaite: false, scanUrl: null, dateInvitation: nowIso(), dateSignature: null });
+      DB.tontine.cautions.push({ id: uid('caut'), participantId: p.id, ordre: i + 1, garantNom: g.nom || null, garantTelephone: g.telephone, statut: 'invite', signaturePhysiqueFaite: false, scanUrl: null, photoPersonne: null, photoCniRecto: null, photoCniVerso: null, photoDocumentSigne: null, dateInvitation: nowIso(), dateSignature: null });
     });
     saveDB(); return ok(null, 'Invitations envoyées', 201);
   }));
@@ -1163,6 +1164,50 @@
     return ok({ message: 'Cotisation réglée avec succès.' });
   }));
 
+  // ── Tontine — vérification de signature sur le terrain (agent/MM/master) ──
+  // Un professionnel peut se déplacer chez un participant ou une caution pour
+  // constater la signature physique du contrat, avec 4 photos à l'appui.
+  // Chaque vérification rapporte 300 F au professionnel (payé ensuite par le
+  // back-office via /admin/tontine/gains-signatures/payer).
+  route('GET', /^\/tontine\/signatures\/rechercher$/, AUTH_REQUIRED(ROLES(['agent', 'mini_master', 'master', 'admin'], function (ctx) {
+    var tel = (ctx.query.telephone || '').trim();
+    var out = [];
+    var u = findUserByTel(tel);
+    if (u) {
+      var p = tontineParticipant(u.id);
+      if (p) out.push({ type: 'participant', id: p.id, prenom: u.prenom, nom: u.nom, telephone: u.telephone, categorie: p.categorie, montant: p.montant, groupeNumero: p.groupeId ? tontineGroupe(p.groupeId).numero : null });
+    }
+    DB.tontine.cautions.filter(function (c) { return c.garantTelephone === tel; }).forEach(function (c) {
+      var p = tontineParticipantById(c.participantId);
+      out.push({ type: 'caution', id: c.id, prenom: c.garantNom ? c.garantNom.split(' ')[0] : '', nom: c.garantNom ? c.garantNom.split(' ').slice(1).join(' ') : '', telephone: c.garantTelephone, categorie: p ? p.categorie : null, montant: p ? p.montant : 0, groupeNumero: p && p.groupeId ? tontineGroupe(p.groupeId).numero : null });
+    });
+    return ok(out);
+  })));
+  route('POST', /^\/tontine\/signatures\/enregistrer$/, AUTH_REQUIRED(ROLES(['agent', 'mini_master', 'master', 'admin'], function (ctx) {
+    var b = ctx.body;
+    var groupeConcerne = null;
+    if (b.type === 'participant') {
+      var p = tontineParticipantById(b.id);
+      if (!p) return fail(404, 'AP-TXN-001', 'Participant introuvable');
+      p.signaturePhysiqueFaite = true;
+      p.photoPersonne = b.photoPersonneUrl || p.photoPersonne; p.photoCniRecto = b.photoCniRectoUrl || p.photoCniRecto;
+      p.photoCniVerso = b.photoCniVersoUrl || p.photoCniVerso; p.photoDocumentSigne = b.photoDocumentSigneUrl || p.photoDocumentSigne;
+      groupeConcerne = p.groupeId ? tontineGroupe(p.groupeId) : null;
+    } else {
+      var c = DB.tontine.cautions.find(function (c) { return c.id === b.id; });
+      if (!c) return fail(404, 'AP-TXN-001', 'Caution introuvable');
+      c.signaturePhysiqueFaite = true;
+      c.photoPersonne = b.photoPersonneUrl || c.photoPersonne; c.photoCniRecto = b.photoCniRectoUrl || c.photoCniRecto;
+      c.photoCniVerso = b.photoCniVersoUrl || c.photoCniVerso; c.photoDocumentSigne = b.photoDocumentSigneUrl || c.photoDocumentSigne;
+      var pp = tontineParticipantById(c.participantId);
+      groupeConcerne = pp && pp.groupeId ? tontineGroupe(pp.groupeId) : null;
+    }
+    if (groupeConcerne) tontineCheckActivation(groupeConcerne);
+    DB.tontine.gainsSignatures.push({ id: uid('gs'), verificateurId: ctx.user.id, montant: 300, statut: 'en_attente', dateCreation: nowIso() });
+    saveDB();
+    return ok({ message: '300 F ajoutés à votre historique de gains.' }, 'Signature enregistrée');
+  })));
+
   // ── Tontine (back-office) — s'appuie sur le même état que le module client ──
   function tontineGroupePublic(g) {
     var nbDef = 0; // pas de simulation de défaillance par défaut dans ce mock
@@ -1207,7 +1252,8 @@
       return {
         id: pid, position: p ? p.position : null, prenom: u ? u.prenom : '', nom: u ? u.nom : '', telephone: u ? u.telephone : '',
         signatureFaite: !!(p && p.signaturePhysiqueFaite), scanUrl: p ? p.scanUrl : null,
-        cautions: tontineCautionsOf(pid).map(function (c) { return { id: c.id, ordre: c.ordre, garantPrenomCompte: null, garantNomCompte: null, garantNomSaisi: c.garantNom, garantTelephone: c.garantTelephone, signatureFaite: !!c.signaturePhysiqueFaite, scanUrl: c.scanUrl }; }),
+        photoPersonne: p ? p.photoPersonne : null, photoCniRecto: p ? p.photoCniRecto : null, photoCniVerso: p ? p.photoCniVerso : null, photoDocumentSigne: p ? p.photoDocumentSigne : null,
+        cautions: tontineCautionsOf(pid).map(function (c) { return { id: c.id, ordre: c.ordre, garantPrenomCompte: null, garantNomCompte: null, garantNomSaisi: c.garantNom, garantTelephone: c.garantTelephone, signatureFaite: !!c.signaturePhysiqueFaite, scanUrl: c.scanUrl, photoPersonne: c.photoPersonne, photoCniRecto: c.photoCniRecto, photoCniVerso: c.photoCniVerso, photoDocumentSigne: c.photoDocumentSigne }; }),
       };
     });
     return ok({ groupe: { categorie: g.categorie, numero: g.numero, montant: g.montant }, membres: membres });
@@ -1292,6 +1338,29 @@
       soldeReserveTotal: parPalier.reduce(function (s, p) { return s + p.soldeReserve; }, 0),
       parPalier: parPalier,
     });
+  })));
+  route('GET', /^\/admin\/tontine\/gains-signatures$/, AUTH_REQUIRED(ROLES(['superviseur', 'admin'], function (ctx) {
+    var enAttente = DB.tontine.gainsSignatures.filter(function (g) { return g.statut === 'en_attente'; });
+    var parId = {};
+    enAttente.forEach(function (g) {
+      if (!parId[g.verificateurId]) parId[g.verificateurId] = { verificateurId: g.verificateurId, nb: 0, total: 0 };
+      parId[g.verificateurId].nb++; parId[g.verificateurId].total += g.montant;
+    });
+    var parVerificateur = Object.keys(parId).map(function (id) {
+      var u = findUser(id); var v = parId[id];
+      return { verificateurId: id, prenom: u ? u.prenom : '', nom: u ? u.nom : '', role: u ? u.role : '', telephone: u ? u.telephone : '', nb: v.nb, total: v.total };
+    });
+    return ok({ totalEnAttente: enAttente.reduce(function (s, g) { return s + g.montant; }, 0), parVerificateur: parVerificateur });
+  })));
+  route('POST', /^\/admin\/tontine\/gains-signatures\/payer$/, AUTH_REQUIRED(ROLES(['admin'], function (ctx) {
+    var cible = ctx.body.verificateurId;
+    var payes = DB.tontine.gainsSignatures.filter(function (g) { return g.statut === 'en_attente' && (!cible || g.verificateurId === cible); });
+    var total = 0;
+    var parId = {};
+    payes.forEach(function (g) { g.statut = 'verse'; total += g.montant; parId[g.verificateurId] = (parId[g.verificateurId] || 0) + g.montant; });
+    Object.keys(parId).forEach(function (id) { var c = findCompteByUser(id); if (c) c.solde += parId[id]; });
+    saveDB();
+    return ok({ message: 'Paiement de ' + total.toLocaleString('fr-FR') + ' F effectué.' + (cible ? '' : ' (' + Object.keys(parId).length + ' personne(s))') });
   })));
   route('GET', /^\/tontine\/participants\/([^/]+)\/verifier$/, AUTH_REQUIRED(ROLES(['superviseur', 'admin'], function (ctx) {
     var p = tontineParticipantById(ctx.params[0]);
@@ -1580,6 +1649,31 @@
     return ok({ counts: counts, inscriptions: list.map(function (u) { var p = u.parrainId ? findUser(u.parrainId) : null; return { id: u.id, prenom: u.prenom, nom: u.nom, role: u.role, telephone: u.telephone, parrainPrenom: p ? p.prenom : null, parrainNom: p ? p.nom : null, createdAt: u.createdAt }; }) });
   })));
   // ── Transactions (actions admin) ──
+  route('GET', /^\/admin\/transactions\/recherche$/, AUTH_REQUIRED(ROLES(['superviseur', 'admin'], function (ctx) {
+    var q = (ctx.query.reference || '').toLowerCase();
+    var list = DB.transactions.filter(function (t) { return !q || (t.reference || '').toLowerCase().indexOf(q) !== -1; });
+    list = list.slice().sort(function (a, b) { return new Date(b.dateCreation) - new Date(a.dateCreation); }).slice(0, 50);
+    return ok(list.map(function (t) {
+      var cs = t.compteSourceId ? findCompte(t.compteSourceId) : null, cd = t.compteDestId ? findCompte(t.compteDestId) : null;
+      var us = cs ? findUser(cs.utilisateurId) : null, ud = cd ? findUser(cd.utilisateurId) : null;
+      return {
+        id: t.id, type: t.type, statut: t.statut, montant: t.montant, reference: t.reference, dateCreation: t.dateCreation, annuleLe: t.annuleLe || null,
+        srcRole: us ? us.role : null, dstRole: ud ? ud.role : null,
+        srcPrenom: us ? us.prenom : null, srcNom: us ? us.nom : null, srcTelephone: us ? us.telephone : null,
+        dstPrenom: ud ? ud.prenom : null, dstNom: ud ? ud.nom : null, dstTelephone: ud ? ud.telephone : null,
+      };
+    }));
+  })));
+  route('POST', /^\/admin\/transactions\/([^/]+)\/annuler$/, AUTH_REQUIRED(ROLES(['superviseur', 'admin'], function (ctx) {
+    var t = DB.transactions.find(function (t) { return t.id === ctx.params[0]; });
+    if (!t) return fail(404, 'AP-TXN-001', 'Transaction introuvable');
+    if (['depot', 'transfert'].indexOf(t.type) === -1 || t.statut !== 'complete') return fail(409, 'AP-TXN-006', 'Cette transaction ne peut pas être annulée');
+    var cs = t.compteSourceId ? findCompte(t.compteSourceId) : null, cd = t.compteDestId ? findCompte(t.compteDestId) : null;
+    if (cs) cs.solde += t.montant; if (cd) cd.solde -= t.montant;
+    t.statut = 'annule'; t.annuleLe = nowIso(); t.description = ctx.body.motif || t.description;
+    saveDB();
+    return ok({ message: 'Transaction annulée (motif : ' + (ctx.body.motif || '—') + ').' });
+  })));
   route('PATCH', /^\/transactions\/([^/]+)\/status$/, AUTH_REQUIRED(ROLES(['admin', 'superviseur'], function (ctx) {
     var t = DB.transactions.find(function (t) { return t.id === ctx.params[0]; });
     if (!t) return fail(404, 'AP-TXN-001', 'Transaction introuvable');

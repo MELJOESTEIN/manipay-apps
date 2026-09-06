@@ -4,7 +4,7 @@
 <script src="mock-api.js"></script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<meta name="version" content="v3.2-2026-08-22"/>
+<meta name="version" content="v3.4-2026-09-04"/>
 <meta name="theme-color" content="#ca8a04"/>
 <script>(function(){try{if(sessionStorage.getItem('_vc'))return;sessionStorage.setItem('_vc','1');var mv=document.querySelector('meta[name="version"]');var cur=mv?mv.content:null;if(!cur)return;fetch(location.pathname+'?_cb='+Date.now(),{cache:'no-store'}).then(function(r){return r.text()}).then(function(t){var m=t.match(/<meta name="version" content="([^"]+)"/);if(m&&m[1]&&m[1]!==cur){location.reload();}}).catch(function(){});}catch(e){}})();</script>
 <title>ManiPay — Back-office v4.32</title>
@@ -286,6 +286,10 @@ body{min-height:100vh;background:#f9fafb;font-family:-apple-system,BlinkMacSyste
     </div>
   </div>
   <div id="flux-panel-list" style="padding:12px 16px 100px">
+    <div style="display:flex;gap:8px;margin-bottom:12px">
+      <input id="tx-ref-search" type="text" placeholder="Chercher par référence (ex: TX-...)" style="flex:1;border:1.5px solid #e5e7eb;border-radius:12px;padding:11px 14px;font-size:13px;font-family:inherit;outline:none"/>
+      <button onclick="rechercherTxParReference()" style="padding:0 18px;border-radius:12px;border:none;background:var(--y);color:#fff;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">Chercher</button>
+    </div>
     <div id="t-list"><div style="padding:24px;text-align:center"><div class="spin"></div></div></div>
   </div>
   <div id="flux-panel-analytics" style="display:none;padding:12px 16px 100px">
@@ -1448,6 +1452,7 @@ body{min-height:100vh;background:#f9fafb;font-family:-apple-system,BlinkMacSyste
       <button id="tbo-tab-averser" onclick="setTontineBOTab('averser')" style="padding:10px 14px;font-size:12px;font-weight:700;border:none;background:none;cursor:pointer;font-family:inherit;color:#059669;white-space:nowrap">💰 À verser<span id="tbo-averser-badge" style="display:none;background:#dc2626;color:#fff;border-radius:99px;padding:1px 6px;font-size:10px;margin-left:4px"></span></button>
       <button id="tbo-tab-rechercher" onclick="setTontineBOTab('rechercher')" style="padding:10px 14px;font-size:12px;font-weight:700;border:none;background:none;cursor:pointer;font-family:inherit;color:#6b7280;border-bottom:2px solid transparent;white-space:nowrap">📇 Rechercher</button>
       <button id="tbo-tab-stats" onclick="setTontineBOTab('stats')" style="padding:10px 14px;font-size:12px;font-weight:700;border:none;background:none;cursor:pointer;font-family:inherit;color:#6b7280;border-bottom:2px solid transparent;white-space:nowrap">📊 Stats</button>
+      <button id="tbo-tab-gainssign" onclick="setTontineBOTab('gainssign')" style="padding:10px 14px;font-size:12px;font-weight:700;border:none;background:none;cursor:pointer;font-family:inherit;color:#6b7280;border-bottom:2px solid transparent;white-space:nowrap">📸 Gains signatures</button>
     </div>
   </div>
   <div style="padding:14px 16px 100px" id="tbo-body">
@@ -5952,6 +5957,62 @@ async function doInscrire(){
   }
 }
 
+var TX_ROLES_PRO=['agent','business','mini_master','master'];
+async function rechercherTxParReference(){
+  var q=document.getElementById('tx-ref-search').value.trim();
+  var el=document.getElementById('t-list');
+  if(!q){chargerTxns();return;}
+  el.innerHTML='<div style="padding:24px;text-align:center"><div class="spin"></div></div>';
+  try{
+    var r=await apiGet('/admin/transactions/recherche?reference='+encodeURIComponent(q));
+    var list=r.data||[];
+    if(!list.length){el.innerHTML='<div style="text-align:center;padding:40px;color:var(--m);font-size:13px">Aucune transaction trouvée pour "'+q+'"</div>';return;}
+    var html='';
+    list.forEach(function(tx){
+      var estPro=TX_ROLES_PRO.includes(tx.srcRole)&&TX_ROLES_PRO.includes(tx.dstRole);
+      var annulable=['depot','transfert'].includes(tx.type)&&tx.statut==='complete';
+      html+='<div style="background:#fff;border:1px solid '+(estPro?'#fde68a':'#f3f4f6')+';border-radius:14px;padding:14px 16px;margin-bottom:10px">';
+      html+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">';
+      html+='<span style="font-size:13px;font-weight:800">'+tx.type+'</span>';
+      html+='<span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:'+(tx.statut==='complete'?'#f0fdf4':tx.statut==='annule'?'#fef2f2':'#f3f4f6')+';color:'+(tx.statut==='complete'?'#059669':tx.statut==='annule'?'#dc2626':'#6b7280')+'">'+tx.statut+'</span>';
+      html+='</div>';
+      html+='<div style="font-size:20px;font-weight:900;margin-bottom:6px">'+F(tx.montant)+' F</div>';
+      html+='<div style="font-size:11px;color:#6b7280;font-family:monospace;margin-bottom:8px">'+tx.reference+' · '+new Date(tx.dateCreation).toLocaleString('fr-FR')+'</div>';
+      html+='<div style="background:#f9fafb;border-radius:10px;padding:10px;margin-bottom:8px;font-size:12px">';
+      html+='<div><b>De :</b> '+(tx.srcPrenom||'?')+' '+(tx.srcNom||'')+' ('+(tx.srcRole||'?')+') — '+(tx.srcTelephone||'')+'</div>';
+      html+='<div><b>Vers :</b> '+(tx.dstPrenom||'?')+' '+(tx.dstNom||'')+' ('+(tx.dstRole||'?')+') — '+(tx.dstTelephone||'')+'</div>';
+      html+='</div>';
+      if(estPro){
+        html+='<div style="font-size:11px;color:#b45309;font-weight:700;margin-bottom:8px">⚠️ Transfert entre professionnels — annulation en libre-service bloquée, uniquement possible ici</div>';
+      }
+      if(annulable && perm('soldes')){
+        html+='<button onclick="ouvrirAnnulationTxAdmin(\''+tx.id+'\',\''+tx.reference+'\')" style="width:100%;padding:10px;border-radius:10px;border:1px solid #fecaca;background:#fef2f2;color:#dc2626;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">↩️ Annuler manuellement</button>';
+      } else if(tx.statut==='annule'){
+        html+='<div style="font-size:11px;color:#9ca3af">Déjà annulée'+(tx.annuleLe?(' le '+new Date(tx.annuleLe).toLocaleString('fr-FR')):'')+'</div>';
+      }
+      html+='</div>';
+    });
+    el.innerHTML=html;
+  }catch(e){el.innerHTML='<div style="color:var(--r);padding:12px;font-size:13px">'+e.message+'</div>';}
+}
+var _txAnnulId=null;
+function ouvrirAnnulationTxAdmin(txId,ref){
+  _txAnnulId=txId;
+  var motif=prompt('Motif de l\'annulation manuelle pour '+ref+' (obligatoire) :');
+  if(motif===null)return;
+  if(!motif.trim()){alert('Un motif est obligatoire.');return;}
+  if(!confirm('Confirmer l\'annulation de '+ref+' ?\n\nMotif : '+motif))return;
+  confirmerAnnulationTxAdmin(motif);
+}
+async function confirmerAnnulationTxAdmin(motif){
+  try{
+    var r=await apiPost('/admin/transactions/'+_txAnnulId+'/annuler',{motif:motif});
+    alert(r.data.message||'Transaction annulée.');
+    rechercherTxParReference();
+  }catch(e){
+    alert('Erreur : '+e.message);
+  }
+}
 // ── TRANSACTIONS ──
 async function chargerTxns(){
   var el=document.getElementById('t-list');
@@ -11375,7 +11436,7 @@ var _isSuperBO = false;
 var _tboActiveTab='groupes';
 function setTontineBOTab(t){
   _tboActiveTab=t;
-  ['groupes','attente','defaillances','verifier','rechercher','averser','stats'].forEach(function(t2){
+  ['groupes','attente','defaillances','verifier','rechercher','averser','stats','gainssign'].forEach(function(t2){
     var btn=document.getElementById('tbo-tab-'+t2);
     if(btn){btn.style.color=t2===t?'#7c3aed':'#6b7280';btn.style.borderBottom=t2===t?'2px solid #7c3aed':'2px solid transparent';}
   });
@@ -11392,6 +11453,7 @@ async function chargerTontineBO(){
     else if(_tboActiveTab==='verifier')_renderTontineBOVerifier(body);
     else if(_tboActiveTab==='rechercher')_renderTontineBORecherche(body);
     else if(_tboActiveTab==='averser')await _renderTontineBOAVerser(body);
+    else if(_tboActiveTab==='gainssign')await _renderTontineBOGainsSignatures(body);
     else await _renderTontineBOStats(body);
   }catch(e){
     body.innerHTML='<div style="color:var(--r);text-align:center;padding:20px;font-size:13px">'+e.message+'</div>';
@@ -11575,6 +11637,60 @@ async function ouvrirBasculeTontine(participantId,nomClient,montantActuel){
     alert('Erreur : '+e.message);
   }
 }
+async function _renderTontineBOGainsSignatures(body){
+  try{
+    var r=await apiGet('/admin/tontine/gains-signatures');
+    var d=r.data||{};
+    var parVerif=d.parVerificateur||[];
+    var html='<div style="background:#faf5ff;border:1px solid #ddd6fe;border-radius:12px;padding:14px;margin-bottom:16px;text-align:center">';
+    html+='<div style="font-size:11px;color:#7c3aed;font-weight:700">TOTAL EN ATTENTE DE PAIEMENT</div>';
+    html+='<div style="font-size:22px;font-weight:900;color:#6d28d9">'+F(d.totalEnAttente||0)+' F</div>';
+    if(isSuperAdmin() && (d.totalEnAttente||0)>0){
+      html+='<button onclick="payerTousGainsSignatures()" style="width:100%;margin-top:10px;padding:10px;border-radius:10px;border:none;background:#7c3aed;color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">💸 Payer tout le monde maintenant</button>';
+    }
+    html+='</div>';
+
+    if(!parVerif.length){
+      html+='<div style="text-align:center;padding:24px;color:#9ca3af;font-size:13px">Aucun gain en attente ✅</div>';
+      body.innerHTML=html;
+      return;
+    }
+
+    html+='<div style="font-size:11px;font-weight:800;color:#6b7280;text-transform:uppercase;margin-bottom:10px">Par personne ('+parVerif.length+')</div>';
+    parVerif.forEach(function(v){
+      html+='<div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:12px 14px;margin-bottom:8px">';
+      html+='<div style="display:flex;justify-content:space-between;align-items:center">';
+      html+='<div><div style="font-size:13px;font-weight:700">'+(v.prenom||'')+' '+(v.nom||'')+' <span style="font-size:9px;font-weight:700;padding:1px 6px;border-radius:99px;background:#f3f4f6;color:#6b7280">'+v.role+'</span></div>';
+      html+='<div style="font-size:11px;color:#9ca3af">'+v.telephone+' · '+v.nb+' vérification(s)</div></div>';
+      html+='<b style="font-size:14px;color:#7c3aed">'+F(v.total)+' F</b>';
+      html+='</div>';
+      if(isSuperAdmin()){
+        html+='<button onclick="payerGainsSignatures(\''+v.verificateurId+'\')" style="width:100%;margin-top:8px;padding:8px;border-radius:8px;border:1px solid #ddd6fe;background:#faf5ff;color:#7c3aed;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">Payer cette personne</button>';
+      }
+      html+='</div>';
+    });
+    body.innerHTML=html;
+  }catch(e){
+    body.innerHTML='<div style="color:var(--r);text-align:center;padding:20px;font-size:13px">'+e.message+'</div>';
+  }
+}
+async function payerGainsSignatures(verificateurId){
+  if(!confirm('Confirmer le paiement pour cette personne ?'))return;
+  try{
+    var r=await apiPost('/admin/tontine/gains-signatures/payer',{verificateurId:verificateurId});
+    alert(r.data.message||'Paiement effectué.');
+    _renderTontineBOGainsSignatures(document.getElementById('tbo-body'));
+  }catch(e){ alert('Erreur : '+e.message); }
+}
+async function payerTousGainsSignatures(){
+  if(!confirm('Confirmer le paiement pour TOUT LE MONDE en attente ?'))return;
+  try{
+    var r=await apiPost('/admin/tontine/gains-signatures/payer',{});
+    alert(r.data.message||'Paiement effectué.');
+    _renderTontineBOGainsSignatures(document.getElementById('tbo-body'));
+  }catch(e){ alert('Erreur : '+e.message); }
+}
+
 async function _renderTontineBODefaillances(body){
   var html='';
   try{
@@ -12095,14 +12211,28 @@ async function ouvrirSignaturesTontineBO(groupeId){
     html+='<div style="font-size:11px;color:#6b7280">signatures physiques enregistrées'+(totalFait===totalRequis?' — Tontine activée ✅':'')+'</div>';
     html+='</div>';
 
-    function lignePersonne(type,id,label,tel,signatureFaite,scanUrl){
-      var h='<div style="display:flex;justify-content:space-between;align-items:center;background:#f9fafb;border-radius:10px;padding:10px 12px;margin-bottom:6px" id="tsig-row-'+id+'">';
+    function lignePersonne(type,id,label,tel,signatureFaite,photos){
+      var h='<div style="background:#f9fafb;border-radius:10px;padding:10px 12px;margin-bottom:6px" id="tsig-row-'+id+'">';
+      h+='<div style="display:flex;justify-content:space-between;align-items:center">';
       h+='<div><div style="font-size:12px;font-weight:700;color:#1f2937">'+label+'</div><div style="font-size:10px;color:#9ca3af">'+tel+'</div></div>';
       if(signatureFaite){
-        h+='<div style="text-align:right"><span style="font-size:10px;font-weight:700;color:#059669">✅ Signé</span>'+(scanUrl?'<div><a href="'+scanUrl+'" target="_blank" style="font-size:9px;color:#7c3aed">voir le scan</a></div>':'')+'</div>';
+        h+='<span style="font-size:10px;font-weight:700;color:#059669">✅ Signé</span>';
       }else{
         h+='<div><input type="file" id="tsig-file-'+id+'" accept="image/*;capture=camera" capture="environment" style="display:none" onchange="_uploadSignaturePhysique(\''+type+'\',\''+id+'\',this)"/>';
         h+='<button onclick="document.getElementById(\'tsig-file-'+id+'\').click()" style="padding:7px 12px;border-radius:8px;border:1px solid #ddd6fe;background:#fff;color:#7c3aed;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">📷 Marquer signé</button></div>';
+      }
+      h+='</div>';
+      if(signatureFaite && photos){
+        h+='<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px">';
+        var vues=[['Personne',photos.photoPersonne],['CNI recto',photos.photoCniRecto],['CNI verso',photos.photoCniVerso],['Document signé',photos.photoDocumentSigne]];
+        vues.forEach(function(v){
+          if(v[1]){
+            h+='<a href="'+v[1]+'" target="_blank" style="display:block;text-align:center"><img src="'+v[1]+'" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;border:1px solid #e5e7eb"/><div style="font-size:8px;color:#9ca3af;margin-top:2px">'+v[0]+'</div></a>';
+          }else{
+            h+='<div style="aspect-ratio:1;border-radius:6px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;font-size:16px;color:#d1d5db">—</div>';
+          }
+        });
+        h+='</div>';
       }
       h+='</div>';
       return h;
@@ -12111,10 +12241,10 @@ async function ouvrirSignaturesTontineBO(groupeId){
     var html2='';
     (d.membres||[]).forEach(function(m){
       html2+='<div style="font-size:10px;font-weight:800;color:#9ca3af;text-transform:uppercase;letter-spacing:.04em;margin:14px 0 6px">Position '+(m.position||'-')+'</div>';
-      html2+=lignePersonne('participant',m.id,(m.prenom||'')+' '+(m.nom||'')+' (participant)',m.telephone,m.signatureFaite,m.scanUrl);
+      html2+=lignePersonne('participant',m.id,(m.prenom||'')+' '+(m.nom||'')+' (participant)',m.telephone,m.signatureFaite,{photoPersonne:m.photoPersonne,photoCniRecto:m.photoCniRecto,photoCniVerso:m.photoCniVerso,photoDocumentSigne:m.photoDocumentSigne});
       (m.cautions||[]).forEach(function(c){
         var nomReel=(c.garantPrenomCompte||c.garantNomCompte)?((c.garantPrenomCompte||'')+' '+(c.garantNomCompte||'')).trim():(c.garantNomSaisi||'—');
-        html2+=lignePersonne('caution',c.id,'Caution '+c.ordre+' — '+nomReel,c.garantTelephone,c.signatureFaite,c.scanUrl);
+        html2+=lignePersonne('caution',c.id,'Caution '+c.ordre+' — '+nomReel,c.garantTelephone,c.signatureFaite,{photoPersonne:c.photoPersonne,photoCniRecto:c.photoCniRecto,photoCniVerso:c.photoCniVerso,photoDocumentSigne:c.photoDocumentSigne});
       });
     });
 
