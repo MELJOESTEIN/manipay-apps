@@ -258,6 +258,12 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
 }
 
 /* ── Téléphone (< 640 px) : format restreint ──────────────────────── */
+/* Barre basse du téléphone : onze onglets n'y tiennent pas. Les destinations
+   secondaires restent joignables par la grille de l'écran d'accueil. */
+@media (max-width:1023px){
+  .bnav .nb[data-secondaire]{display:none}
+}
+
 @media (max-width:639px){
   /* Les tableaux larges défilent dans leur propre cadre plutôt que de
      pousser la page — le corps ne défile jamais horizontalement. */
@@ -1663,6 +1669,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
       </div>
     </div>
   </div>
+  <nav class="bnav" id="bnav-segmentation"></nav>
 </div>
 
 <!-- SHEET NOTIFICATION SEGMENTATION -->
@@ -1701,6 +1708,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
   <div style="padding:14px 16px 100px" id="tbo-body">
     <div style="padding:40px;text-align:center"><div class="spin"></div></div>
   </div>
+  <nav class="bnav" id="bnav-tontine"></nav>
 </div>
 
 <div class="sh-ov" id="sh-tontine-groupe-detail">
@@ -1797,6 +1805,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
   <div style="padding:14px 16px 100px" id="mc-body">
     <div style="padding:40px;text-align:center"><div class="spin"></div></div>
   </div>
+  <nav class="bnav" id="bnav-moncompte"></nav>
 </div>
 
 <!-- SHEET TRANSFERT -->
@@ -1960,6 +1969,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
     </div>
     <div id="rt-nonratt-list"><div style="padding:40px;text-align:center"><div class="spin"></div></div></div>
   </div>
+  <nav class="bnav" id="bnav-rattachements"></nav>
 </div>
 
 <!-- ÉCRAN INSCRIPTIONS -->
@@ -2078,9 +2088,9 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
     <!-- Compatibilité ancienne référence -->
     <div id="stats-content-inner" style="display:none"></div>
   </div>
-  </div><!-- end stats-content admin -->
-  <nav class="bnav" id="bnav-stats"></nav>
-</div>
+    <nav class="bnav" id="bnav-stats"></nav>
+</div><!-- end stats-content admin -->
+  </div>
 
 <!-- SHEET USER -->
 <div class="sh-ov" id="sh-user">
@@ -2602,9 +2612,9 @@ function canResetPin(target){
 
 var PERMS={
   // Super Back-office (0505414751) + Admin : tout sans exception
-  admin:         {home:1,users:1,txns:1,monitoring:1,stats:1,support:1,tech:1,creer:1,soldes:1,supprimer:1,rembourser:1,kyc:1,gels:1,logs:1,rattachements:1,rattach_action:0,segmentation:1,moncompte:1},
+  admin:         {home:1,users:1,txns:1,monitoring:1,tontine:1,stats:1,support:1,tech:1,creer:1,soldes:1,supprimer:1,rembourser:1,kyc:1,gels:1,logs:1,rattachements:1,rattach_action:0,segmentation:1,moncompte:1},
   // Back-office : tout voir + supprimer contenu (notifs/tickets/alertes), PAS les comptes
-  backoffice:    {home:1,users:1,txns:1,monitoring:1,stats:1,support:1,tech:1,creer:1,soldes:1,supprimer:0,rembourser:1,kyc:1,gels:1,logs:1,admin_gestionnaire:1,rattachements:1,rattach_action:1,segmentation:1,moncompte:1},
+  backoffice:    {home:1,users:1,txns:1,monitoring:1,tontine:1,stats:1,support:1,tech:1,creer:1,soldes:1,supprimer:0,rembourser:1,kyc:1,gels:1,logs:1,admin_gestionnaire:1,rattachements:1,rattach_action:1,segmentation:1,moncompte:1},
   // Superviseur (général ou régional) : lecture complète sur Master/Mini-Master/Agent/Business
   // (soldes, transactions, KYC), aucune action (pas de suspension/blocage/remboursement/suppression)
   superviseur:   {home:1,users:1,txns:1,monitoring:1,stats:1,support:0,tech:0,creer:0,soldes:1,supprimer:0,rembourser:0,kyc:1,gels:0,logs:0,superviseur_zone:1,rattachements:0,rattach_action:0,segmentation:1,ticket_suivi:1,moncompte:0},
@@ -2718,8 +2728,12 @@ var NAV_DEFS=[
   {id:'txns',     label:'Flux',    svg:'<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>'},
   {id:'monitoring',label:'Suivi',  svg:'<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>'},
   {id:'stats',     label:'Stats',  svg:'<rect x="18" y="3" width="4" height="18"/><rect x="10" y="8" width="4" height="13"/><rect x="2" y="13" width="4" height="8"/>'},
+  {id:'tontine',       label:'Tontine',       secondaire:1, perm:'tontine',       svg:'<path d="M20.2 13.4A8.4 8.4 0 0 1 6.1 17.9"/><path d="M3.8 10.6A8.4 8.4 0 0 1 17.9 6.1"/><path d="M17.4 2.9v3.4h-3.4"/><path d="M6.6 21.1v-3.4h3.4"/><circle cx="12" cy="12" r="2.6"/>'},
+  {id:'rattachements', label:'Rattachements', secondaire:1, perm:'rattachements', svg:'<path d="M10.2 13.8a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.6 1.6"/><path d="M13.8 10.2a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.6-1.6"/>'},
+  {id:'segmentation',  label:'Segmentation',  secondaire:1, perm:'segmentation',  svg:'<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/>'},
   {id:'support',  label:'Support', svg:'<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>'},
-  {id:'tech',     label:'Tech',    svg:'<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>'}
+  {id:'tech',     label:'Tech',    svg:'<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>'},
+  {id:'moncompte',     label:'Mon compte',    secondaire:1, perm:'moncompte',     svg:'<circle cx="12" cy="8" r="3.6"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/>'}
 ];
 
 function buildNavs(activeTab){
@@ -2727,15 +2741,17 @@ function buildNavs(activeTab){
   var p=PERMS[u.role]||{};
   var visible=NAV_DEFS.filter(function(n){
     if(n.id==="stats")return !!perm("stats");
-    return p[n.id];
+    return p[n.perm||n.id];
   });
-  var navIds=['home','users','txns','monitoring','stats','support','tech'];
+  var navIds=['home','users','txns','monitoring','stats','support','tech',
+              'tontine','rattachements','segmentation','moncompte'];
   navIds.forEach(function(id){
     var el=document.getElementById('bnav-'+id);if(!el)return;
     el.innerHTML='';
     visible.forEach(function(n){
       var btn=document.createElement('button');
       btn.className='nb'+(n.id===activeTab?' on':'');
+      if(n.secondaire) btn.setAttribute('data-secondaire','1');
       btn.innerHTML='<svg viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor">'+n.svg+'</svg>'+n.label;
       btn.addEventListener('click',function(){setTab(n.id);});
       el.appendChild(btn);
@@ -4519,8 +4535,12 @@ var NAV_DEFS=[
   {id:'txns',     label:'Flux',    svg:'<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>'},
   {id:'monitoring',label:'Suivi',  svg:'<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>'},
   {id:'stats',     label:'Stats',  svg:'<rect x="18" y="3" width="4" height="18"/><rect x="10" y="8" width="4" height="13"/><rect x="2" y="13" width="4" height="8"/>'},
+  {id:'tontine',       label:'Tontine',       secondaire:1, perm:'tontine',       svg:'<path d="M20.2 13.4A8.4 8.4 0 0 1 6.1 17.9"/><path d="M3.8 10.6A8.4 8.4 0 0 1 17.9 6.1"/><path d="M17.4 2.9v3.4h-3.4"/><path d="M6.6 21.1v-3.4h3.4"/><circle cx="12" cy="12" r="2.6"/>'},
+  {id:'rattachements', label:'Rattachements', secondaire:1, perm:'rattachements', svg:'<path d="M10.2 13.8a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.6 1.6"/><path d="M13.8 10.2a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.6-1.6"/>'},
+  {id:'segmentation',  label:'Segmentation',  secondaire:1, perm:'segmentation',  svg:'<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/>'},
   {id:'support',  label:'Support', svg:'<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>'},
-  {id:'tech',     label:'Tech',    svg:'<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>'}
+  {id:'tech',     label:'Tech',    svg:'<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>'},
+  {id:'moncompte',     label:'Mon compte',    secondaire:1, perm:'moncompte',     svg:'<circle cx="12" cy="8" r="3.6"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/>'}
 ];
 
 function buildNavs(activeTab){
@@ -4528,14 +4548,16 @@ function buildNavs(activeTab){
   var p=PERMS[u.role]||{};
   var visible=NAV_DEFS.filter(function(n){
     if(n.id==="stats")return !!perm("stats");
-    return p[n.id];
+    return p[n.perm||n.id];
   });
-  var navIds=['home','users','txns','monitoring','stats','support','tech'];
+  var navIds=['home','users','txns','monitoring','stats','support','tech',
+              'tontine','rattachements','segmentation','moncompte'];
   navIds.forEach(function(id){
     var el=document.getElementById('bnav-'+id);if(!el)return;
     el.innerHTML=visible.map(function(n){
       var on=n.id===activeTab?' on':'';
-      return '<button class="nb'+on+'" onclick="setTab(\''+n.id+'\')"><svg viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor">'+n.svg+'</svg>'+n.label+'</button>';
+      var sec=n.secondaire?' data-secondaire="1"':'';   // masqué dans la barre du téléphone
+      return '<button class="nb'+on+'"'+sec+' onclick="setTab(\''+n.id+'\')"><svg viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor">'+n.svg+'</svg>'+n.label+'</button>';
     }).join('');
   });
 }
@@ -13486,10 +13508,12 @@ async function uploaderKycBO(){
    navigation existants ne sont ni déplacés ni modifiés. */
 (function () {
   'use strict';
-  var GROUPES = {          // clé = début du libellé de l'entrée qui ouvre la section
+  var GROUPES = {          // clé = libellé de l'entrée qui ouvre la section
     'Comptes': 'Finance',
     'Suivi': 'Conformité',
-    'Support': 'Réseau & support'
+    'Tontine': 'Tontine',
+    'Rattachements': 'Réseau & support',
+    'Mon compte': 'Vous'
   };
 
   function initiales(nom) {
