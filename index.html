@@ -23,6 +23,14 @@ a.card .name{font-weight:800;font-size:15.5px}
 a.card .role{font-size:12px;font-weight:700;letter-spacing:.02em;padding:4px 10px;border-radius:999px;color:#fff}
 footer{text-align:center;margin-top:56px;font-size:12.5px;color:#94a3b8}
 footer a{color:#059669;text-decoration:none}
+.demo-box{max-width:760px;margin:0 auto 40px;background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:22px 26px;box-shadow:0 2px 8px rgba(15,23,42,.05)}
+.demo-box h2{font-size:15px;font-weight:800;margin-bottom:10px}
+.demo-box table{width:100%;border-collapse:collapse;font-size:13px}
+.demo-box td{padding:6px 4px;border-bottom:1px solid #f1f5f9}
+.demo-box td.role{font-weight:700;color:#059669;white-space:nowrap}
+.demo-box td.tel{font-family:ui-monospace,monospace;color:#334155}
+.demo-box .pin{margin-top:10px;font-size:12.5px;color:#64748b}
+.demo-box .pin b{color:#0f172a;font-family:ui-monospace,monospace}
 </style>
 </head>
 <body>
@@ -30,8 +38,23 @@ footer a{color:#059669;text-decoration:none}
   <header>
     <img src="logo-principal-192.png" alt="ManiPay"/>
     <h1>ManiPay</h1>
-    <p class="lead">Portefeuille mobile &amp; tontine — Côte d'Ivoire. Choisis une application ci-dessous pour explorer toutes les fonctionnalités du front-end (connecté au backend en production).</p>
+    <p class="lead">Portefeuille mobile &amp; tontine — Côte d'Ivoire. Choisis une application ci-dessous pour explorer toutes les fonctionnalités du front-end.</p>
   </header>
+
+  <div class="demo-box">
+    <h2>🧪 Mode démo — comptes de test</h2>
+    <table>
+      <tr><td class="role">Admin</td><td class="tel">+2250700000001</td></tr>
+      <tr><td class="role">Superviseur</td><td class="tel">+2250700000002</td></tr>
+      <tr><td class="role">Master</td><td class="tel">+2250700000010</td></tr>
+      <tr><td class="role">Mini-Master</td><td class="tel">+2250700000020</td></tr>
+      <tr><td class="role">Agent</td><td class="tel">+2250700000030</td></tr>
+      <tr><td class="role">Client (tontine en attente de cautions)</td><td class="tel">+2250705001001</td></tr>
+      <tr><td class="role">Client (tontine active)</td><td class="tel">+2250705001004</td></tr>
+      <tr><td class="role">Business</td><td class="tel">+2250706001001</td></tr>
+    </table>
+    <p class="pin">PIN de connexion pour tous les comptes : <b>1234</b>. Les données sont simulées et conservées dans le navigateur (aucun serveur réel) — un bandeau en bas d'écran permet de les réinitialiser.</p>
+  </div>
 
   <div class="grid">
     <a class="card" href="manipay-client.html">
@@ -66,7 +89,7 @@ footer a{color:#059669;text-decoration:none}
     </a>
   </div>
 
-  <footer>Chaque application est un front-end autonome (PWA) — elle appelle l'API en production sur <a href="https://manipay-backend.bonto.run" target="_blank" rel="noopener">manipay-backend.bonto.run</a>.</footer>
+  <footer>Chaque application est un front-end autonome (PWA). En mode démo, tous les appels réseau sont interceptés par <code>mock-api.js</code> et simulés localement (le backend réel <a href="https://manipay-backend.bonto.run" target="_blank" rel="noopener">manipay-backend.bonto.run</a> n'est pas utilisé).</footer>
 </div>
 </body>
 </html>
