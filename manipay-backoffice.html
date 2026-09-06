@@ -2025,10 +2025,11 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
     <!-- Filtres période -->
     <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:14px" id="sup-stats-period-filters"></div>
     <!-- Graphique évolution (visible si période != today) -->
-    <div id="sup-stats-chart-wrap" style="background:#fff;border-radius:14px;padding:14px;margin-bottom:14px;box-shadow:0 1px 3px rgba(10,31,20,.07)">
-      <div style="font-size:11px;font-weight:600;color:var(--m);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Évolution de la période</div>
-      <div style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap" id="sup-chart-type-btns"></div>
-      <div style="height:160px"><canvas id="sup-stats-canvas"></canvas></div>
+    <div id="sup-stats-chart-wrap" class="carte-graphe" style="background:#fff;border-radius:16px;padding:18px 20px 14px;margin-bottom:14px;box-shadow:0 1px 2px rgba(10,31,20,.06);border:1px solid #E3EAE5">
+      <div style="font-family:Outfit,sans-serif;font-size:15px;font-weight:600;color:#0A1F14;margin-bottom:2px">Évolution de la période</div>
+      <div id="sup-stats-sub" style="font-size:12px;color:#4E6157;margin-bottom:12px"></div>
+      <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap" id="sup-chart-type-btns"></div>
+      <div class="graphe-cadre" style="position:relative;height:260px"><canvas id="sup-stats-canvas"></canvas></div>
     </div>
     <!-- Résumé global -->
     <div style="font-size:11px;font-weight:600;color:#4E6157;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M4 4v15a1 1 0 0 0 1 1h15"/><path d="M8 16v-4"/><path d="M12.5 16V8"/><path d="M17 16v-6"/></svg></span>Vue globale</div>
@@ -2051,10 +2052,11 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
     <!-- Filtres période -->
     <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:14px" id="adm-stats-period-filters"></div>
     <!-- Graphique -->
-    <div style="background:#fff;border-radius:16px;padding:14px;box-shadow:0 1px 3px rgba(10,31,20,.08);margin-bottom:14px">
-      <div style="font-size:11px;font-weight:600;color:var(--m);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Évolution de la période</div>
-      <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px" id="adm-chart-type-btns"></div>
-      <canvas id="stats-chart" height="160"></canvas>
+    <div class="carte-graphe" style="background:#fff;border-radius:16px;padding:18px 20px 14px;box-shadow:0 1px 2px rgba(10,31,20,.06);border:1px solid #E3EAE5;margin-bottom:14px">
+      <div style="font-family:Outfit,sans-serif;font-size:15px;font-weight:600;color:#0A1F14;margin-bottom:2px">Évolution de la période</div>
+      <div id="stats-chart-sub" style="font-size:12px;color:#4E6157;margin-bottom:12px"></div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px" id="adm-chart-type-btns"></div>
+      <div class="graphe-cadre" style="position:relative;height:260px"><canvas id="stats-chart"></canvas></div>
     </div>
     <!-- Vue globale comptes -->
     <div style="font-size:11px;font-weight:600;color:#4E6157;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M4 4v15a1 1 0 0 0 1 1h15"/><path d="M8 16v-4"/><path d="M12.5 16V8"/><path d="M17 16v-6"/></svg></span>Vue globale — Comptes actifs</div>
@@ -8176,29 +8178,71 @@ function _admStatsRenderChart() {
   if (_admStatsChartInst) { try { _admStatsChartInst.destroy(); } catch(e){} }
   if (statsChart) { try { statsChart.destroy(); statsChart=null; } catch(e){} }
 
+  // Un dégradé vertical : la surface s'efface vers le bas et laisse la
+  // ligne porter la lecture, au lieu d'un aplat qui alourdit la courbe.
+  var ctx2d = canvas.getContext('2d');
+  var voile = ctx2d.createLinearGradient(0, 0, 0, 240);
+  voile.addColorStop(0, metricDef.col + '2E');
+  voile.addColorStop(1, metricDef.col + '00');
+
+  // Sous-titre : le total de la période et le nombre de points relevés
+  var sub = document.getElementById('stats-chart-sub');
+  if (sub) {
+    var somme = data.reduce(function (a, b) { return a + (Number(b) || 0); }, 0);
+    sub.textContent = metricDef.label + ' — ' + F(somme) + ' F sur ' + data.length + ' relevés';
+  }
+
   _admStatsChartInst = new Chart(canvas, {
     type: 'line',
     data: {
       labels: labels,
       datasets: [{
         data: data,
+        label: metricDef.label,
         borderColor: metricDef.col,
-        backgroundColor: metricDef.col+'22',
-        borderWidth: 2.5,
-        pointRadius: data.map(function(v){return v>0?4:0;}),
+        backgroundColor: voile,
+        borderWidth: 2,                 // trait fin : la donnée, pas le trait
+        pointRadius: 0,                 // au repos la courbe reste nette…
+        pointHoverRadius: 5,            // …les points se révèlent au survol
         pointBackgroundColor: metricDef.col,
-        fill: true, tension: 0.4
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2,            // anneau de surface sur le point survolé
+        pointHitRadius: 18,             // cible plus large que la marque
+        fill: true, tension: 0.32
       }]
     },
     options: {
-      responsive: true, maintainAspectRatio: true,
-      plugins: { legend: {display:false}, tooltip: { callbacks: { label: function(ctx){
-        var v = ctx.parsed.y;
-        return ' '+(v>=1000?(v/1000).toFixed(1)+'k':v)+' FCFA';
-      }}}},
+      responsive: true,
+      maintainAspectRatio: false,       // la hauteur vient du conteneur
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },     // série unique : le titre la nomme
+        tooltip: {
+          backgroundColor: '#0A1F14', padding: 11, cornerRadius: 10,
+          displayColors: false,
+          titleFont: { family: 'Instrument Sans', size: 11, weight: '600' },
+          titleColor: 'rgba(255,255,255,.62)',
+          bodyFont: { family: 'Geist Mono', size: 13 },
+          callbacks: {
+            label: function (c) { return F(c.parsed.y) + ' F'; }
+          }
+        }
+      },
       scales: {
-        x: { grid:{display:false}, ticks:{font:{size:8},color:'#9AAAA1',maxTicksLimit:10,maxRotation:0} },
-        y: { grid:{color:'#E3EAE5'}, ticks:{font:{size:8},color:'#9AAAA1',callback:function(v){return v>=1000?(v/1000)+'k':v;}}, beginAtZero:true }
+        x: {
+          grid: { display: false },
+          border: { color: '#E3EAE5' },
+          ticks: { font: { family: 'Geist Mono', size: 10 }, color: '#9AAAA1',
+                   maxTicksLimit: 8, maxRotation: 0, padding: 6 }
+        },
+        y: {
+          beginAtZero: true,
+          grid: { color: '#EDF0EE', drawTicks: false },   // grille récessive
+          border: { display: false },
+          ticks: { font: { family: 'Geist Mono', size: 10 }, color: '#9AAAA1',
+                   maxTicksLimit: 5, padding: 10,
+                   callback: function (v) { return v >= 1000 ? (v / 1000) + 'k' : v; } }
+        }
       }
     }
   });
@@ -10532,21 +10576,57 @@ function _supStatsRenderChart() {
   var col = colMap[_supStatsChartType]||'#0E8A45';
 
   if (_supStatsChartInst) { try { _supStatsChartInst.destroy(); } catch(e){} }
+  var voile = canvas.getContext('2d').createLinearGradient(0, 0, 0, 240);
+  voile.addColorStop(0, col + '2E');
+  voile.addColorStop(1, col + '00');
+
+  var subEl = document.getElementById('sup-stats-sub');
+  if (subEl) {
+    var libelles = {depot:'Dépôts', retrait:'Retraits', transfert:'Transferts', paiement_marchand:'Paiements marchands'};
+    var somme = data.reduce(function (a, b) { return a + (Number(b) || 0); }, 0);
+    subEl.textContent = (libelles[_supStatsChartType] || 'Volume') + ' — ' + F(somme) + ' F sur ' + data.length + ' relevés';
+  }
+
   _supStatsChartInst = new Chart(canvas, {
     type: 'line',
     data: {
       labels: labels,
       datasets: [{
-        data: data, borderColor: col, backgroundColor: col+'22',
-        borderWidth: 2, pointRadius: 3, pointBackgroundColor: col, fill: true, tension: 0.4
+        data: data, borderColor: col, backgroundColor: voile,
+        borderWidth: 2,
+        pointRadius: 0, pointHoverRadius: 5,
+        pointBackgroundColor: col, pointBorderColor: '#fff', pointBorderWidth: 2,
+        pointHitRadius: 18,
+        fill: true, tension: 0.32
       }]
     },
     options: {
-      responsive: true, maintainAspectRatio: true,
-      plugins: { legend: { display: false } },
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#0A1F14', padding: 11, cornerRadius: 10, displayColors: false,
+          titleFont: { family: 'Instrument Sans', size: 11, weight: '600' },
+          titleColor: 'rgba(255,255,255,.62)',
+          bodyFont: { family: 'Geist Mono', size: 13 },
+          callbacks: { label: function (c) { return F(c.parsed.y) + ' F'; } }
+        }
+      },
       scales: {
-        x: { grid: { display: false }, ticks: { font: { size: 8 }, maxTicksLimit: 8, maxRotation: 0 } },
-        y: { grid: { color: '#E3EAE5' }, ticks: { font: { size: 8 }, callback: function(v){ return v>=1000?(v/1000)+'k':v; } } }
+        x: {
+          grid: { display: false }, border: { color: '#E3EAE5' },
+          ticks: { font: { family: 'Geist Mono', size: 10 }, color: '#9AAAA1',
+                   maxTicksLimit: 8, maxRotation: 0, padding: 6 }
+        },
+        y: {
+          beginAtZero: true,
+          grid: { color: '#EDF0EE', drawTicks: false }, border: { display: false },
+          ticks: { font: { family: 'Geist Mono', size: 10 }, color: '#9AAAA1',
+                   maxTicksLimit: 5, padding: 10,
+                   callback: function (v) { return v >= 1000 ? (v / 1000) + 'k' : v; } }
+        }
       }
     }
   });
@@ -13339,10 +13419,42 @@ async function uploaderKycBO(){
   /* Cartes d'indicateur — .kpi de la planche */
   .card{border-radius:14px;background:#fff;border:1px solid #DFE5E1;box-shadow:none}
 
-  /* Les graphiques gardent une hauteur bornée : sans cela Chart.js s'étire sur
-     toute la largeur du poste de travail et recouvre les libellés voisins. */
-  canvas{max-height:300px!important;width:100%!important}
-  canvas[height="140"],canvas[height="160"]{max-height:200px!important}
+  /* ── Formulaires : la mesure porte le sens ──────────────────────
+     Un champ a la largeur de ce qu'on y écrit. « width:100% » est juste
+     sur un téléphone de 390 px ; sur 1350 px il oblige l'œil à traverser
+     l'écran pour relier un libellé à sa valeur. Les mesures ci-dessous
+     viennent du contenu réel : un montant fait 7 chiffres, un numéro
+     ivoirien 10, un nom une vingtaine de caractères. */
+  :root{
+    --f-col:560px;    /* ~62 caractères en Instrument Sans 15,5 px */
+    --f-court:13ch;   /* montant, code, date */
+    --f-moyen:26ch;   /* téléphone, nom, référence */
+    --f-long:46ch;    /* adresse, motif, recherche */
+  }
+
+  /* La colonne de saisie ne suit pas la largeur de l'écran */
+  .inp,textarea.inp,select.inp{max-width:var(--f-col)}
+  .inp[type="number"],.inp[inputmode="numeric"],.inp[type="date"],
+  .inp[type="time"]{max-width:var(--f-court)}
+  .inp[type="tel"]{max-width:var(--f-moyen)}
+  .inp[type="search"],textarea.inp{max-width:var(--f-long)}
+
+  /* Un bouton est large comme son intitulé, pas comme la fenêtre */
+  .btn{width:auto;min-width:11rem;align-self:flex-start}
+  /* Sauf dans une feuille, où il occupe la colonne : c'est son contexte */
+  .sh .btn{width:100%;min-width:0}
+  /* Les rangées de boutons restent groupées à gauche */
+  .btn + .btn{margin-left:10px}
+
+  /* ── Graphiques ─────────────────────────────────────────────────
+     Une courbe lue sur 1350 × 160 est plate par construction. On borne
+     la largeur et on donne de la hauteur pour que les pentes approchent
+     45°, l'angle où l'œil lit le mieux une variation. */
+  canvas{max-height:280px!important}
+  /* La carte porte la mesure, le tracé la remplit : pas de blanc à droite. */
+  .carte-graphe{max-width:920px}
+  #flux-depot-chart,#flux-retrait-chart,#flux-paiement-chart,
+  #tech-stats-chart{max-height:190px!important}
 
   /* Bandeau d'écran : plus bas, plus froid */
   .scr > div:first-of-type[style*="linear-gradient"]{padding:20px 26px 18px!important}
