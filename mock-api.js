@@ -1175,11 +1175,11 @@
     var u = findUserByTel(tel);
     if (u) {
       var p = tontineParticipant(u.id);
-      if (p) out.push({ type: 'participant', id: p.id, prenom: u.prenom, nom: u.nom, telephone: u.telephone, categorie: p.categorie, montant: p.montant, groupeNumero: p.groupeId ? tontineGroupe(p.groupeId).numero : null });
+      if (p) out.push({ type: 'participant', id: p.id, prenom: u.prenom, nom: u.nom, telephone: u.telephone, categorie: p.categorie, montant: p.montant, groupeNumero: p.groupeId ? tontineGroupe(p.groupeId).numero : 'en formation' });
     }
     DB.tontine.cautions.filter(function (c) { return c.garantTelephone === tel; }).forEach(function (c) {
       var p = tontineParticipantById(c.participantId);
-      out.push({ type: 'caution', id: c.id, prenom: c.garantNom ? c.garantNom.split(' ')[0] : '', nom: c.garantNom ? c.garantNom.split(' ').slice(1).join(' ') : '', telephone: c.garantTelephone, categorie: p ? p.categorie : null, montant: p ? p.montant : 0, groupeNumero: p && p.groupeId ? tontineGroupe(p.groupeId).numero : null });
+      out.push({ type: 'caution', id: c.id, prenom: c.garantNom ? c.garantNom.split(' ')[0] : '', nom: c.garantNom ? c.garantNom.split(' ').slice(1).join(' ') : '', telephone: c.garantTelephone, categorie: p ? p.categorie : null, montant: p ? p.montant : 0, groupeNumero: p && p.groupeId ? tontineGroupe(p.groupeId).numero : 'en formation' });
     });
     return ok(out);
   })));
