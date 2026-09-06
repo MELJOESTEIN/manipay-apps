@@ -63,6 +63,23 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
 .pin-key.empty{background:none;cursor:default}
 .chip{padding:8px 16px;border-radius:99px;border:1.5px solid #E3EAE5;background:#fff;color:var(--m);font-size:12px;font-weight:600;cursor:pointer;font-family:'Instrument Sans',sans-serif;white-space:nowrap}
 .chip.on{border-color:var(--g);background:#F0F9F3;color:var(--g)}
+/* ── ManiPot / Messagerie ───────────────────────────────────────── */
+.mp-card{background:#F7F5FF;border:1px solid #DACDF7;border-radius:14px;padding:14px 16px;margin:6px 0}
+.mp-card .mp-label{font-size:10.5px;font-weight:700;color:#6941C6;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.mp-avatar-round{width:38px;height:38px;border-radius:999px;background:#6941C6;color:#fff;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.mp-avatar-img{width:38px;height:38px;border-radius:999px;background:#F7F5FF;border:1.5px solid #DACDF7;object-fit:cover;flex-shrink:0}
+.mp-avatar-img.sm{width:26px;height:26px}
+.av{width:38px;height:38px;border-radius:999px;object-fit:cover;background:#E3EAE5;flex-shrink:0}
+.thread-row{display:flex;gap:12px;align-items:center;padding:14px 16px;cursor:pointer;border-bottom:1px solid #F0F9F3}
+.thread-row:active{background:#F7F9F8}
+.thread-badge{min-width:18px;height:18px;border-radius:999px;background:#0E8A45;color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.bub-row{display:flex;margin-bottom:12px}
+.bub-row.out{justify-content:flex-end}
+.bub{max-width:78%;padding:11px 15px;border-radius:16px;font-size:14px;line-height:1.5;white-space:pre-wrap;font-family:'Instrument Sans',sans-serif}
+.bub-out{background:#0A1F14;color:#fff;border-bottom-right-radius:4px}
+.bub-out .mp-tag{color:#6EE7A0;font-weight:700}
+.bub-in{background:#F0F9F3;color:#0A1F14;border-bottom-left-radius:4px}
+.bub-manipot{background:#F7F5FF;border:1px solid #DACDF7;color:#0A1F14;border-bottom-left-radius:4px}
 .photo-slot{border:2px dashed #C3CFC8;border-radius:12px;padding:20px;text-align:center;cursor:pointer;transition:.2s;background:#fafafa}
 .photo-slot.done{border-style:solid;border-color:var(--g);background:#F0F9F3}
 
@@ -235,6 +252,10 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
              alt="ManiPay"/>
 
         <div style="display:flex;gap:8px;align-items:center">
+          <button onclick="ouvrirMessages()" style="background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:12px;width:38px;height:38px;cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative">
+            <svg width="18" height="18" fill="none" stroke="#fff" stroke-width="2.2" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+            <span id="msg-badge" style="display:none;position:absolute;top:4px;right:4px;min-width:15px;height:15px;background:#6941C6;border-radius:99px;border:2px solid rgba(255,255,255,.3);font-size:8px;font-weight:800;color:#fff;align-items:center;justify-content:center;padding:0 2px"></span>
+          </button>
           <button onclick="ouvrirNotifications()" style="background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:12px;width:38px;height:38px;cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative">
             <svg width="18" height="18" fill="none" stroke="#fff" stroke-width="2.2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
             <span id="notif-badge" style="display:none;position:absolute;top:4px;right:4px;min-width:15px;height:15px;background:#D92D20;border-radius:99px;border:2px solid rgba(255,255,255,.3);font-size:8px;font-weight:800;color:#fff;align-items:center;justify-content:center;padding:0 2px"></span>
@@ -257,6 +278,14 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
         <div id="h-badges" style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center"></div>
         <!-- h-name conservé mais caché (utilisé par le JS) -->
         <div id="h-name" style="display:none"></div>
+        <!-- Mini-aperçu ManiPot : dernier message du fil, cliquable -->
+        <div id="mp-preview" onclick="ouvrirFil(window._mpThreadId)" style="display:none;margin:12px auto 0;max-width:300px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.32);border-radius:14px;padding:10px 14px;cursor:pointer;text-align:left;display:flex;gap:10px;align-items:center">
+          <img src="manipot.png" alt="ManiPot" style="width:30px;height:30px;border-radius:999px;background:#fff;object-fit:cover;flex-shrink:0"/>
+          <div style="min-width:0;flex:1">
+            <div style="color:#fff;font-size:11px;font-weight:700;opacity:.85">ManiPot</div>
+            <div id="mp-preview-txt" style="color:#fff;font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></div>
+          </div>
+        </div>
       </div>
 
       <!-- QR Code -->
@@ -428,6 +457,47 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
     <div class="wave-tab-bar" style="position:absolute;bottom:36px;left:50%;transform:translateX(-50%);background:#f0f0f0;">
       <button class="wave-tab-btn" id="wtab-scan2" onclick="wqrTab('scan')" style="color:#4E6157;">Scanner un code</button>
       <button class="wave-tab-btn on" id="wtab-carte2" onclick="wqrTab('carte')" style="background:#fff;color:#0A1F14;">Ma carte</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ ManiPot / Messagerie ═══════════ -->
+<div class="scr" id="s-messages">
+  <div style="background:#fff;padding:16px 20px 12px;border-bottom:1px solid #F0F9F3;position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px">
+    <button onclick="S('s-home')" style="background:none;border:none;cursor:pointer;padding:4px;display:flex;flex-shrink:0"><svg viewBox="0 0 24 24" fill="none" stroke="#0A1F14" stroke-width="2.2" width="20" height="20"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+    <div style="font-size:20px;font-weight:800;font-family:'Outfit',sans-serif">Messages</div>
+  </div>
+  <div id="messages-list"></div>
+  <div id="messages-empty" style="display:none;text-align:center;padding:60px 30px;color:#9AAAA1;font-size:13.5px">Aucune conversation pour le moment.</div>
+</div>
+
+<div class="scr" id="s-thread" style="height:100vh;max-height:100vh;overflow:hidden">
+  <div style="background:#fff;padding:12px 16px;border-bottom:1px solid #F0F9F3;display:flex;align-items:center;gap:10px;flex-shrink:0">
+    <button onclick="S('s-messages');chargerMessages()" style="background:none;border:none;cursor:pointer;padding:4px;display:flex;flex-shrink:0"><svg viewBox="0 0 24 24" fill="none" stroke="#0A1F14" stroke-width="2.2" width="20" height="20"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+    <img id="th-avatar-img" class="av" src="" style="display:none"/>
+    <img id="th-avatar-manipot" class="mp-avatar-img" src="manipot.png" alt="ManiPot" style="display:none"/>
+    <div style="font-size:16px;font-weight:800;font-family:'Outfit',sans-serif;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" id="th-titre">—</div>
+  </div>
+  <div id="thread-messages" style="flex:1;overflow-y:auto;padding:16px"></div>
+  <div style="display:flex;gap:8px;padding:10px 14px;border-top:1px solid #F0F9F3;background:#fff;flex-shrink:0">
+    <input id="thread-input" type="text" placeholder="Écrire un message..." style="flex:1;border:1.5px solid #E3EAE5;border-radius:999px;padding:11px 16px;font-size:14px;font-family:'Instrument Sans',sans-serif;outline:none;background:#FBFCFB;min-width:0" onkeydown="if(event.key==='Enter')envoyerMessageManipot()"/>
+    <button onclick="envoyerMessageManipot()" style="width:42px;height:42px;border-radius:999px;border:none;background:#0E8A45;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.3" width="18" height="18"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+    </button>
+  </div>
+</div>
+
+<div class="sh-ov" id="sh-mp-pin">
+  <div class="sh">
+    <div class="sh-bar"></div>
+    <div class="sh-top"><div><div class="sh-title">Confirmer</div></div><button class="sh-x" onclick="closeSh('mp-pin')">x</button></div>
+    <div style="padding:0 22px 40px">
+      <div class="mp-card" id="mp-pin-recap" style="margin-bottom:18px"></div>
+      <div id="mp-pin-err" style="display:none;background:#FEF3F2;border:1px solid #FBD3CE;color:#D92D20;padding:10px 14px;border-radius:10px;margin-bottom:14px;font-size:13px"></div>
+      <label style="font-size:11px;font-weight:700;color:#4E6157;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;display:block">Ton code secret</label>
+      <input id="mp-pin-input" type="password" inputmode="numeric" maxlength="4" placeholder="...." style="width:100%;background:#F0F9F3;border:1.5px solid #E3EAE5;border-radius:12px;padding:14px;font-size:24px;font-family:inherit;color:#0A1F14;outline:none;text-align:center;letter-spacing:10px;margin-bottom:16px"/>
+      <button onclick="doConfirmerPreparation()" style="width:100%;padding:15px;border-radius:14px;border:none;background:linear-gradient(135deg,#4A2A94,#6941C6);color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:10px">Confirmer</button>
+      <div style="text-align:center;font-size:11.5px;color:#9AAAA1">ManiPot ne connaît pas ton code et ne peut jamais te le demander en message.</div>
     </div>
   </div>
 </div>
@@ -902,7 +972,7 @@ function setTab(t){
   document.querySelectorAll('.nb').forEach(function(b){b.classList.remove('on');});
   document.querySelectorAll('[id^="nb-'+t+'"]').forEach(function(b){b.classList.add('on');});
   document.querySelectorAll('.scr').forEach(function(s){s.classList.remove('on');});
-  if(t==='home'){document.getElementById('s-home').classList.add('on');chargerAccueil();chargerBadgeNotifs();}
+  if(t==='home'){document.getElementById('s-home').classList.add('on');chargerAccueil();chargerBadgeNotifs();chargerBadgeMessages();}
   else if(t==='history'){document.getElementById('s-history').classList.add('on');chargerHistorique();}
   else if(t==='receive'){ouvrirScannerDirect();return;}
   else if(t==='profile'){document.getElementById('s-profile').classList.add('on');chargerProfil();}
@@ -991,6 +1061,181 @@ function jouerSonNotif(){
     g3.gain.exponentialRampToValueAtTime(0.001,t+0.65);
     o3.start(t+0.4);o3.stop(t+0.65);
   }catch(e){console.warn('audio:',e);}
+}
+
+// ═══════════ ManiPot / Messagerie ═══════════
+var MP_AVATARS={content:'manipot.png',celebre:'manipot-celebre.png',neutre:'manipot-neutre.png',inquiet:'manipot-inquiet.png',attentif:'manipot-attentif.png'};
+var G_THREAD=null;
+var _mpPreps={};
+var _mpPendingConfirm=null;
+
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function FD2(d){if(!d)return'';var dt=new Date(d);var now=new Date();var sameDay=dt.toDateString()===now.toDateString();return sameDay?dt.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}):dt.toLocaleDateString('fr-FR',{day:'2-digit',month:'short'});}
+
+async function chargerBadgeMessages(){
+  if(!G.token)return;
+  try{
+    var r=await get('/messages/threads');
+    var threads=r.data||[];
+    var total=threads.reduce(function(s,t){return s+(t.nonLus||0);},0);
+    var badge=document.getElementById('msg-badge');
+    if(badge){badge.style.display=total>0?'flex':'none';badge.textContent=total>9?'9+':(total>0?String(total):'');}
+    var thManipot=threads.find(function(t){return t.type==='manipot';});
+    var prev=document.getElementById('mp-preview');
+    if(thManipot&&thManipot.dernierApercu&&prev){
+      window._mpThreadId=thManipot.id;
+      document.getElementById('mp-preview-txt').textContent=thManipot.dernierApercu;
+      prev.style.display='flex';
+    }else if(prev){prev.style.display='none';}
+  }catch(e){console.warn('badge messages:',e.message);}
+}
+
+async function ouvrirMessages(){S('s-messages');await chargerMessages();}
+
+async function chargerMessages(){
+  try{
+    var r=await get('/messages/threads');
+    var threads=r.data||[];
+    var wrap=document.getElementById('messages-list');
+    var empty=document.getElementById('messages-empty');
+    if(threads.length===0){wrap.innerHTML='';empty.style.display='block';return;}
+    empty.style.display='none';
+    var h='';
+    threads.forEach(function(t){
+      var av='';
+      if(t.type==='manipot')av='<img class="mp-avatar-img" src="manipot.png" alt="ManiPot"/>';
+      else if(t.type==='tontine')av='<div class="mp-avatar-round" style="background:#6941C6">🤝</div>';
+      else if(t.type==='system')av='<div class="mp-avatar-round" style="background:#0E8A45">M</div>';
+      else av='<div class="av" style="display:flex;align-items:center;justify-content:center;font-weight:700;color:#4E6157">'+esc((t.titre||'?').charAt(0).toUpperCase())+'</div>';
+      var badge=t.nonLus>0?'<span class="thread-badge">'+(t.nonLus>9?'9+':t.nonLus)+'</span>':'';
+      var bgTint=t.type==='manipot'?'background:#FBFAFF':'';
+      h+='<div class="thread-row" style="'+bgTint+'" onclick="ouvrirFil(\''+t.id+'\')">'
+        +av
+        +'<div style="min-width:0;flex:1">'
+          +'<div style="display:flex;justify-content:space-between;gap:8px"><div style="font-weight:700;font-size:14.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(t.titre)+'</div><div style="font-size:11px;color:#9AAAA1;flex-shrink:0">'+FD2(t.dateDernierMessage)+'</div></div>'
+          +'<div style="display:flex;justify-content:space-between;gap:8px;margin-top:2px"><div style="font-size:12.5px;color:#4E6157;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(t.dernierApercu||'')+'</div>'+badge+'</div>'
+        +'</div>'
+      +'</div>';
+    });
+    wrap.innerHTML=h;
+  }catch(e){T(e.message,true);}
+}
+
+async function ouvrirFil(threadId){
+  if(!threadId)return;
+  S('s-thread');
+  try{
+    var r=await get('/messages/thread/'+threadId);
+    G_THREAD=r.data.thread;
+    document.getElementById('th-titre').textContent=G_THREAD.titre;
+    var imgEl=document.getElementById('th-avatar-img'),mpEl=document.getElementById('th-avatar-manipot');
+    if(G_THREAD.type==='manipot'){mpEl.style.display='block';imgEl.style.display='none';}
+    else{mpEl.style.display='none';imgEl.style.display='none';}
+    renderThreadMessages(r.data.messages);
+    await patch('/messages/thread/'+threadId+'/lu',{});
+    chargerBadgeMessages();
+  }catch(e){T(e.message,true);S('s-messages');}
+}
+
+function renderThreadMessages(messages){
+  var wrap=document.getElementById('thread-messages');
+  var h='';
+  messages.forEach(function(m){h+=renderUnMessage(m);});
+  wrap.innerHTML=h;
+  wrap.scrollTop=wrap.scrollHeight;
+}
+
+function renderTexteAvecTag(texte){
+  return esc(texte).replace(/@manipot/gi,'<span class="mp-tag">@manipot</span>');
+}
+
+function renderUnMessage(m){
+  if(m.auteur==='moi'){
+    return '<div class="bub-row out"><div class="bub bub-out">'+renderTexteAvecTag(m.texte)+'</div></div>';
+  }
+  if(m.data&&m.data.type==='preparation'&&m.data.action==='envoi'){
+    _mpPreps[m.data.preparationId]={nom:m.data.destinataireNom,montant:m.data.montant};
+    return '<div class="bub-row"><div class="mp-card" style="max-width:82%">'
+      +'<div class="mp-label">Récapitulatif</div>'
+      +'<div style="font-size:14px;margin-bottom:4px">À <b>'+esc(m.data.destinataireNom)+'</b></div>'
+      +'<div style="font-size:22px;font-weight:800;font-family:Outfit,sans-serif;margin-bottom:2px">'+F(m.data.montant)+' F</div>'
+      +'<div style="font-size:12px;color:#4E6157;margin-bottom:12px">Frais : '+(m.data.frais?F(m.data.frais)+' F':'Gratuit')+'</div>'
+      +'<div style="display:flex;gap:8px">'
+        +'<button onclick="ouvrirConfirmationPreparation(\''+m.data.preparationId+'\')" style="flex:2;padding:11px;border-radius:10px;border:none;background:linear-gradient(135deg,#4A2A94,#6941C6);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Confirmer</button>'
+        +'<button onclick="annulerPreparationUI(\''+m.data.preparationId+'\')" style="flex:1;padding:11px;border-radius:10px;border:1px solid #E3EAE5;background:#fff;color:#4E6157;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Modifier</button>'
+      +'</div>'
+    +'</div></div>';
+  }
+  if(m.data&&m.data.type==='preparation'&&m.data.action==='demande_recue'){
+    _mpPreps[m.data.preparationId]={nom:m.data.demandeurNom,montant:m.data.montant};
+    return '<div class="bub-row"><div class="mp-card" style="max-width:82%;background:#FFF8EB;border-color:#FDE7C7">'
+      +"<div class=\"mp-label\" style=\"color:#93500A\">Demande d'argent</div>"
+      +'<div style="font-size:14px;margin-bottom:4px"><b>'+esc(m.data.demandeurNom)+'</b> te demande</div>'
+      +'<div style="font-size:22px;font-weight:800;font-family:Outfit,sans-serif;margin-bottom:12px">'+F(m.data.montant)+' F</div>'
+      +'<div style="display:flex;gap:8px">'
+        +'<button onclick="ouvrirConfirmationPreparation(\''+m.data.preparationId+'\')" style="flex:2;padding:11px;border-radius:10px;border:none;background:#DC8A00;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Envoyer</button>'
+        +'<button onclick="annulerPreparationUI(\''+m.data.preparationId+'\')" style="flex:1;padding:11px;border-radius:10px;border:1px solid #E3EAE5;background:#fff;color:#4E6157;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Refuser</button>'
+      +'</div>'
+    +'</div></div>';
+  }
+  if(m.data&&m.data.type==='transaction'){
+    return '<div class="bub-row"><div class="mp-card" style="max-width:82%;background:#F0F9F3;border-color:#C9E7D5">'
+      +'<div style="font-size:14px;color:#05512B;margin-bottom:4px">✅ '+esc(m.texte)+'</div>'
+      +'<div style="font-size:11.5px;color:#4E6157;font-family:Geist Mono,monospace">'+esc(m.data.reference)+'</div>'
+    +'</div></div>';
+  }
+  if(m.auteur==='manipot'){
+    var img=m.data&&m.data.expression?(MP_AVATARS[m.data.expression]||'manipot.png'):'manipot.png';
+    return '<div class="bub-row" style="align-items:flex-end;gap:8px"><img class="mp-avatar-img sm" src="'+img+'" alt="ManiPot"/><div class="bub bub-manipot">'+esc(m.texte).replace(/\n/g,'<br>')+'</div></div>';
+  }
+  return '<div class="bub-row"><div class="bub bub-in">'+esc(m.texte).replace(/\n/g,'<br>')+'</div></div>';
+}
+
+async function envoyerMessageManipot(){
+  var input=document.getElementById('thread-input');
+  var texte=input.value.trim();
+  if(!texte||!G_THREAD)return;
+  input.value='';
+  try{
+    var r=await post('/messages/thread/'+G_THREAD.id+'/envoyer',{texte:texte});
+    var wrap=document.getElementById('thread-messages');
+    wrap.innerHTML+=renderUnMessage(r.data.message);
+    (r.data.reponses||[]).forEach(function(rep){
+      wrap.innerHTML+=renderUnMessage({auteur:'manipot',texte:rep.texte,data:rep.data});
+    });
+    wrap.scrollTop=wrap.scrollHeight;
+  }catch(e){T(e.message,true);}
+}
+
+function ouvrirConfirmationPreparation(prepId){
+  var info=_mpPreps[prepId]||{};
+  _mpPendingConfirm=prepId;
+  document.getElementById('mp-pin-recap').innerHTML='<div class="mp-label">À confirmer</div><div style="font-size:14px;margin-bottom:2px">'+(info.nom?('Vers <b>'+esc(info.nom)+'</b>'):'')+'</div><div style="font-size:24px;font-weight:800;font-family:Outfit,sans-serif">'+F(info.montant||0)+' F</div>';
+  document.getElementById('mp-pin-input').value='';
+  document.getElementById('mp-pin-err').style.display='none';
+  openSh('mp-pin');
+}
+
+async function doConfirmerPreparation(){
+  if(!_mpPendingConfirm)return;
+  var pin=document.getElementById('mp-pin-input').value;
+  try{
+    await post('/messages/preparation/'+_mpPendingConfirm+'/confirmer',{pin:pin});
+    closeSh('mp-pin');
+    _mpPendingConfirm=null;
+    await ouvrirFil(G_THREAD.id);
+    chargerBadgeMessages();
+  }catch(e){
+    document.getElementById('mp-pin-err').textContent=e.message;
+    document.getElementById('mp-pin-err').style.display='';
+  }
+}
+
+async function annulerPreparationUI(prepId){
+  try{
+    await post('/messages/preparation/'+prepId+'/annuler',{});
+    await ouvrirFil(G_THREAD.id);
+  }catch(e){T(e.message,true);}
 }
 
 async function chargerBadgeNotifs(){
@@ -1147,7 +1392,7 @@ async function toutLireNotifs(){
   }catch(e){T('Erreur',true);}
 }
 
-function rafraichir(){chargerAccueil();chargerBadgeNotifs();}
+function rafraichir(){chargerAccueil();chargerBadgeNotifs();chargerBadgeMessages();}
 
 // Polling notifications toutes les 20 secondes
 setInterval(function(){

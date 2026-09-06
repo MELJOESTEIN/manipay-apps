@@ -10,7 +10,7 @@
 (function () {
   'use strict';
 
-  var DB_KEY = 'manipay_mock_db_v3';
+  var DB_KEY = 'manipay_mock_db_v4';
   var ORIG_FETCH = window.fetch.bind(window);
 
   // ───────────────────────── Utilitaires ─────────────────────────────
@@ -216,6 +216,7 @@
       commissions: [], kycDocuments: tontineKycDocs, tickets: ticketsSeed, alertes: alertesSeed, gels: [],
       notifications: [], logsAudit: [], refreshTokens: [],
       tontine: { groupes: tontineGroupes, participants: tontineParticipants, cautions: tontineCautions, gainsSignatures: [] },
+      messages: { threads: [], messages: [], preparations: [] },
       seq: 1,
     };
   }
@@ -234,7 +235,11 @@
   function loadDB() {
     try {
       var raw = localStorage.getItem(DB_KEY);
-      if (raw) return JSON.parse(raw);
+      if (raw) {
+        var parsed = JSON.parse(raw);
+        if (!parsed.messages) parsed.messages = { threads: [], messages: [], preparations: [] };
+        return parsed;
+      }
     } catch (e) {}
     var db = buildSeed();
     saveDB(db);
@@ -765,18 +770,26 @@
     return ok({ totalDebitClient: t.montant, fraisBusiness: t.frais, clientNom: r.user.prenom + ' ' + r.user.nom, reference: t.reference }, 'Encaissement effectué avec succès');
   }));
 
-  route('POST', /^\/transactions\/transfer$/, AUTH_REQUIRED(function (ctx) {
-    if (ctx.user.telephone === ctx.body.telephone) return fail(422, 'AP-TXN-008', 'Impossible de vous transférer à vous-même');
-    var compteSource = findCompteByUser(ctx.user.id);
-    if (!compteSource) return fail(422, 'AP-TXN-002', 'Compte source inactif');
-    var r = getCompteByTel(ctx.body.telephone); if (r.error) return r.error;
-    var montant = Number(ctx.body.montant);
-    if (compteSource.solde < montant) return fail(422, 'AP-TXN-003', 'Solde insuffisant');
-    var tx = { id: uid('t'), reference: genRef('TRF'), type: 'transfert', statut: 'complete', initiateurRole: ctx.user.role === 'client' ? 'client' : 'agent', compteSourceId: compteSource.id, compteDestId: r.compte.id, montant: montant, frais: 0, agentId: null, description: ctx.body.motif || null, dateCreation: nowIso(), dateCompletion: nowIso() };
+  // Logique de transfert factorisée : réutilisée telle quelle par la route
+  // HTTP normale ET par la confirmation d'une préparation ManiPot (aucune
+  // nouvelle règle métier — un seul et même chemin d'exécution).
+  function executerTransfert(payeur, telephoneDest, montant, motif) {
+    if (payeur.telephone === telephoneDest) return { error: fail(422, 'AP-TXN-008', 'Impossible de vous transférer à vous-même') };
+    var compteSource = findCompteByUser(payeur.id);
+    if (!compteSource) return { error: fail(422, 'AP-TXN-002', 'Compte source inactif') };
+    var r = getCompteByTel(telephoneDest); if (r.error) return { error: r.error };
+    montant = Number(montant);
+    if (compteSource.solde < montant) return { error: fail(422, 'AP-TXN-003', 'Solde insuffisant') };
+    var tx = { id: uid('t'), reference: genRef('TRF'), type: 'transfert', statut: 'complete', initiateurRole: payeur.role === 'client' ? 'client' : 'agent', compteSourceId: compteSource.id, compteDestId: r.compte.id, montant: montant, frais: 0, agentId: null, description: motif || null, dateCreation: nowIso(), dateCompletion: nowIso() };
     DB.transactions.push(tx);
     compteSource.solde -= montant; r.compte.solde += montant;
     creerCommissions(tx); saveDB();
-    return ok({ transactionId: tx.id, reference: tx.reference, montant: montant, frais: 0, destinataire: { nom: r.user.nom, prenom: r.user.prenom, telephone: r.user.telephone }, dateCompletion: tx.dateCompletion }, 'Transfert effectué avec succès', 201);
+    return { tx: tx, destUser: r.user, destCompte: r.compte, soldeApres: compteSource.solde };
+  }
+  route('POST', /^\/transactions\/transfer$/, AUTH_REQUIRED(function (ctx) {
+    var r = executerTransfert(ctx.user, ctx.body.telephone, ctx.body.montant, ctx.body.motif);
+    if (r.error) return r.error;
+    return ok({ transactionId: r.tx.id, reference: r.tx.reference, montant: r.tx.montant, frais: 0, destinataire: { nom: r.destUser.nom, prenom: r.destUser.prenom, telephone: r.destUser.telephone }, dateCompletion: r.tx.dateCompletion }, 'Transfert effectué avec succès', 201);
   }));
   route('POST', /^\/transactions\/([^/]+)\/annuler$/, AUTH_REQUIRED(function (ctx) {
     var t = DB.transactions.find(function (t) { return t.id === ctx.params[0]; });
@@ -1718,6 +1731,312 @@
   route('POST', /^\/admin\/manipay\/virer$/, AUTH_REQUIRED(ROLES(['admin'], function (ctx) {
     return ok({ message: 'Virement de ' + Number(ctx.body.montant || 0).toLocaleString('fr-FR') + ' F effectué vers votre compte personnel.' });
   })));
+
+  // ═════════════════════ ManiPot — assistant conversationnel ═════════
+  // Messagerie + assistant simulé (reconnaissance de motifs simples, pas
+  // une vraie IA). Règles absolues respectées dans toute cette section :
+  // ManiPot ne fait jamais qu'exécuter une opération lui-même — la
+  // confirmation PIN de l'utilisateur reste l'unique porte d'exécution —
+  // et ne demande jamais le code secret. Deux contacts homonymes : une
+  // question, jamais un pari.
+  function F(n) { return Number(n).toLocaleString('fr-FR') + ' F'; }
+
+  function ensureMessagesFor(user) {
+    var mine = DB.messages.threads.filter(function (t) { return t.utilisateurId === user.id; });
+    if (mine.length > 0) return;
+    var base = Date.now();
+    function addThread(t) {
+      var th = Object.assign({ id: uid('th'), utilisateurId: user.id, nonLus: 0, clarification: null }, t);
+      DB.messages.threads.push(th);
+      return th;
+    }
+    function addMsg(m) {
+      DB.messages.messages.push(Object.assign({ id: uid('msg'), lu: true, dateCreation: nowIso() }, m));
+    }
+    // Thread ManiPot, propre à chaque utilisateur.
+    var bienvenue = "Salut " + user.prenom + " ! Je suis ManiPot, ton assistant ManiPay. Écris-moi par exemple : \"@manipot envoie 5000 à Jean\" pour préparer un envoi — je ne fais jamais rien sans ton code.";
+    var thM = addThread({ type: 'manipot', titre: 'ManiPot', dernierApercu: bienvenue, dernierMontant: null, dateDernierMessage: new Date(base).toISOString() });
+    addMsg({ threadId: thM.id, auteur: 'manipot', texte: bienvenue, data: { expression: 'content', registre: 'R1' } });
+
+    // Threads contacts : cautions Tontine connues + parrain, pour peupler
+    // une liste de conversations réaliste sans inventer de faux contacts.
+    var contactIds = [];
+    var participant = tontineParticipant(user.id);
+    if (participant) {
+      tontineCautionsOf(participant.id).forEach(function (c) {
+        var u2 = findUserByTel(c.garantTelephone);
+        if (u2) contactIds.push(u2.id);
+      });
+    }
+    if (user.parrainId) contactIds.push(user.parrainId);
+    contactIds = contactIds.filter(function (id, i, arr) { return id !== user.id && arr.indexOf(id) === i; }).slice(0, 3);
+    contactIds.forEach(function (id, i) {
+      var u2 = findUser(id); if (!u2) return;
+      var when = new Date(base - (i + 1) * 3 * 3600 * 1000).toISOString();
+      addThread({ type: 'contact', participantId: u2.id, titre: u2.prenom + ' ' + u2.nom, dernierApercu: 'Vous êtes en contact.', dernierMontant: null, dateDernierMessage: when });
+    });
+
+    // Fil de groupe Tontine, si l'utilisateur appartient déjà à un groupe actif.
+    if (participant && participant.groupeId) {
+      var g = tontineGroupe(participant.groupeId);
+      if (g) {
+        var thT = addThread({ type: 'tontine', groupeId: g.id, titre: 'Tontine — Groupe #' + g.numero, dernierApercu: 'Annonces et rappels du groupe.', dernierMontant: null, dateDernierMessage: new Date(base - 86400000).toISOString() });
+        addMsg({ threadId: thT.id, auteur: 'system', texte: 'Bienvenue dans le fil de votre groupe Tontine. ManiPot y annonce les tours versés et les rappels de cotisation.' });
+      }
+    }
+
+    // Avis officiel ManiPay (message d'accueil, non lié à un contact).
+    var thS = addThread({ type: 'system', titre: 'ManiPay', dernierApercu: 'Bienvenue sur ManiPay ! Découvre toutes nos fonctionnalités.', dernierMontant: null, dateDernierMessage: new Date(base - 7 * 86400000).toISOString() });
+    addMsg({ threadId: thS.id, auteur: 'system', texte: 'Bienvenue sur ManiPay ! Ton compte est prêt : dépôts, transferts, paiements marchands et Tontine sont accessibles directement sur ton accueil.' });
+
+    saveDB();
+  }
+
+  function trouverOuCreerThreadContact(ownerId, otherId) {
+    var th = DB.messages.threads.find(function (t) { return t.utilisateurId === ownerId && t.type === 'contact' && t.participantId === otherId; });
+    if (th) return th;
+    var other = findUser(otherId);
+    th = { id: uid('th'), utilisateurId: ownerId, type: 'contact', participantId: otherId, titre: other ? (other.prenom + ' ' + other.nom) : 'Contact', dernierApercu: '', dernierMontant: null, dateDernierMessage: nowIso(), nonLus: 0, clarification: null };
+    DB.messages.threads.push(th);
+    return th;
+  }
+
+  var MANIPOT_NOMBRES_LETTRES = {
+    zero: 0, un: 1, une: 1, deux: 2, trois: 3, quatre: 4, cinq: 5, six: 6, sept: 7, huit: 8, neuf: 9,
+    dix: 10, onze: 11, douze: 12, treize: 13, quatorze: 14, quinze: 15, seize: 16,
+    vingt: 20, trente: 30, quarante: 40, cinquante: 50, soixante: 60,
+  };
+  function parseMontantManipot(str) {
+    str = String(str).toLowerCase().trim();
+    str = str.replace(/\s*(f\s*cfa|fcfa|f)\s*$/i, '').trim();
+    var mMille = str.match(/^([a-zé\s-]*?)\s*mille$/);
+    if (mMille) {
+      var prefix = mMille[1].trim().replace(/-/g, ' ');
+      if (!prefix) return 1000;
+      var parts = prefix.split(/\s+/).filter(Boolean);
+      if (parts.length === 1 && MANIPOT_NOMBRES_LETTRES.hasOwnProperty(parts[0])) return MANIPOT_NOMBRES_LETTRES[parts[0]] * 1000;
+      if (parts.length === 2 && MANIPOT_NOMBRES_LETTRES.hasOwnProperty(parts[0]) && MANIPOT_NOMBRES_LETTRES.hasOwnProperty(parts[1])) {
+        return (MANIPOT_NOMBRES_LETTRES[parts[0]] + MANIPOT_NOMBRES_LETTRES[parts[1]]) * 1000;
+      }
+      return null;
+    }
+    var digits = str.replace(/[.\s]/g, '');
+    if (/^\d+$/.test(digits) && digits.length > 0) return Number(digits);
+    return null;
+  }
+
+  function parseCommandeManipot(texte) {
+    var m = String(texte).trim().match(/^@manipot\s+(envoie|envoyer|donne|demande|demander)\s+(.+?)\s+(?:à|a)\s+(.+)$/i);
+    if (!m) return null;
+    var verbe = m[1].toLowerCase();
+    var action = /^(demande|demander)$/.test(verbe) ? 'demande' : 'envoi';
+    var montant = parseMontantManipot(m[2]);
+    if (!montant || montant <= 0) return null;
+    return { action: action, montant: montant, nomCible: m[3].trim().replace(/[.!?]+$/, '') };
+  }
+
+  function resoudreContactManipot(nomCible, excludeUserId) {
+    var q = nomCible.trim().toLowerCase();
+    if (!q) return [];
+    return DB.users.filter(function (u) {
+      if (u.id === excludeUserId) return false;
+      var prenom = (u.prenom || '').toLowerCase();
+      var complet = (u.prenom + ' ' + u.nom).toLowerCase();
+      return prenom === q || prenom.indexOf(q) === 0 || complet.indexOf(q) === 0;
+    });
+  }
+
+  function maskTelManipot(tel) {
+    var m = String(tel).match(/^(\+\d{3})(\d{2})(\d*)(\d{2})$/);
+    if (!m) return tel;
+    return m[1] + ' ' + m[2] + ' •• •• ' + m[4];
+  }
+  function dernierEchangeManipot(userId, contactId) {
+    var th = DB.messages.threads.find(function (t) { return t.utilisateurId === userId && t.type === 'contact' && t.participantId === contactId; });
+    if (!th) return 'jamais échangé';
+    return 'dernier échange le ' + new Date(th.dateDernierMessage).toLocaleDateString('fr-FR');
+  }
+
+  function demarrerPreparationManipot(user, thread, action, montant, contact) {
+    var reponses = [];
+    if (action === 'envoi') {
+      var compteSource = findCompteByUser(user.id);
+      if (compteSource && compteSource.solde < montant) {
+        reponses.push({ texte: "Tu n'as que " + F(compteSource.solde) + " sur ton compte, je ne peux pas préparer un envoi de " + F(montant) + ". Tu veux un montant plus petit ?", data: { expression: 'inquiet', registre: 'R2' } });
+        return reponses;
+      }
+      var prep = { id: uid('prep'), type: 'envoi', payeurId: user.id, beneficiaireId: contact.id, montant: montant, statut: 'en_attente', dateCreation: nowIso(), threadPayeurId: thread.id };
+      DB.messages.preparations.push(prep);
+      reponses.push({ texte: 'Récapitulatif de ton envoi', data: { expression: 'neutre', registre: 'R3', type: 'preparation', preparationId: prep.id, action: 'envoi', destinataireNom: contact.prenom + ' ' + contact.nom, montant: montant, frais: 0 } });
+      return reponses;
+    }
+    // action === 'demande'
+    var prep2 = { id: uid('prep'), type: 'demande', payeurId: contact.id, beneficiaireId: user.id, montant: montant, statut: 'en_attente', dateCreation: nowIso(), threadBeneficiaireId: thread.id };
+    DB.messages.preparations.push(prep2);
+    reponses.push({ texte: "Demande envoyée à " + contact.prenom + ". Je te préviens dès qu'il ou elle répond.", data: { expression: 'content', registre: 'R1' } });
+    var thPayeur = trouverOuCreerThreadContact(contact.id, user.id);
+    var apercu = user.prenom + ' te demande ' + F(montant) + '.';
+    DB.messages.messages.push({ id: uid('msg'), threadId: thPayeur.id, auteur: 'contact', texte: apercu, data: { type: 'preparation', preparationId: prep2.id, action: 'demande_recue', demandeurNom: user.prenom + ' ' + user.nom, montant: montant }, dateCreation: nowIso(), lu: false });
+    thPayeur.dernierApercu = apercu; thPayeur.dernierMontant = montant; thPayeur.dateDernierMessage = nowIso(); thPayeur.nonLus = (thPayeur.nonLus || 0) + 1;
+    return reponses;
+  }
+
+  function traiterMessageManipot(user, thread, texte) {
+    var reponses = [];
+
+    // 1. Résolution d'une clarification en attente (ambiguïté posée au tour précédent).
+    if (thread.clarification) {
+      var clarif = thread.clarification;
+      var candidatsRestants = clarif.candidatIds.map(findUser).filter(Boolean);
+      var texteNorm = texte.trim();
+      var choisi = null;
+      var telMatch = texteNorm.match(/(\+?\d[\d\s]{7,})/);
+      if (telMatch) {
+        var telDigits = telMatch[1].replace(/\D/g, '');
+        choisi = candidatsRestants.find(function (u) { return u.telephone.replace(/\D/g, '').indexOf(telDigits) !== -1; });
+      }
+      if (!choisi) {
+        var texteNormLower = texteNorm.toLowerCase();
+        choisi = candidatsRestants.find(function (u) { return (u.prenom + ' ' + u.nom).toLowerCase() === texteNormLower; });
+      }
+      if (choisi) {
+        thread.clarification = null;
+        return demarrerPreparationManipot(user, thread, clarif.action, clarif.montant, choisi);
+      }
+      reponses.push({ texte: "Je ne peux pas deviner lequel tu veux dire. Réponds-moi avec le numéro complet, ou le nom en entier.", data: { expression: 'attentif', registre: 'R2' } });
+      return reponses;
+    }
+
+    // 2. Nouvelle commande.
+    var cmd = parseCommandeManipot(texte);
+    if (!cmd) {
+      reponses.push({ texte: "Je n'ai pas compris. Essaie par exemple : « @manipot envoie 5000 à Jean » ou « @manipot demande 10 mille à Awa ».", data: { expression: 'attentif', registre: 'R2' } });
+      return reponses;
+    }
+    var candidats = resoudreContactManipot(cmd.nomCible, user.id);
+    if (candidats.length === 0) {
+      reponses.push({ texte: 'Je ne trouve personne qui s\'appelle « ' + cmd.nomCible + ' » dans tes contacts. Donne-moi son numéro complet.', data: { expression: 'attentif', registre: 'R2' } });
+      return reponses;
+    }
+    if (candidats.length > 1) {
+      thread.clarification = { action: cmd.action, montant: cmd.montant, candidatIds: candidats.map(function (u) { return u.id; }) };
+      var liste = candidats.map(function (u) { return '• ' + u.prenom + ' ' + u.nom + ' (' + maskTelManipot(u.telephone) + ') — ' + dernierEchangeManipot(user.id, u.id); }).join('\n');
+      reponses.push({ texte: 'Il y a plusieurs « ' + cmd.nomCible + ' » dans tes contacts, je ne devine jamais :\n' + liste + '\nDis-moi lequel (numéro ou nom complet).', data: { expression: 'attentif', registre: 'R2' } });
+      return reponses;
+    }
+    return demarrerPreparationManipot(user, thread, cmd.action, cmd.montant, candidats[0]);
+  }
+
+  route('GET', /^\/messages\/threads$/, AUTH_REQUIRED(function (ctx) {
+    ensureMessagesFor(ctx.user);
+    var mine = DB.messages.threads.filter(function (t) { return t.utilisateurId === ctx.user.id; })
+      .sort(function (a, b) { return new Date(b.dateDernierMessage) - new Date(a.dateDernierMessage); });
+    return ok(mine.map(function (t) { return clone(t); }));
+  }));
+
+  route('GET', /^\/messages\/thread\/([^/]+)$/, AUTH_REQUIRED(function (ctx) {
+    ensureMessagesFor(ctx.user);
+    var th = DB.messages.threads.find(function (t) { return t.id === ctx.params[0] && t.utilisateurId === ctx.user.id; });
+    if (!th) return fail(404, 'AP-MSG-001', 'Conversation introuvable');
+    var msgs = DB.messages.messages.filter(function (m) { return m.threadId === th.id; })
+      .sort(function (a, b) { return new Date(a.dateCreation) - new Date(b.dateCreation); });
+    return ok({ thread: clone(th), messages: msgs.map(function (m) { return clone(m); }) });
+  }));
+
+  route('PATCH', /^\/messages\/thread\/([^/]+)\/lu$/, AUTH_REQUIRED(function (ctx) {
+    var th = DB.messages.threads.find(function (t) { return t.id === ctx.params[0] && t.utilisateurId === ctx.user.id; });
+    if (!th) return fail(404, 'AP-MSG-001', 'Conversation introuvable');
+    th.nonLus = 0;
+    DB.messages.messages.filter(function (m) { return m.threadId === th.id; }).forEach(function (m) { m.lu = true; });
+    saveDB();
+    return ok({ message: 'Marqué comme lu' });
+  }));
+
+  route('POST', /^\/messages\/thread\/([^/]+)\/envoyer$/, AUTH_REQUIRED(function (ctx) {
+    ensureMessagesFor(ctx.user);
+    var th = DB.messages.threads.find(function (t) { return t.id === ctx.params[0] && t.utilisateurId === ctx.user.id; });
+    if (!th) return fail(404, 'AP-MSG-001', 'Conversation introuvable');
+    var texte = String(ctx.body.texte || '').trim();
+    if (!texte) return fail(422, 'AP-VAL-001', 'Message vide');
+    var msgMoi = { id: uid('msg'), threadId: th.id, auteur: 'moi', texte: texte, dateCreation: nowIso(), lu: true };
+    DB.messages.messages.push(msgMoi);
+    th.dernierApercu = texte; th.dateDernierMessage = msgMoi.dateCreation;
+
+    var reponsesManiPot = [];
+    if (th.type === 'manipot') {
+      reponsesManiPot = traiterMessageManipot(ctx.user, th, texte);
+      reponsesManiPot.forEach(function (r) {
+        var m = { id: uid('msg'), threadId: th.id, auteur: 'manipot', texte: r.texte, data: r.data || null, dateCreation: nowIso(), lu: true };
+        DB.messages.messages.push(m);
+        th.dernierApercu = r.texte; th.dateDernierMessage = m.dateCreation;
+      });
+    }
+    saveDB();
+    return ok({ message: clone(msgMoi), reponses: reponsesManiPot.map(function (r) { return { texte: r.texte, data: r.data || null }; }) }, 'Message envoyé', 201);
+  }));
+
+  route('POST', /^\/messages\/preparation\/([^/]+)\/confirmer$/, AUTH_REQUIRED(function (ctx) {
+    var prep = DB.messages.preparations.find(function (p) { return p.id === ctx.params[0]; });
+    if (!prep) return fail(404, 'AP-MSG-002', 'Préparation introuvable');
+    if (prep.statut !== 'en_attente') return fail(409, 'AP-MSG-003', 'Cette préparation a déjà été traitée');
+    if (ctx.user.id !== prep.payeurId) return fail(403, 'AP-AUTH-004', 'Cette confirmation ne vous appartient pas');
+    if (String(ctx.body.pin) !== String(ctx.user.pin)) return fail(401, 'AP-AUTH-002', 'PIN incorrect');
+
+    var beneficiaire = findUser(prep.beneficiaireId);
+    var r = executerTransfert(ctx.user, beneficiaire.telephone, prep.montant, 'ManiPot');
+    if (r.error) return r.error;
+    prep.statut = 'confirmee'; prep.transactionId = r.tx.id;
+
+    var thPayeur = prep.type === 'envoi' ? DB.messages.threads.find(function (t) { return t.id === prep.threadPayeurId; }) : trouverOuCreerThreadContact(ctx.user.id, beneficiaire.id);
+    if (thPayeur) {
+      var mTx = { id: uid('msg'), threadId: thPayeur.id, auteur: 'system', texte: F(prep.montant) + ' envoyés à ' + beneficiaire.prenom + ' ' + beneficiaire.nom, data: { type: 'transaction', reference: r.tx.reference, montant: prep.montant, transactionId: r.tx.id }, dateCreation: nowIso(), lu: true };
+      DB.messages.messages.push(mTx);
+      var mConf = { id: uid('msg'), threadId: thPayeur.id, auteur: 'manipot', texte: "C'est fait ! Ton nouveau solde : " + F(r.soldeApres) + ".", data: { expression: 'content', registre: 'R1' }, dateCreation: nowIso(), lu: true };
+      DB.messages.messages.push(mConf);
+      thPayeur.dernierApercu = mConf.texte; thPayeur.dateDernierMessage = mConf.dateCreation;
+    }
+    if (prep.type === 'demande') {
+      ensureMessagesFor(beneficiaire);
+      var thManipotBenef = DB.messages.threads.find(function (t) { return t.utilisateurId === beneficiaire.id && t.type === 'manipot'; });
+      if (thManipotBenef) {
+        var mNotif = { id: uid('msg'), threadId: thManipotBenef.id, auteur: 'manipot', texte: ctx.user.prenom + " t'a envoyé les " + F(prep.montant) + ' que tu as demandés.', data: { expression: 'celebre', registre: 'R1' }, dateCreation: nowIso(), lu: false };
+        DB.messages.messages.push(mNotif);
+        thManipotBenef.dernierApercu = mNotif.texte; thManipotBenef.dateDernierMessage = mNotif.dateCreation; thManipotBenef.nonLus = (thManipotBenef.nonLus || 0) + 1;
+      }
+    }
+    saveDB();
+    return ok({ transactionId: r.tx.id, reference: r.tx.reference, soldeApres: r.soldeApres }, 'Confirmé');
+  }));
+
+  route('POST', /^\/messages\/preparation\/([^/]+)\/annuler$/, AUTH_REQUIRED(function (ctx) {
+    var prep = DB.messages.preparations.find(function (p) { return p.id === ctx.params[0]; });
+    if (!prep) return fail(404, 'AP-MSG-002', 'Préparation introuvable');
+    if (prep.statut !== 'en_attente') return fail(409, 'AP-MSG-003', 'Cette préparation a déjà été traitée');
+    if (ctx.user.id !== prep.payeurId) return fail(403, 'AP-AUTH-004', 'Cette annulation ne vous appartient pas');
+    prep.statut = prep.type === 'demande' ? 'refusee' : 'annulee';
+
+    if (prep.type === 'envoi') {
+      var thP = DB.messages.threads.find(function (t) { return t.id === prep.threadPayeurId; });
+      if (thP) {
+        var mA = { id: uid('msg'), threadId: thP.id, auteur: 'manipot', texte: "D'accord, envoi annulé.", data: { expression: 'neutre', registre: 'R3' }, dateCreation: nowIso(), lu: true };
+        DB.messages.messages.push(mA);
+        thP.dernierApercu = mA.texte; thP.dateDernierMessage = mA.dateCreation;
+      }
+    } else {
+      var beneficiaire = findUser(prep.beneficiaireId);
+      var payeur = findUser(prep.payeurId);
+      ensureMessagesFor(beneficiaire);
+      var thManipotBenef = DB.messages.threads.find(function (t) { return t.utilisateurId === beneficiaire.id && t.type === 'manipot'; });
+      if (thManipotBenef) {
+        var mRef = { id: uid('msg'), threadId: thManipotBenef.id, auteur: 'manipot', texte: payeur.prenom + ' a décliné ta demande de ' + F(prep.montant) + '.', data: { expression: 'inquiet', registre: 'R2' }, dateCreation: nowIso(), lu: false };
+        DB.messages.messages.push(mRef);
+        thManipotBenef.dernierApercu = mRef.texte; thManipotBenef.dateDernierMessage = mRef.dateCreation; thManipotBenef.nonLus = (thManipotBenef.nonLus || 0) + 1;
+      }
+    }
+    saveDB();
+    return ok({ message: 'Traité' });
+  }));
+
 
   // ═════════════════════ Repli générique ═════════════════════════════
   // Pour tout endpoint non explicitement simulé ci-dessus (notamment les
