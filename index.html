@@ -3,34 +3,34 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<meta name="theme-color" content="#059669"/>
+<meta name="theme-color" content="#0E8A45"/>
 <title>ManiPay — Applications</title>
 <link rel="icon" type="image/png" href="logo-principal-192.png"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:linear-gradient(160deg,#ecfdf5 0%,#f9fafb 60%);color:#0f172a;min-height:100vh;padding:48px 20px 80px}
+body{font-family:'Instrument Sans',system-ui,sans-serif;background:linear-gradient(160deg,#F0FAF4 0%,#F7F9F8 60%);color:#0A1F14;min-height:100vh;padding:48px 20px 80px}
 .wrap{max-width:920px;margin:0 auto}
 header{text-align:center;margin-bottom:44px}
 header img{width:88px;height:88px;object-fit:contain;border-radius:22px;box-shadow:0 12px 32px rgba(5,150,105,.2);margin-bottom:16px}
-h1{font-size:28px;font-weight:900}
-p.lead{color:#475569;font-size:14.5px;margin-top:8px;max-width:560px;margin-left:auto;margin-right:auto}
+h1{font-family:'Outfit',sans-serif;font-size:28px;font-weight:700;letter-spacing:-.02em}
+p.lead{color:#4E6157;font-size:14.5px;margin-top:8px;max-width:560px;margin-left:auto;margin-right:auto}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
-a.card{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:26px 20px;border-radius:20px;background:#fff;border:1px solid #e2e8f0;box-shadow:0 2px 8px rgba(15,23,42,.05);text-decoration:none;color:inherit;transition:transform .15s ease,box-shadow .15s ease}
+a.card{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:26px 20px;border-radius:20px;background:#fff;border:1px solid #E3EAE5;box-shadow:0 2px 8px rgba(15,23,42,.05);text-decoration:none;color:inherit;transition:transform .15s ease,box-shadow .15s ease}
 a.card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(15,23,42,.12)}
 a.card img{width:64px;height:64px;object-fit:contain;border-radius:16px}
-a.card .name{font-weight:800;font-size:15.5px}
-a.card .role{font-size:12px;font-weight:700;letter-spacing:.02em;padding:4px 10px;border-radius:999px;color:#fff}
-footer{text-align:center;margin-top:56px;font-size:12.5px;color:#94a3b8}
-footer a{color:#059669;text-decoration:none}
-.demo-box{max-width:760px;margin:0 auto 40px;background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:22px 26px;box-shadow:0 2px 8px rgba(15,23,42,.05)}
-.demo-box h2{font-size:15px;font-weight:800;margin-bottom:10px}
+a.card .name{font-family:'Outfit',sans-serif;font-weight:600;font-size:15.5px}
+a.card .role{font-family:'Geist Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.12em;padding:4px 11px;border-radius:999px;color:#fff}
+footer{text-align:center;margin-top:56px;font-size:12.5px;color:#9AAAA1}
+footer a{color:#0E8A45;text-decoration:none}
+.demo-box{max-width:760px;margin:0 auto 40px;background:#fff;border:1px solid #E3EAE5;border-radius:18px;padding:22px 26px;box-shadow:0 2px 8px rgba(15,23,42,.05)}
+.demo-box h2{font-size:15px;font-weight:700;margin-bottom:10px}
 .demo-box table{width:100%;border-collapse:collapse;font-size:13px}
-.demo-box td{padding:6px 4px;border-bottom:1px solid #f1f5f9}
-.demo-box td.role{font-weight:700;color:#059669;white-space:nowrap}
-.demo-box td.tel{font-family:ui-monospace,monospace;color:#334155}
-.demo-box .pin{margin-top:10px;font-size:12.5px;color:#64748b}
-.demo-box .pin b{color:#0f172a;font-family:ui-monospace,monospace}
+.demo-box td{padding:6px 4px;border-bottom:1px solid #F7F9F8}
+.demo-box td.role{font-weight:700;color:#0E8A45;white-space:nowrap}
+.demo-box td.tel{font-family:'Geist Mono',monospace;color:#33473C;letter-spacing:.02em}
+.demo-box .pin{margin-top:10px;font-size:12.5px;color:#4E6157}
+.demo-box .pin b{color:#0A1F14;font-family:ui-monospace,monospace}
 </style>
 </head>
 <body>
@@ -42,7 +42,7 @@ footer a{color:#059669;text-decoration:none}
   </header>
 
   <div class="demo-box">
-    <h2>🧪 Mode démo — comptes de test</h2>
+    <h2 style="display:flex;align-items:center;gap:8px"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="3.1"/><path d="M19.6 14.6a1.6 1.6 0 0 0 .3 1.8l.1.1a1.9 1.9 0 1 1-2.7 2.7l-.1-.1a1.6 1.6 0 0 0-2.7 1.1v.3a1.9 1.9 0 1 1-3.8 0v-.2a1.6 1.6 0 0 0-2.8-1.1l-.1.1a1.9 1.9 0 1 1-2.7-2.7l.1-.1a1.6 1.6 0 0 0-1.1-2.7h-.2a1.9 1.9 0 1 1 0-3.8h.2a1.6 1.6 0 0 0 1.1-2.8l-.1-.1a1.9 1.9 0 1 1 2.7-2.7l.1.1a1.6 1.6 0 0 0 2.7-1.1v-.2a1.9 1.9 0 1 1 3.8 0v.2a1.6 1.6 0 0 0 2.7 1.1l.1-.1a1.9 1.9 0 1 1 2.7 2.7l-.1.1a1.6 1.6 0 0 0 1.1 2.7h.2a1.9 1.9 0 1 1 0 3.8h-.2a1.6 1.6 0 0 0-1.5 1.1Z"/></svg>Mode démo — comptes de test</h2>
     <table>
       <tr><td class="role">Admin</td><td class="tel">+2250700000001</td></tr>
       <tr><td class="role">Superviseur</td><td class="tel">+2250700000002</td></tr>
@@ -53,39 +53,39 @@ footer a{color:#059669;text-decoration:none}
       <tr><td class="role">Client (tontine active)</td><td class="tel">+2250705001004</td></tr>
       <tr><td class="role">Business</td><td class="tel">+2250706001001</td></tr>
     </table>
-    <p class="pin">PIN de connexion pour tous les comptes : <b>1234</b>. Les données sont simulées et conservées dans le navigateur (aucun serveur réel) — un bandeau en bas d'écran permet de les réinitialiser.</p>
+    <p class="pin">PIN de connexion pour tous les comptes : <b>1234</b>. Les données sont simulées et conservées dans le navigateur (aucun serveur réel) — la pastille « Démo » en haut à droite permet de les réinitialiser.</p>
   </div>
 
   <div class="grid">
     <a class="card" href="manipay-client.html">
       <img src="icon-client-192.png" alt="Client"/>
       <div class="name">Client</div>
-      <span class="role" style="background:#059669">CLIENT</span>
+      <span class="role" style="background:#0E8A45">CLIENT</span>
     </a>
     <a class="card" href="manipay-agent.html">
       <img src="icon-agent-192.png" alt="Agent"/>
       <div class="name">Agent</div>
-      <span class="role" style="background:#d97706">AGENT</span>
+      <span class="role" style="background:#B54708">AGENT</span>
     </a>
     <a class="card" href="manipay-business.html">
       <img src="icon-business-192.png" alt="Business"/>
       <div class="name">Business</div>
-      <span class="role" style="background:#DA7756">BUSINESS</span>
+      <span class="role" style="background:#1849A9">BUSINESS</span>
     </a>
     <a class="card" href="manipay-minimaster.html">
       <img src="icon-minimaster-192.png" alt="Mini-Master"/>
       <div class="name">Mini-Master</div>
-      <span class="role" style="background:#006400">MINI-MASTER</span>
+      <span class="role" style="background:#6941C6">MINI-MASTER</span>
     </a>
     <a class="card" href="manipay-master.html">
       <img src="icon-master-192.png" alt="Master"/>
       <div class="name">Master</div>
-      <span class="role" style="background:#006400">MASTER</span>
+      <span class="role" style="background:#B78103">MASTER</span>
     </a>
     <a class="card" href="manipay-backoffice.html">
       <img src="icon-backoffice-192.png" alt="Back-Office"/>
       <div class="name">Back-Office</div>
-      <span class="role" style="background:#ca8a04">BACK-OFFICE</span>
+      <span class="role" style="background:#0E8A45">BACK-OFFICE</span>
     </a>
   </div>
 

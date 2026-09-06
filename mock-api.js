@@ -2140,12 +2140,28 @@
   function injectBanner() {
     try {
       if (document.getElementById('__manipay_demo_banner')) return;
+      // Pastille discrète en haut à droite : elle ne recouvre plus la barre de
+      // navigation. Un appui la déplie pour révéler le détail et la remise à zéro.
       var b = document.createElement('div');
       b.id = '__manipay_demo_banner';
-      b.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:999999;background:#0f172a;color:#fff;font:600 11px/1.5 -apple-system,sans-serif;padding:7px 12px;text-align:center;box-shadow:0 -2px 10px rgba(0,0,0,.15)';
-      b.innerHTML = '🧪 Mode démo — application connectée à des données simulées dans ce navigateur (aucun serveur réel) · '
-        + '<span id="__manipay_reset_demo" style="text-decoration:underline;cursor:pointer">Réinitialiser les données</span>';
+      b.style.cssText = 'position:fixed;top:8px;right:8px;z-index:999999;max-width:min(320px,calc(100vw - 16px));'
+        + 'font-family:Geist Mono,ui-monospace,monospace;pointer-events:none';
+      b.innerHTML =
+          '<button id="__manipay_demo_tag" aria-expanded="false" style="pointer-events:auto;margin-left:auto;display:block;'
+        + 'background:rgba(10,31,20,.72);color:#fff;border:none;border-radius:999px;padding:4px 10px;'
+        + 'font:600 9px Geist Mono,ui-monospace,monospace;letter-spacing:.14em;cursor:pointer;backdrop-filter:blur(6px)">DÉMO</button>'
+        + '<div id="__manipay_demo_detail" hidden style="pointer-events:auto;margin-top:6px;background:rgba(10,31,20,.94);color:#fff;'
+        + 'border-radius:12px;padding:11px 13px;font:400 11px/1.55 Instrument Sans,system-ui,sans-serif;box-shadow:0 6px 20px rgba(10,31,20,.28)">'
+        + 'Données simulées dans ce navigateur, aucun serveur réel.'
+        + '<span id="__manipay_reset_demo" style="display:block;margin-top:7px;color:#6EE7A0;font-weight:600;text-decoration:underline;cursor:pointer">Réinitialiser les données</span>'
+        + '</div>';
       document.body.appendChild(b);
+      var tag = document.getElementById('__manipay_demo_tag');
+      var det = document.getElementById('__manipay_demo_detail');
+      tag.onclick = function () {
+        det.hidden = !det.hidden;
+        tag.setAttribute('aria-expanded', det.hidden ? 'false' : 'true');
+      };
       document.getElementById('__manipay_reset_demo').onclick = function () {
         try { localStorage.removeItem(DB_KEY); localStorage.removeItem('mani_token'); localStorage.removeItem('mani_refresh'); localStorage.removeItem('mani_user'); } catch (e) {}
         location.reload();
