@@ -106,9 +106,8 @@ html,body{height:100%;background:#F7F9F8;font-family:'Instrument Sans',sans-seri
 .sp-halo{position:absolute;right:-90px;top:12%;width:300px;height:300px;border-radius:50%;
   background:radial-gradient(circle at 35% 35%,rgba(251,176,52,.30),rgba(251,176,52,0) 66%)}
 .sp-centre{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;position:relative}
-.sp-logo{width:112px;height:112px;border-radius:32px;background:#fff;display:flex;align-items:center;justify-content:center;
-  box-shadow:0 18px 44px rgba(0,0,0,.26);animation:spLogo .5s cubic-bezier(.16,1,.3,1) both}
-.sp-logo img{width:96px;height:96px;object-fit:contain}
+.sp-logo{width:118px;height:118px;border-radius:27px;background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 18px 44px rgba(0,0,0,.26);animation:spLogo .5s cubic-bezier(.16,1,.3,1) both}
+.sp-logo img{width:100%;height:100%;object-fit:cover;display:block}
 @keyframes spLogo{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
 .sp-baseline{font:600 15.5px 'Outfit',sans-serif;color:rgba(255,255,255,.9);text-align:center;
   animation:spTxt .5s .12s cubic-bezier(.16,1,.3,1) both}
@@ -407,7 +406,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
 
 <div class="wave-qr-popup" id="wave-qr-popup">
   <div id="wqr-scanner" style="flex:1;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;">
-    <button onclick="fermerPopupQR()" style="position:absolute;top:20px;left:20px;background:rgba(255,255,255,.15);border:none;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;font-size:20px;color:#fff">←</button>
+    <button onclick="fermerPopupQR()" style="position:absolute;top:20px;left:20px;background:rgba(255,255,255,.15);border:none;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;color:#fff"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg></button>
     <button id="wqr-flash-btn" onclick="toggleFlash()" style="position:absolute;top:20px;right:20px;background:rgba(255,255,255,.15);border:none;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M9 3.5h6l1 4H8Z"/><path d="M8.5 7.5h7v3.2a1.6 1.6 0 0 1-1.6 1.6h-3.8a1.6 1.6 0 0 1-1.6-1.6Z"/><path d="M12 12.3v4.4"/><rect x="10.2" y="16.7" width="3.6" height="4" rx="1.2"/></svg></button>
     
     <canvas id="wqr-canvas" style="display:none"></canvas>
@@ -426,7 +425,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
     <button class="wave-tab-btn" id="wtab-carte" onclick="wqrTab('carte')">Mon QR</button>
   </div>
   <div id="wqr-carte" style="display:none;flex:1;background:#fff;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;position:relative;">
-    <button onclick="fermerPopupQR()" style="position:absolute;top:20px;left:20px;background:#E3EAE5;border:none;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px">←</button>
+    <button onclick="fermerPopupQR()" style="position:absolute;top:20px;left:20px;background:#E3EAE5;border:none;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg></button>
     <div style="background:linear-gradient(135deg,var(--a2),var(--a));border-radius:20px;padding:20px;text-align:center;width:100%;max-width:280px;">
       <div style="background:#fff;border-radius:12px;padding:12px;margin-bottom:12px;">
         <div id="wqr-carte-canvas" style="width:200px;height:200px;margin:0 auto"></div>
@@ -552,7 +551,7 @@ function setTab(t){
       <div id="err-login" class="info info-r" style="display:none"></div>
       <span class="lbl">Numéro de téléphone</span>
       <div style="margin-bottom:14px"><input class="inp" id="lg-tel" type="tel" placeholder="+225 07 XX XX XX" oninput="document.getElementById('lg-btn').disabled=this.value.replace(/\D/g,'').length<8"/></div>
-      <button class="btn btn-a" id="lg-btn" disabled onclick="goPin()">Continuer →</button>
+      <button class="btn btn-a" id="lg-btn" disabled onclick="goPin()">Continuer<span style="display:inline-flex;vertical-align:-2px;margin-left:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
     </div>
     <div style="text-align:center;margin-top:16px;font-size:12px">
       <a onclick="S('s-recovery')" style="color:var(--m);font-weight:600;cursor:pointer;text-decoration:underline">J'ai perdu l'accès à mon compte</a>
@@ -562,7 +561,7 @@ function setTab(t){
 
 <div class="scr" id="s-recovery" style="align-items:center;justify-content:center;padding:40px 22px;min-height:100vh;background:#fff">
   <div style="width:100%;max-width:360px">
-    <button onclick="S('s-login')" style="background:none;border:none;color:var(--m);font-size:13px;font-weight:600;cursor:pointer;margin-bottom:24px;font-family:inherit">← Retour</button>
+    <button onclick="S('s-login')" style="background:none;border:none;color:var(--m);font-size:13px;font-weight:600;cursor:pointer;margin-bottom:24px;font-family:inherit"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg></span>Retour</button>
     <div style="text-align:center;margin-bottom:24px">
       <div style="display:flex;align-items:center;justify-content:center;margin-bottom:10px"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="8" cy="15.5" r="3.5"/><path d="m10.6 13 8-8"/><path d="m15.5 8 2.2 2.2"/><path d="m18.2 5.3 2.3 2.3"/></svg></div>
       <div style="font-size:20px;font-weight:700;font-family:Outfit,sans-serif;letter-spacing:-.015em">Récupérer mon compte</div>
@@ -584,7 +583,7 @@ function setTab(t){
 <!-- PIN -->
 <div class="scr" id="s-pin" style="align-items:center;justify-content:center;padding:40px 22px;min-height:100vh">
   <div style="width:100%;max-width:360px">
-    <button onclick="S('s-login')" style="background:none;border:none;color:var(--m);cursor:pointer;font-size:13px;margin-bottom:24px;font-family:'Instrument Sans',sans-serif">← Retour</button>
+    <button onclick="S('s-login')" style="background:none;border:none;color:var(--m);cursor:pointer;font-size:13px;margin-bottom:24px;font-family:'Instrument Sans',sans-serif"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg></span>Retour</button>
     <div style="text-align:center;margin-bottom:28px">
       <div style="font-size:24px;font-weight:700;font-family:Outfit,sans-serif;letter-spacing:-.015em">Code PIN</div>
       <div style="color:var(--m);font-size:12px;margin-top:4px" id="pin-sub"></div>
@@ -615,7 +614,7 @@ function setTab(t){
     <div id="dv-loading" style="display:none;padding:12px"><div class="spin"></div></div>
     <button class="btn btn-a" id="dv-btn" onclick="confirmerVerifAppareil()" style="width:100%;margin-bottom:12px">Confirmer</button>
     <div style="font-size:11px;color:var(--m)">Aucun accès à vos autres appareils ? <a href="https://wa.me/2250565438015?text=Bonjour%2C%20j%27ai%20besoin%20d%27aide%20pour%20v%C3%A9rifier%20mon%20identit%C3%A9%20et%20d%C3%A9bloquer%20mon%20compte%20ManiPay" target="_blank" style="color:var(--a);font-weight:700">Contacter le support</a></div>
-    <button onclick="S('s-pin')" style="background:none;border:none;color:var(--m);font-size:13px;font-weight:600;cursor:pointer;margin-top:20px;font-family:inherit">← Retour</button>
+    <button onclick="S('s-pin')" style="background:none;border:none;color:var(--m);font-size:13px;font-weight:600;cursor:pointer;margin-top:20px;font-family:inherit"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg></span>Retour</button>
   </div>
 </div>
 
@@ -686,12 +685,12 @@ function setTab(t){
     <div style="font-size:11px;font-weight:600;color:#B78103;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px">OPÉRATIONS RAPIDES</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
       <button onclick="ouvrirDepot()" style="background:#fff;border:2px solid #B78103;border-radius:16px;padding:16px 12px;cursor:pointer;text-align:center;box-shadow:0 2px 8px rgba(10,31,20,.08)">
-        <div style="width:38px;height:38px;border-radius:12px;background:#B78103;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:18px;color:#fff">↓</div>
+        <div style="width:38px;height:38px;border-radius:12px;background:#B78103;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;color:#fff"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 4v9"/><path d="m8.5 9.5 3.5 3.5 3.5-3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></div>
         <div style="font-size:13px;font-weight:600;color:#005000">Dépôt Client</div>
         <div style="font-size:10px;color:#00C000;margin-top:2px">Commission journalière</div>
       </button>
       <button onclick="ouvrirRetrait()" style="background:#fff;border:2px solid #DC8A00;border-radius:16px;padding:16px 12px;cursor:pointer;text-align:center;box-shadow:0 2px 8px rgba(10,31,20,.08)">
-        <div style="width:38px;height:38px;border-radius:12px;background:#ea580c;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:18px;color:#fff">↑</div>
+        <div style="width:38px;height:38px;border-radius:12px;background:#ea580c;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;color:#fff"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 13V4"/><path d="m8.5 7.5 3.5-3.5 3.5 3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></div>
         <div style="font-size:13px;font-weight:600;color:#7c2d12">Retrait Client</div>
         <div style="font-size:10px;color:#ea580c;margin-top:2px">Commission journalière</div>
       </button>
@@ -703,7 +702,7 @@ function setTab(t){
         <div style="font-size:10px;color:#ca8a04;margin-top:2px">Agent · Mini-Master · Client · Business</div>
       </button>
       <button onclick="openSh('transfert')" style="background:#fff;border:2px solid #1570EF;border-radius:16px;padding:16px 12px;cursor:pointer;text-align:center;box-shadow:0 2px 8px rgba(10,31,20,.08)">
-        <div style="width:38px;height:38px;border-radius:12px;background:#1570EF;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:18px;color:#fff">⇄</div>
+        <div style="width:38px;height:38px;border-radius:12px;background:#1570EF;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;color:#fff"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M4 8h13"/><path d="m14 5 3 3-3 3"/><path d="M20 16H7"/><path d="m10 13-3 3 3 3"/></svg></div>
         <div style="font-size:13px;font-weight:600;color:#1e3a8a">Transfert</div>
         <div style="font-size:10px;color:#1570EF;margin-top:2px">Liquidité · Gratuit</div>
       </button>
@@ -903,9 +902,9 @@ function setTab(t){
       <button id="stp-year" onclick="setStatPeriod('year')" style="background:transparent;border:1px solid rgba(255,255,255,.4);border-radius:20px;color:rgba(255,255,255,.8);font-size:10px;font-weight:600;padding:4px 8px;cursor:pointer">Année</button>
     </div>
     <div style="display:flex;gap:4px;margin-top:8px;overflow-x:auto;padding-bottom:2px">
-      <button id="stab-depot" onclick="setStatTab('depot')" style="background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.6);border-radius:20px;color:#fff;font-size:10px;font-weight:600;padding:4px 10px;cursor:pointer;white-space:nowrap;flex-shrink:0">↓ D&#233;p&#244;ts</button>
-      <button id="stab-retrait" onclick="setStatTab('retrait')" style="background:transparent;border:1px solid rgba(255,255,255,.3);border-radius:20px;color:rgba(255,255,255,.7);font-size:10px;font-weight:600;padding:4px 10px;cursor:pointer;white-space:nowrap;flex-shrink:0">↑ Retraits</button>
-      <button id="stab-transfert" onclick="setStatTab('transfert')" style="background:transparent;border:1px solid rgba(255,255,255,.3);border-radius:20px;color:rgba(255,255,255,.7);font-size:10px;font-weight:600;padding:4px 10px;cursor:pointer;white-space:nowrap;flex-shrink:0">⇄ Transferts</button>
+      <button id="stab-depot" onclick="setStatTab('depot')" style="background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.6);border-radius:20px;color:#fff;font-size:10px;font-weight:600;padding:4px 10px;cursor:pointer;white-space:nowrap;flex-shrink:0"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 4v9"/><path d="m8.5 9.5 3.5 3.5 3.5-3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></span>D&#233;p&#244;ts</button>
+      <button id="stab-retrait" onclick="setStatTab('retrait')" style="background:transparent;border:1px solid rgba(255,255,255,.3);border-radius:20px;color:rgba(255,255,255,.7);font-size:10px;font-weight:600;padding:4px 10px;cursor:pointer;white-space:nowrap;flex-shrink:0"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 13V4"/><path d="m8.5 7.5 3.5-3.5 3.5 3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></span>Retraits</button>
+      <button id="stab-transfert" onclick="setStatTab('transfert')" style="background:transparent;border:1px solid rgba(255,255,255,.3);border-radius:20px;color:rgba(255,255,255,.7);font-size:10px;font-weight:600;padding:4px 10px;cursor:pointer;white-space:nowrap;flex-shrink:0"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M4 8h13"/><path d="m14 5 3 3-3 3"/><path d="M20 16H7"/><path d="m10 13-3 3 3 3"/></svg></span>Transferts</button>
       <button id="stab-comm" onclick="setStatTab('comm')" style="background:transparent;border:1px solid rgba(255,255,255,.3);border-radius:20px;color:rgba(255,255,255,.7);font-size:10px;font-weight:600;padding:4px 10px;cursor:pointer;white-space:nowrap;flex-shrink:0"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19"/><path d="M6.5 15h3"/></svg></span>Comm.</button>
       <button id="stab-gains" onclick="setStatTab('gains')" style="background:transparent;border:1px solid rgba(255,255,255,.3);border-radius:20px;color:rgba(255,255,255,.7);font-size:10px;font-weight:600;padding:4px 10px;cursor:pointer;white-space:nowrap;flex-shrink:0"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 3.2 5 6v5.4c0 4.2 2.8 7.6 7 9.4 4.2-1.8 7-5.2 7-9.4V6Z"/><circle cx="12" cy="10.2" r="2.1"/><path d="M8.6 16.4a3.7 3.7 0 0 1 6.8 0"/></svg></span>Gains</button>
     </div>
@@ -1034,7 +1033,7 @@ function setTab(t){
     <div id="trf-loading" style="display:none;text-align:center;padding:20px"><div class="spin"></div></div>
     <div id="trf-form-btns" style="display:flex;gap:8px">
       <button class="btn btn-ghost" style="flex:1" onclick="closeSh('transfert');rstTrf()">Annuler</button>
-      <button class="btn btn-a" id="trf-btn-valider" style="flex:2" disabled onclick="doTransfert(this)">Continuer →</button>
+      <button class="btn btn-a" id="trf-btn-valider" style="flex:2" disabled onclick="doTransfert(this)">Continuer<span style="display:inline-flex;vertical-align:-2px;margin-left:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
     </div>
     <div id="trf-success" style="display:none"></div>
   </div>
@@ -1110,7 +1109,7 @@ function setTab(t){
       <div id="ins-fields"></div>
       <div id="ins-photos" style="margin-bottom:14px"></div>
       <div style="display:flex;gap:8px">
-        <button class="btn btn-ghost" style="flex:1" onclick="closeSh('inscription');rstIns()">← Retour</button>
+        <button class="btn btn-ghost" style="flex:1" onclick="closeSh('inscription');rstIns()"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg></span>Retour</button>
         <button class="btn btn-a" style="flex:2" id="btn-ins" onclick="doInscrire()">Créer le compte</button>
       </div>
     </div>
@@ -1616,7 +1615,7 @@ function nouveauSopTrf(){if(_sopTrfClient)ouvrirScreenTransfert(_sopTrfClient);e
 async function doTransfert(btn){
   if(btn){btn.disabled=true;btn.textContent='...';}
   var tel=document.getElementById('trf-tel').value.trim();
-  if(!tel){T('Numéro requis',true);if(btn){btn.disabled=false;btn.textContent='Continuer →';}return;}
+  if(!tel){T('Numéro requis',true);if(btn){btn.disabled=false;btn.textContent='Continuer';}return;}
   document.getElementById('trf-loading').style.display='';
   document.getElementById('trf-form-btns').style.display='none';
   try{
@@ -1629,11 +1628,11 @@ async function doTransfert(btn){
   }catch(e){
     document.getElementById('trf-loading').style.display='none';
     document.getElementById('trf-form-btns').style.display='';
-    if(btn){btn.disabled=false;btn.textContent='Continuer →';}
+    if(btn){btn.disabled=false;btn.textContent='Continuer';}
     document.getElementById('trf-err').textContent=e.message;document.getElementById('trf-err').style.display='';
   }
 }
-function rstTrf(){document.getElementById('trf-tel').value='';document.getElementById('trf-loading').style.display='none';document.getElementById('trf-success').style.display='none';document.getElementById('trf-err').style.display='none';document.getElementById('trf-form-btns').style.display='';var b=document.getElementById('trf-btn-valider');if(b){b.disabled=false;b.textContent='Continuer →';}}
+function rstTrf(){document.getElementById('trf-tel').value='';document.getElementById('trf-loading').style.display='none';document.getElementById('trf-success').style.display='none';document.getElementById('trf-err').style.display='none';document.getElementById('trf-form-btns').style.display='';var b=document.getElementById('trf-btn-valider');if(b){b.disabled=false;b.textContent='Continuer';}}
 
 //  LOGIN 
 function goPin(){G.pin='';document.getElementById('pin-sub').textContent=document.getElementById('lg-tel').value;document.getElementById('err-pin').style.display='none';rDots();S('s-pin');}
@@ -1854,7 +1853,7 @@ setInterval(function(){
   pollNotificationsAgent();
 },20000);
 
-var TX_CFG={depot:{c:'#B78103',i:'↓',l:'D&#233;p&#244;t'},retrait:{c:'#DC8A00',i:'↑',l:'Retrait'},transfert:{c:'#1570EF',i:'⇄',l:'Transfert'},paiement_marchand:{c:'#8B6BE0',i:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/></svg>',l:'Paiement'},commission:{c:'#B78103',i:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="m12 3.5 2.7 5.6 6.1.8-4.4 4.3 1.1 6.1-5.5-2.9-5.5 2.9 1.1-6.1L3.2 9.9l6.1-.8Z"/></svg>',l:'Commission'},commission_depot:{c:'#B78103',i:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="m12 3.5 2.7 5.6 6.1.8-4.4 4.3 1.1 6.1-5.5-2.9-5.5 2.9 1.1-6.1L3.2 9.9l6.1-.8Z"/></svg>',l:'Comm. dépôt'}};
+var TX_CFG={depot:{c:'#B78103',i:'<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 4v9"/><path d="m8.5 9.5 3.5 3.5 3.5-3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>',l:'D&#233;p&#244;t'},retrait:{c:'#DC8A00',i:'<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 13V4"/><path d="m8.5 7.5 3.5-3.5 3.5 3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>',l:'Retrait'},transfert:{c:'#1570EF',i:'<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M4 8h13"/><path d="m14 5 3 3-3 3"/><path d="M20 16H7"/><path d="m10 13-3 3 3 3"/></svg>',l:'Transfert'},paiement_marchand:{c:'#8B6BE0',i:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/></svg>',l:'Paiement'},commission:{c:'#B78103',i:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="m12 3.5 2.7 5.6 6.1.8-4.4 4.3 1.1 6.1-5.5-2.9-5.5 2.9 1.1-6.1L3.2 9.9l6.1-.8Z"/></svg>',l:'Commission'},commission_depot:{c:'#B78103',i:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="m12 3.5 2.7 5.6 6.1.8-4.4 4.3 1.1 6.1-5.5-2.9-5.5 2.9 1.1-6.1L3.2 9.9l6.1-.8Z"/></svg>',l:'Comm. dépôt'}};
 
 function txRow(tx){
   var cid=G.compte?String(G.compte.id):'';
@@ -1865,21 +1864,21 @@ function txRow(tx){
   var label, icon, color, sign, amtColor;
   if(type==='remboursement'){
     var isRembRecu=cDst===cid;
-    label=isRembRecu?'↩ Remboursement reçu':'↩ Remboursement débité';
-    icon='↩'; color='#1570EF';
+    label=isRembRecu?'<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20 11.5a8 8 0 1 0-2.4 5.7"/><path d="M20 6.5v5h-5"/></svg></span>Remboursement reçu':'<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20 11.5a8 8 0 1 0-2.4 5.7"/><path d="M20 6.5v5h-5"/></svg></span>Remboursement débité';
+    icon='<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20 11.5a8 8 0 1 0-2.4 5.7"/><path d="M20 6.5v5h-5"/></svg>'; color='#1570EF';
     sign=isRembRecu?'+':'−'; amtColor=isRembRecu?'#B78103':'#D92D20';
   } else if(type==='depot'){
     // D&#233;p&#244;t client = l'agent débourse de sa liquidité → SORTIE
-    label='D&#233;p&#244;t client'; icon='↓'; color='#B78103';
+    label='D&#233;p&#244;t client'; icon='<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 4v9"/><path d="m8.5 9.5 3.5 3.5 3.5-3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>'; color='#B78103';
     sign='−'; amtColor='#D92D20';
   } else if(type==='retrait'){
     // Retrait client = l'agent reçoit de la liquidité → ENTRÉE
-    label='Retrait client'; icon='↑'; color='#DC8A00';
+    label='Retrait client'; icon='<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 13V4"/><path d="m8.5 7.5 3.5-3.5 3.5 3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>'; color='#DC8A00';
     sign='+'; amtColor='#B78103';
   } else if(type==='transfert'){
     var isSrc=cSrc===cid;
     label=isSrc?'Transfert envoyé':'Transfert reçu';
-    icon=isSrc?'→':'←';
+    icon=isSrc?'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>':'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>';
     color='#1570EF';
     sign=isSrc?'−':'+';
     amtColor=isSrc?'#D92D20':'#B78103';
@@ -2131,7 +2130,7 @@ async function chargerCommissions(){
       +'<div style="font-size:11px;color:#4E6157">Commissions d&#39;hier et avant · En attente de virement</div>'
     +'</div>';
     h+='<div style="background:#fff;border:1.5px solid #E3EAE5;border-radius:16px;padding:14px;margin-bottom:14px">'
-      +'<div style="font-size:13px;font-weight:600;color:#4E6157;margin-bottom:4px">&#128184; Virer vers mon compte</div>'
+      +'<div style="font-size:13px;font-weight:600;color:#4E6157;margin-bottom:4px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 19V6"/><path d="m5.5 12.5 6.5-7 6.5 7"/><path d="M4 21h16"/></svg></span>Virer vers mon compte</div>'
       +'<div style="font-size:12px;color:#4E6157;margin-bottom:10px">Disponible : <strong style="color:#B78103">'+F(disponible)+'</strong></div>'
       +'<div style="display:flex;gap:8px">'
       +'<input id="comm-vir-input" type="number" placeholder="Montant en FCFA" style="flex:1;border:1.5px solid #E3EAE5;border-radius:10px;padding:10px 12px;font-size:14px;outline:none">'
@@ -2221,13 +2220,13 @@ async function chargerGains(){
     var h='';
 
     h+='<div style="background:linear-gradient(135deg,#064e3b,#0E8A45);border-radius:20px;padding:16px 18px;margin-bottom:14px;color:#fff">'
-      +'<div style="font-size:10px;font-weight:600;opacity:.65;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px">\u23f3 Gains d\u2019aujourd\u2019hui \u00b7 Non virables avant minuit</div>'
+      +'<div style="font-size:10px;font-weight:600;opacity:.65;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="8.8"/><path d="M12 7.2V12l3.2 1.9"/></svg></span>Gains d\u2019aujourd\u2019hui \u00b7 Non virables avant minuit</div>'
       +'<div style="font-size:22px;font-weight:700;font-family:Outfit,sans-serif;margin-bottom:10px">'+F(totalAuj)+'</div>'
       +'<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px">'
-        +'<div style="background:rgba(10,31,20,.2);border-radius:10px;padding:9px;text-align:center"><div style="font-size:9px;opacity:.7;text-transform:uppercase;margin-bottom:2px">\uD83E\uDD1D Parrain.</div><div style="font-size:13px;font-weight:600">'+F(parrAuj)+'</div></div>'
-        +'<div style="background:rgba(10,31,20,.2);border-radius:10px;padding:9px;text-align:center"><div style="font-size:9px;opacity:.7;text-transform:uppercase;margin-bottom:2px">\uD83D\uDD37 Mini-M.</div><div style="font-size:13px;font-weight:600">'+F(mmAuj)+'</div></div>'
-        +'<div style="background:rgba(10,31,20,.2);border-radius:10px;padding:9px;text-align:center"><div style="font-size:9px;opacity:.7;text-transform:uppercase;margin-bottom:2px">\uD83D\uDD36 Agents</div><div style="font-size:13px;font-weight:600">'+F(agAuj)+'</div></div>'
-        +'<div style="background:rgba(10,31,20,.2);border-radius:10px;padding:9px;text-align:center"><div style="font-size:9px;opacity:.7;text-transform:uppercase;margin-bottom:2px">\uD83C\uDFEA Business</div><div style="font-size:13px;font-weight:600">'+F(bizAuj)+'</div></div>'
+        +'<div style="background:rgba(10,31,20,.2);border-radius:10px;padding:9px;text-align:center"><div style="font-size:9px;opacity:.7;text-transform:uppercase;margin-bottom:2px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 3.2 5 6v5.4c0 4.2 2.8 7.6 7 9.4 4.2-1.8 7-5.2 7-9.4V6Z"/><circle cx="12" cy="10.2" r="2.1"/><path d="M8.6 16.4a3.7 3.7 0 0 1 6.8 0"/></svg></span>Parrain.</div><div style="font-size:13px;font-weight:600">'+F(parrAuj)+'</div></div>'
+        +'<div style="background:rgba(10,31,20,.2);border-radius:10px;padding:9px;text-align:center"><div style="font-size:9px;opacity:.7;text-transform:uppercase;margin-bottom:2px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/></svg></span>Mini-M.</div><div style="font-size:13px;font-weight:600">'+F(mmAuj)+'</div></div>'
+        +'<div style="background:rgba(10,31,20,.2);border-radius:10px;padding:9px;text-align:center"><div style="font-size:9px;opacity:.7;text-transform:uppercase;margin-bottom:2px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/></svg></span>Agents</div><div style="font-size:13px;font-weight:600">'+F(agAuj)+'</div></div>'
+        +'<div style="background:rgba(10,31,20,.2);border-radius:10px;padding:9px;text-align:center"><div style="font-size:9px;opacity:.7;text-transform:uppercase;margin-bottom:2px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M4 9.5V19a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 20 19V9.5"/><path d="M3 9.5 4.8 4.2A1 1 0 0 1 5.8 3.5h12.4a1 1 0 0 1 1 .7L21 9.5a2.6 2.6 0 0 1-4.5 2 2.6 2.6 0 0 1-4.5 0 2.6 2.6 0 0 1-4.5 0 2.6 2.6 0 0 1-4.5-2Z"/><path d="M9.5 20.5V14h5v6.5"/></svg></span>Business</div><div style="font-size:13px;font-weight:600">'+F(bizAuj)+'</div></div>'
       +'</div>'
       +'<div style="margin-top:8px;font-size:10px;opacity:.6;text-align:center">\u00c0 minuit, ces gains seront disponibles pour virement</div>'
     +'</div>';
@@ -2262,12 +2261,12 @@ async function chargerGains(){
           +'<div style="font-size:26px;font-weight:700;font-family:Outfit,sans-serif;color:#B78103;margin:2px 0">'+F(disponible)+'</div>'
           +'<div style="font-size:11px;color:#4E6157">Gains d\u2019hier et avant \u00b7 En attente de virement</div>'
         +'</div>'
-        +'<div style="font-size:32px">\uD83D\uDCB0</div>'
+        +'<div style="display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M3 8a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v2"/><path d="M3 8v9a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2H5"/><circle cx="16.5" cy="14" r="1.2" fill="currentColor" stroke="none"/></svg></div>'
       +'</div>'
     +'</div>';
 
     h+='<div style="background:#fff;border:1.5px solid #E3EAE5;border-radius:16px;padding:14px;margin-bottom:14px">'
-      +'<div style="font-size:13px;font-weight:600;color:#4E6157;margin-bottom:4px">\uD83D\uDCB8 Virer mes gains</div>'
+      +'<div style="font-size:13px;font-weight:600;color:#4E6157;margin-bottom:4px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 19V6"/><path d="m5.5 12.5 6.5-7 6.5 7"/><path d="M4 21h16"/></svg></span>Virer mes gains</div>'
       +'<div style="font-size:12px;color:#4E6157;margin-bottom:10px">Disponible : <strong style="color:#B78103">'+F(disponible)+'</strong></div>'
       +'<div style="display:flex;gap:8px;align-items:center">'
         +'<input id="gains-vir-input" type="number" placeholder="Montant en FCFA" style="flex:1;border:1.5px solid #E3EAE5;border-radius:10px;padding:10px 12px;font-size:14px;outline:none;color:#0A1F14">'
@@ -2277,10 +2276,10 @@ async function chargerGains(){
     +'</div>';
 
     h+='<div style="background:#fff;border:1px solid #E3EAE5;border-radius:16px;padding:14px;margin-bottom:14px">'
-      +'<div style="font-size:13px;font-weight:600;color:#4E6157;margin-bottom:8px">\uD83E\uDD1D Parrainage (10% permanent)</div>'
+      +'<div style="font-size:13px;font-weight:600;color:#4E6157;margin-bottom:8px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 3.2 5 6v5.4c0 4.2 2.8 7.6 7 9.4 4.2-1.8 7-5.2 7-9.4V6Z"/><circle cx="12" cy="10.2" r="2.1"/><path d="M8.6 16.4a3.7 3.7 0 0 1 6.8 0"/></svg></span>Parrainage (10% permanent)</div>'
       +'<div style="padding:10px;background:#FEF6E9;border-radius:10px;display:flex;align-items:center;justify-content:space-between">'
         +'<div style="font-size:12px;color:#93500A;font-weight:600">Votre code</div>'
-        +'<div id="gains-code-val" style="font-size:16px;font-weight:700;font-family:Outfit,sans-serif;color:#B78103;letter-spacing:.08em;cursor:pointer">'+codeParrainage+' \uD83D\uDCCB</div>'
+        +'<div id="gains-code-val" style="font-size:16px;font-weight:700;font-family:Outfit,sans-serif;color:#B78103;letter-spacing:.08em;cursor:pointer">'+codeParrainage+'<span style="display:inline-flex;vertical-align:-2px;margin-left:7px">'+'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><rect x="5" y="4.5" width="14" height="16" rx="2.5"/><path d="M9 4.5V3.6A1.6 1.6 0 0 1 10.6 2h2.8A1.6 1.6 0 0 1 15 3.6v.9Z"/><path d="M8.8 11h6.4"/><path d="M8.8 15h4"/></svg>'+'</span></div>'
       +'</div>'
     +'</div>';
 
@@ -2291,7 +2290,7 @@ async function chargerGains(){
         var ds=d.toLocaleDateString('fr-FR',{day:'2-digit',month:'short'})+' \u00b7 '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
         h+='<div class="tx" style="background:#F0FAF4;border:1px solid #FDE7C7">'
           +'<div style="display:flex;align-items:center;gap:10px">'
-            +'<div style="width:36px;height:36px;border-radius:10px;background:#FEF6E9;color:#8C6402;display:flex;align-items:center;justify-content:center;font-size:16px">\uD83D\uDCB8</div>'
+            +'<div style="width:36px;height:36px;border-radius:10px;background:#FEF6E9;color:#8C6402;display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 19V6"/><path d="m5.5 12.5 6.5-7 6.5 7"/><path d="M4 21h16"/></svg></div>'
             +'<div><div style="font-size:13px;font-weight:600">Virement gains</div><div style="color:var(--m);font-size:11px">'+ds+'</div>'
               +'<div style="color:var(--d);font-size:10px">'+(v.reference||'')+'</div>'
             +'</div>'
@@ -2354,9 +2353,9 @@ async function showTxDetail(txId){
 
   var type=tx.type||'';
   var typeCfg={
-    depot:{label:'D&#233;p&#244;t client',color:'#B78103',icon:'↓'},
-    retrait:{label:'Retrait client',color:'#DC8A00',icon:'↑'},
-    transfert:{label:'Transfert',color:'#1570EF',icon:'⇄'},
+    depot:{label:'D&#233;p&#244;t client',color:'#B78103',icon:'<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 4v9"/><path d="m8.5 9.5 3.5 3.5 3.5-3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>'},
+    retrait:{label:'Retrait client',color:'#DC8A00',icon:'<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 13V4"/><path d="m8.5 7.5 3.5-3.5 3.5 3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>'},
+    transfert:{label:'Transfert',color:'#1570EF',icon:'<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M4 8h13"/><path d="m14 5 3 3-3 3"/><path d="M20 16H7"/><path d="m10 13-3 3 3 3"/></svg>'},
     paiement_marchand:{label:'Paiement marchand',color:'#8B6BE0',icon:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/></svg>'},
     virement_commission:{label:'Virement commissions',color:'#B78103',icon:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19"/><path d="M6.5 15h3"/></svg>'},
     virement_gains:{label:'Virement gains',color:'#6941C6',icon:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 3.2 5 6v5.4c0 4.2 2.8 7.6 7 9.4 4.2-1.8 7-5.2 7-9.4V6Z"/><circle cx="12" cy="10.2" r="2.1"/><path d="M8.6 16.4a3.7 3.7 0 0 1 6.8 0"/></svg>'},
@@ -2432,7 +2431,7 @@ async function showTxDetail(txId){
   var estInitiateur=String(tx.compteSourceId||tx.compte_source_id||'')===monCompteId;
   var estAnnulable=['depot','transfert'].includes(type) && (tx.statut||'').toLowerCase()==='complete' && estInitiateur;
   if(estAnnulable){
-    h+='<button id="btn-annuler-tx" onclick="annulerTransaction(\'+(tx.id||txId)+\')" style="width:100%;padding:14px;background:#FEF3F2;color:#D92D20;border:1.5px solid #FBD3CE;border-radius:14px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:4px">↩️ Annuler cette op&#233;ration</button>';
+    h+='<button id="btn-annuler-tx" onclick="annulerTransaction(\'+(tx.id||txId)+\')" style="width:100%;padding:14px;background:#FEF3F2;color:#D92D20;border:1.5px solid #FBD3CE;border-radius:14px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:4px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20 11.5a8 8 0 1 0-2.4 5.7"/><path d="M20 6.5v5h-5"/></svg></span>Annuler cette op&#233;ration</button>';
     h+='<div style="font-size:10px;color:#9AAAA1;text-align:center;margin-top:6px">'+(type==='depot'?'Possible jusqu’&#224; minuit le jour m&#234;me':'Possible dans les 24h suivant l’op&#233;ration')+'</div>';
   }
 
@@ -2452,7 +2451,7 @@ async function annulerTransaction(txId){
     chargerAccueil();
   }catch(e){
     T(e.message,true);
-    if(btn){btn.disabled=false;btn.textContent='↩️ Annuler cette opération';btn.style.opacity='1';}
+    if(btn){btn.disabled=false;btn.textContent='<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20 11.5a8 8 0 1 0-2.4 5.7"/><path d="M20 6.5v5h-5"/></svg></span>Annuler cette opération';btn.style.opacity='1';}
   }
 }
 
@@ -2950,7 +2949,7 @@ var _AG_COLORS=['#B78103','#DC8A00','#1570EF','#6941C6','#D92D20','#eab308','#06
 function _drawAgStatShell(el,agents){
   var periods=[['yesterday','Hier'],['week','Semaine'],['month','Mois'],['year','Année']];
   var pBtns=periods.map(function(p){var on=p[0]===_agStatPeriod;return '<button onclick="setAgStatPeriod(\''+p[0]+'\')" style="padding:6px 10px;border-radius:20px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;'+(on?'background:#B78103;color:#fff;border:1px solid #B78103':'background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4)')+'">'+p[1]+'</button>';}).join('');
-  var types=[['depot','↓ Dépôts'],['retrait','↑ Retraits'],['trfEnv','→ Trf. envoyés'],['trfRec','← Trf. reçus'],['solde','<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M3 8a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v2"/><path d="M3 8v9a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2H5"/><circle cx="16.5" cy="14" r="1.2" fill="currentColor" stroke="none"/></svg></span>Solde']];
+  var types=[['depot','<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 4v9"/><path d="m8.5 9.5 3.5 3.5 3.5-3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></span>Dépôts'],['retrait','<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 13V4"/><path d="m8.5 7.5 3.5-3.5 3.5 3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></span>Retraits'],['trfEnv','<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M4 8h13"/><path d="m14 5 3 3-3 3"/><path d="M20 16H7"/><path d="m10 13-3 3 3 3"/></svg></span>Trf. envoyés'],['trfRec','<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg></span>Trf. reçus'],['solde','<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M3 8a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v2"/><path d="M3 8v9a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2H5"/><circle cx="16.5" cy="14" r="1.2" fill="currentColor" stroke="none"/></svg></span>Solde']];
   var tBtns=types.map(function(t){var on=t[0]===_agStatType;var col=_typeColor(t[0]);return '<button id="agstat-btn-'+t[0]+'" onclick="setAgStatType(\''+t[0]+'\')" style="padding:7px 12px;border-radius:999px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;'+(on?'background:'+col+';color:#fff;border:1px solid '+col:'background:#fff;color:#4E6157;border:1px solid #E3EAE5')+'">'+t[1]+'</button>';}).join('');
   // Légende agents
   var legend=agents.slice(0,10).map(function(a,i){return '<div style="display:flex;align-items:center;gap:5px;white-space:nowrap"><div style="width:10px;height:10px;border-radius:3px;background:'+_AG_COLORS[i%_AG_COLORS.length]+';flex-shrink:0"></div><div style="font-size:11px;color:#4E6157;overflow:hidden;text-overflow:ellipsis;max-width:90px">'+(a.prenom||'')+'</div></div>';}).join('');
@@ -4271,7 +4270,7 @@ function nouveauSopRet(){if(_sopClient.ret)ouvrirScreenRetrait(_sopClient.ret);e
       <div id="vst-step-choix" style="display:none">
         <div style="font-size:13px;font-weight:600;margin-bottom:10px">Résultats</div>
         <div id="vst-liste-resultats"></div>
-        <button class="btn btn-ghost" style="width:100%;margin-top:10px" onclick="rstVerifSignatureRecherche()">← Nouvelle recherche</button>
+        <button class="btn btn-ghost" style="width:100%;margin-top:10px" onclick="rstVerifSignatureRecherche()"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg></span>Nouvelle recherche</button>
       </div>
 
       <div id="vst-step-photos" style="display:none">
@@ -4303,7 +4302,7 @@ function nouveauSopRet(){if(_sopClient.ret)ouvrirScreenRetrait(_sopClient.ret);e
 
         <div id="vst-err-photos" style="display:none;color:var(--r);font-size:12px;margin:12px 0"></div>
         <button id="vst-btn-envoyer" class="btn btn-o" style="width:100%;margin-top:16px" onclick="envoyerSignatureTontine()">Envoyer et enregistrer</button>
-        <button class="btn btn-ghost" style="width:100%;margin-top:8px" onclick="rstVerifSignatureRecherche()">← Annuler</button>
+        <button class="btn btn-ghost" style="width:100%;margin-top:8px" onclick="rstVerifSignatureRecherche()"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg></span>Annuler</button>
       </div>
 
       <div id="vst-step-succes" style="display:none;text-align:center;padding:20px 0">
@@ -4469,15 +4468,15 @@ async function envoyerSignatureTontine(){
     <!-- Boutons op&#233;rations -->
     <div style="display:flex;flex-direction:column;gap:10px">
       <button onclick="ouvrirDepotAvecClient()" style="background:#F0FAF4;border:1.5px solid #a7f3d0;border-radius:16px;padding:16px 20px;display:flex;align-items:center;gap:14px;cursor:pointer;font-family:inherit;text-align:left">
-        <div style="width:46px;height:46px;border-radius:13px;background:rgba(14,138,69,.12);display:flex;align-items:center;justify-content:center;color:#B78103;font-size:24px;flex-shrink:0">↓</div>
+        <div style="width:46px;height:46px;border-radius:13px;background:rgba(14,138,69,.12);display:flex;align-items:center;justify-content:center;color:#B78103;flex-shrink:0"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 4v9"/><path d="m8.5 9.5 3.5 3.5 3.5-3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></div>
         <div><div style="font-size:14px;font-weight:600;color:#15803d">Effectuer un D&#233;p&#244;t</div><div style="font-size:11px;color:var(--m)">Commission journalière du montant</div></div>
       </button>
       <button onclick="ouvrirRetraitAvecClient()" style="background:#FEF6E9;border:1.5px solid #fed7aa;border-radius:16px;padding:16px 20px;display:flex;align-items:center;gap:14px;cursor:pointer;font-family:inherit;text-align:left">
-        <div style="width:46px;height:46px;border-radius:13px;background:rgba(220,138,0,.12);display:flex;align-items:center;justify-content:center;color:#DC8A00;font-size:24px;flex-shrink:0">↑</div>
+        <div style="width:46px;height:46px;border-radius:13px;background:rgba(220,138,0,.12);display:flex;align-items:center;justify-content:center;color:#DC8A00;flex-shrink:0"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 13V4"/><path d="m8.5 7.5 3.5-3.5 3.5 3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></div>
         <div><div style="font-size:14px;font-weight:600;color:#93500A">Effectuer un Retrait</div><div style="font-size:11px;color:var(--m)">Commission journalière par volume</div></div>
       </button>
       <button onclick="ouvrirTransfertAvecClient()" style="background:#EAF2FE;border:1.5px solid #C7DDFE;border-radius:16px;padding:16px 20px;display:flex;align-items:center;gap:14px;cursor:pointer;font-family:inherit;text-align:left">
-        <div style="width:46px;height:46px;border-radius:13px;background:rgba(21,112,239,.12);display:flex;align-items:center;justify-content:center;color:#1570EF;font-size:24px;flex-shrink:0">⇄</div>
+        <div style="width:46px;height:46px;border-radius:13px;background:rgba(21,112,239,.12);display:flex;align-items:center;justify-content:center;color:#1570EF;flex-shrink:0"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M4 8h13"/><path d="m14 5 3 3-3 3"/><path d="M20 16H7"/><path d="m10 13-3 3 3 3"/></svg></div>
         <div><div style="font-size:14px;font-weight:600;color:#12417F">Transfert de liquidité</div><div style="font-size:11px;color:var(--m)">Agent ↔ Agent/MM · Gratuit</div></div>
       </button>
     </div>
@@ -4503,7 +4502,7 @@ async function envoyerSignatureTontine(){
     <div class="sh-bar"></div>
     <div class="sh-top">
       <div><div class="sh-title">Frais &amp; Commission</div></div>
-      <button class="sh-x" onclick="document.getElementById('sh-paliers').classList.remove('on')">&#10005;</button>
+      <button class="sh-x" onclick="document.getElementById('sh-paliers').classList.remove('on')"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
     </div>
     <div style="padding:0 16px 24px">
       <div style="font-size:13px;color:#4E6157;margin-bottom:16px">Frais clients + comment votre commission journalière est calculée :</div>
@@ -4594,7 +4593,7 @@ async function envoyerSignatureTontine(){
       </div>
 <!-- Rappel plafonds KYC -->
       <div style="margin-top:16px;background:#FEF6E9;border:1px solid #FDE7C7;border-radius:12px;padding:12px 14px;font-size:12px;color:#93500A">
-        <div style="font-weight:700;margin-bottom:6px">&#128274; Plafonds KYC clients (gains parrainage)</div>
+        <div style="font-weight:700;margin-bottom:6px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><rect x="4.5" y="10" width="15" height="10.5" rx="2.5"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10"/><circle cx="12" cy="15.2" r="1.3" fill="currentColor" stroke="none"/></svg></span>Plafonds KYC clients (gains parrainage)</div>
         <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span>KYC 1</span><span style="font-weight:700">20 000 F/mois</span></div>
         <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span>KYC 2</span><span style="font-weight:700">50 000 F/mois</span></div>
         <div style="display:flex;justify-content:space-between"><span>KYC 3</span><span style="font-weight:700">100 000 F/mois</span></div>
@@ -4740,7 +4739,7 @@ async function envoyerSignatureTontine(){
     <!-- Phase 2 : Saisie OTP -->
     <div id="sop-ret-phase2" style="display:none">
       <div style="background:#FEF6E9;border:1.5px solid #FDE7C7;border-radius:14px;padding:16px;margin-bottom:20px">
-        <div style="font-size:15px;font-weight:600;color:#93500A;margin-bottom:6px;text-align:center;font-family:Outfit,sans-serif">&#128274; Autorisation requise</div>
+        <div style="font-size:15px;font-weight:600;color:#93500A;margin-bottom:6px;text-align:center;font-family:Outfit,sans-serif"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><rect x="4.5" y="10" width="15" height="10.5" rx="2.5"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10"/><circle cx="12" cy="15.2" r="1.3" fill="currentColor" stroke="none"/></svg></span>Autorisation requise</div>
         <div id="sop-ret-otp-info" style="font-size:12px;color:#93500A;text-align:center;margin-bottom:10px"></div>
         <div id="sop-ret-otp-photo" style="display:none;margin-bottom:10px;text-align:center">
           <div id="sop-ret-otp-photo-label" style="font-size:11px;color:#93500A;font-weight:600;margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em"></div>
@@ -4749,7 +4748,7 @@ async function envoyerSignatureTontine(){
         <div style="text-align:center;margin-bottom:10px"><span id="sop-ret-otp-timer" style="display:inline-block;background:#fff;border:1px solid #FDE7C7;border-radius:999px;padding:3px 12px;font-size:12px;font-weight:600;color:#93500A">3:00</span></div>
         <div id="sop-ret-otp-recap" style="font-size:13px;font-weight:600;color:#4E6157;text-align:center;background:rgba(10,31,20,.05);border-radius:8px;padding:8px;margin-bottom:14px"></div>
         <div style="font-size:12px;color:#4E6157;text-align:center;margin-bottom:10px">Code OTP du client :</div>
-        <input id="sop-ret-otp-input" type="number" inputmode="numeric" placeholder="&#9679;&#9679;&#9679;&#9679;" style="width:100%;border:2px solid #FDE7C7;border-radius:12px;padding:14px;font-size:30px;font-weight:700;font-family:Outfit,sans-serif;text-align:center;outline:none;color:#0A1F14;box-sizing:border-box;letter-spacing:.3em"/>
+        <input id="sop-ret-otp-input" type="number" inputmode="numeric" placeholder="••••" style="width:100%;border:2px solid #FDE7C7;border-radius:12px;padding:14px;font-size:30px;font-weight:700;font-family:Outfit,sans-serif;text-align:center;outline:none;color:#0A1F14;box-sizing:border-box;letter-spacing:.3em"/>
         <div id="sop-ret-otp-err" style="display:none;color:#D92D20;font-size:12px;margin-top:8px;text-align:center"></div>
       </div>
       <div id="sop-ret-loading2" style="display:none;text-align:center;padding:16px"><div class="spin" style="width:28px;height:28px;border-width:3px;border-top-color:#DC8A00"></div></div>
@@ -4894,7 +4893,7 @@ async function envoyerSignatureTontine(){
       </button>
     </div>
     <div id="saisie-op-loading" style="display:none;text-align:center;padding:12px"><div class="spin"></div></div>
-    <button class="btn btn-a" onclick="validerSaisieOp()">Continuer →</button>
+    <button class="btn btn-a" onclick="validerSaisieOp()">Continuer<span style="display:inline-flex;vertical-align:-2px;margin-left:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
   </div>
 </div>
 

@@ -138,6 +138,7 @@
     'crayon':         '<path d="M4 20h4l11-11-4-4L4 16Z"/><path d="m14 6 4 4"/>',
     'utilisateurs':   '<circle cx="9" cy="8.4" r="3.3"/><path d="M2.8 19.4a6.4 6.4 0 0 1 12.4 0"/><path d="M16.4 5.4a3.3 3.3 0 0 1 0 6"/><path d="M18.2 19.4a5.6 5.6 0 0 0-2.2-4.4"/>',
     'main-salut':     '<path d="M11 11V5.2a1.6 1.6 0 0 1 3.2 0V11"/><path d="M14.2 10.4V6.6a1.6 1.6 0 0 1 3.2 0v6.8"/><path d="M7.8 12.4V8.6a1.6 1.6 0 0 1 3.2 0V11"/><path d="M7.8 12.2 6.4 10.4a1.6 1.6 0 0 0-2.6 1.8l3.4 6a5.6 5.6 0 0 0 4.8 2.8h1.4a5.6 5.6 0 0 0 5.6-5.6v-2"/>',
+    'calendrier':     '<rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 9.5h17"/><path d="M8 3v4"/><path d="M16 3v4"/><circle cx="8.5" cy="13.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="12" cy="13.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="15.5" cy="13.5" r="1.1" fill="currentColor" stroke="none"/>',
     'reseau':         '<circle cx="12" cy="5" r="2.4"/><circle cx="5" cy="18" r="2.4"/><circle cx="19" cy="18" r="2.4"/><path d="m10.4 6.9-4 8.8"/><path d="m13.6 6.9 4 8.8"/><path d="M7.4 18h9.2"/>'
   };
 

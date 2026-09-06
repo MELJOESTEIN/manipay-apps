@@ -93,9 +93,8 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
 .sp-halo{position:absolute;right:-90px;top:12%;width:300px;height:300px;border-radius:50%;
   background:radial-gradient(circle at 35% 35%,rgba(251,176,52,.30),rgba(251,176,52,0) 66%)}
 .sp-centre{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;position:relative}
-.sp-logo{width:112px;height:112px;border-radius:32px;background:#fff;display:flex;align-items:center;justify-content:center;
-  box-shadow:0 18px 44px rgba(0,0,0,.26);animation:spLogo .5s cubic-bezier(.16,1,.3,1) both}
-.sp-logo img{width:96px;height:96px;object-fit:contain}
+.sp-logo{width:118px;height:118px;border-radius:27px;background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 18px 44px rgba(0,0,0,.26);animation:spLogo .5s cubic-bezier(.16,1,.3,1) both}
+.sp-logo img{width:100%;height:100%;object-fit:cover;display:block}
 @keyframes spLogo{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
 .sp-baseline{font:600 15.5px 'Outfit',sans-serif;color:rgba(255,255,255,.9);text-align:center;
   animation:spTxt .5s .12s cubic-bezier(.16,1,.3,1) both}
@@ -246,7 +245,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
     <div id="err-login" style="display:none" class="info info-r"></div>
     <label class="lbl">Numéro de téléphone</label>
     <input class="inp" id="login-tel" type="tel" placeholder="+225 07 XX XX XX" inputmode="numeric" oninput="chkLogin()" style="margin-bottom:16px"/>
-    <button class="btn btn-a" id="lg-btn" onclick="goPin()" disabled style="opacity:.4">Continuer →</button>
+    <button class="btn btn-a" id="lg-btn" onclick="goPin()" disabled style="opacity:.4">Continuer<span style="display:inline-flex;vertical-align:-2px;margin-left:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
     <div style="text-align:center;margin-top:14px;font-size:12px">
       <a onclick="S('s-recovery')" style="color:var(--m);font-weight:600;cursor:pointer;text-decoration:underline">J'ai perdu l'accès à mon compte</a>
     </div>
@@ -255,7 +254,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
 
 <div class="scr" id="s-recovery" style="align-items:center;justify-content:center;padding:32px 24px;min-height:100vh;background:#fff">
   <div style="width:100%;max-width:320px">
-    <button onclick="S('s-login')" style="background:none;border:none;color:var(--m);font-size:13px;font-weight:600;cursor:pointer;margin-bottom:24px">← Retour</button>
+    <button onclick="S('s-login')" style="background:none;border:none;color:var(--m);font-size:13px;font-weight:600;cursor:pointer;margin-bottom:24px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg></span>Retour</button>
     <div style="text-align:center;margin-bottom:24px">
       <div style="display:flex;align-items:center;justify-content:center;margin-bottom:10px"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="8" cy="15.5" r="3.5"/><path d="m10.6 13 8-8"/><path d="m15.5 8 2.2 2.2"/><path d="m18.2 5.3 2.3 2.3"/></svg></div>
       <div style="font-size:20px;font-weight:700;font-family:Outfit,sans-serif;letter-spacing:-.015em">Récupérer mon compte</div>
@@ -277,7 +276,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
 <!--  PIN  -->
 <div class="scr" id="s-pin" style="align-items:center;justify-content:center;padding:32px 24px;min-height:100vh;background:#fff">
   <div style="width:100%;max-width:320px;text-align:center">
-    <button onclick="S('s-login')" style="background:none;border:none;color:var(--m);font-size:13px;font-weight:600;cursor:pointer;margin-bottom:32px">← Retour</button>
+    <button onclick="S('s-login')" style="background:none;border:none;color:var(--m);font-size:13px;font-weight:600;cursor:pointer;margin-bottom:32px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg></span>Retour</button>
     <h2 style="font-size:24px;font-weight:700;margin-bottom:6px;font-family:Outfit,sans-serif;letter-spacing:-.015em">Entrez votre PIN</h2>
     <div id="pin-tel-disp" style="color:var(--m);font-size:15px;margin-bottom:32px;font-family:Geist Mono,monospace"></div>
     <div id="err-pin" style="display:none" class="info info-r"></div>
@@ -306,7 +305,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
     <div id="dv-loading" style="display:none;padding:12px"><div class="spin"></div></div>
     <button class="btn btn-g" id="dv-btn" onclick="confirmerVerifAppareil()" style="width:100%;margin:14px 0 12px">Confirmer</button>
     <div style="font-size:11px;color:var(--m)">Aucun accès à vos autres appareils ? <a href="https://wa.me/2250565438015?text=Bonjour%2C%20j%27ai%20besoin%20d%27aide%20pour%20v%C3%A9rifier%20mon%20identit%C3%A9%20et%20d%C3%A9bloquer%20mon%20compte%20ManiPay" target="_blank" style="color:var(--claude);font-weight:700">Contacter le support</a></div>
-    <button onclick="S('s-pin')" style="background:none;border:none;color:var(--m);font-size:13px;font-weight:600;cursor:pointer;margin-top:20px;font-family:inherit">← Retour</button>
+    <button onclick="S('s-pin')" style="background:none;border:none;color:var(--m);font-size:13px;font-weight:600;cursor:pointer;margin-top:20px;font-family:inherit"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg></span>Retour</button>
   </div>
 </div>
 
@@ -412,7 +411,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
         <div style="font-size:9px;color:var(--m);margin-top:1px">Via un agent</div>
       </button>
       <button class="act3-btn" onclick="openSh('transfert')">
-        <div style="width:36px;height:36px;border-radius:11px;background:#EAF2FE;display:flex;align-items:center;justify-content:center;margin:0 auto 6px;font-size:16px">⇄</div>
+        <div style="width:36px;height:36px;border-radius:11px;background:#EAF2FE;display:flex;align-items:center;justify-content:center;margin:0 auto 6px;"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M4 8h13"/><path d="m14 5 3 3-3 3"/><path d="M20 16H7"/><path d="m10 13-3 3 3 3"/></svg></div>
         <div style="font-size:11px;font-weight:600;color:var(--t)">Transfert</div>
         <div style="font-size:9px;color:var(--m);margin-top:1px">Vers un autre Business</div>
       </button>
@@ -437,7 +436,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
         </div>
         <svg width="14" height="14" fill="none" stroke="var(--claude-d)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="flex-shrink:0"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
       </div>
-      <button onclick="ouvrirCreationFilleul()" style="flex-shrink:0;padding:8px 12px;background:var(--claude-d);color:#fff;border:none;border-radius:10px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit">&#x2795; Créer</button>
+      <button onclick="ouvrirCreationFilleul()" style="flex-shrink:0;padding:8px 12px;background:var(--claude-d);color:#fff;border:none;border-radius:10px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 5v14"/><path d="M5 12h14"/></svg></span>Créer</button>
     </div>
 
     <div id="h-pending-otp" style="display:none;background:#FEF6E9;border:1.5px solid #FDE7C7;border-radius:16px;padding:14px 16px;margin-bottom:16px">
@@ -448,7 +447,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
 
     <div class="row" style="margin-bottom:10px">
       <div style="font-size:15px;font-weight:600;font-family:Outfit,sans-serif">Transactions récentes</div>
-      <button onclick="setTab('flux')" style="background:none;border:none;color:var(--claude-d);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">Voir tout →</button>
+      <button onclick="setTab('flux')" style="background:none;border:none;color:var(--claude-d);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">Voir tout<span style="display:inline-flex;vertical-align:-2px;margin-left:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
     </div>
     <div id="h-txns"><div style="text-align:center;padding:20px"><div class="spin"></div></div></div>
   </div>
@@ -1169,9 +1168,9 @@ var _txCache={};
 var TX_CFG={
   paiement_marchand:{l:'Paiement reçu',icon:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M3 4.5h2.2l2 10.6a1.6 1.6 0 0 0 1.6 1.3h8a1.6 1.6 0 0 0 1.6-1.3L20 8H6"/><circle cx="9.5" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></svg>',color:'#05512B'},
   retrait:{l:'Retrait',icon:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 13V4"/><path d="m8.5 7.5 3.5-3.5 3.5 3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>',color:'#93500A'},
-  transfert:{l:'Transfert',icon:'⇄',color:'#1570EF'},
+  transfert:{l:'Transfert',icon:'<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M4 8h13"/><path d="m14 5 3 3-3 3"/><path d="M20 16H7"/><path d="m10 13-3 3 3 3"/></svg>',color:'#1570EF'},
   virement_gains:{l:'Virement de gains',icon:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M3 8a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v2"/><path d="M3 8v9a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2H5"/><circle cx="16.5" cy="14" r="1.2" fill="currentColor" stroke="none"/></svg>',color:'#1849A9',i:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M3 8a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v2"/><path d="M3 8v9a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2H5"/><circle cx="16.5" cy="14" r="1.2" fill="currentColor" stroke="none"/></svg>'},
-  remboursement:{l:'Remboursement',icon:'↩',color:'#1570EF'}
+  remboursement:{l:'Remboursement',icon:'<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20 11.5a8 8 0 1 0-2.4 5.7"/><path d="M20 6.5v5h-5"/></svg>',color:'#1570EF'}
 };
 function maskTel(tel){
   if(!tel) return '—';
@@ -1221,7 +1220,7 @@ function txRow(tx){
     var ci = contactInfo(tx.srcRole,tx.srcNomCommercial,tx.srcPrenom,tx.srcNom,tx.srcTel);
     sub = ci.nom;
   } else if(tx.type==='remboursement'){
-    label = isIn ? '↩ Remboursement reçu' : '↩ Remboursement débité';
+    label = isIn ? '<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20 11.5a8 8 0 1 0-2.4 5.7"/><path d="M20 6.5v5h-5"/></svg></span>Remboursement reçu' : '<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20 11.5a8 8 0 1 0-2.4 5.7"/><path d="M20 6.5v5h-5"/></svg></span>Remboursement débité';
   }
   var montant=Number(tx.montant||0);
   var sign = isIn ? '+' : '-';
@@ -1380,7 +1379,7 @@ function voirDetailTx(id){
   var estAnnulable = tx.type==='transfert' && !isIn && (tx.statut||'complete').toLowerCase()==='complete';
   if(estAnnulable){
     el.innerHTML += '<div style="margin:14px 16px 0">'
-      +'<button id="btn-annuler-tx" onclick="annulerTransaction(\''+(tx.id||id)+'\')" style="width:100%;padding:14px;background:#FEF3F2;color:#D92D20;border:1.5px solid #FBD3CE;border-radius:14px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit">↩️ Annuler ce transfert</button>'
+      +'<button id="btn-annuler-tx" onclick="annulerTransaction(\''+(tx.id||id)+'\')" style="width:100%;padding:14px;background:#FEF3F2;color:#D92D20;border:1.5px solid #FBD3CE;border-radius:14px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20 11.5a8 8 0 1 0-2.4 5.7"/><path d="M20 6.5v5h-5"/></svg></span>Annuler ce transfert</button>'
       +'<div style="font-size:10px;color:#9AAAA1;text-align:center;margin-top:6px">Possible dans les 24h suivant l\u2019opération</div>'
       +'</div>';
   }
@@ -1399,7 +1398,7 @@ async function annulerTransaction(txId){
     rafraichir();
   }catch(e){
     T(e.message,true);
-    if(btn){btn.disabled=false;btn.textContent='↩️ Annuler ce transfert';btn.style.opacity='1';}
+    if(btn){btn.disabled=false;btn.textContent='<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20 11.5a8 8 0 1 0-2.4 5.7"/><path d="M20 6.5v5h-5"/></svg></span>Annuler ce transfert';btn.style.opacity='1';}
   }
 }
 async function chargerHistorique(){

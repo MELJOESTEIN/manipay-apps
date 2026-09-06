@@ -67,9 +67,8 @@ body{min-height:100vh;background:#F7F9F8;font-family:'Instrument Sans',sans-seri
 .sp-halo{position:absolute;right:-90px;top:12%;width:300px;height:300px;border-radius:50%;
   background:radial-gradient(circle at 35% 35%,rgba(251,176,52,.30),rgba(251,176,52,0) 66%)}
 .sp-centre{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;position:relative}
-.sp-logo{width:112px;height:112px;border-radius:32px;background:#fff;display:flex;align-items:center;justify-content:center;
-  box-shadow:0 18px 44px rgba(0,0,0,.26);animation:spLogo .5s cubic-bezier(.16,1,.3,1) both}
-.sp-logo img{width:96px;height:96px;object-fit:contain}
+.sp-logo{width:118px;height:118px;border-radius:27px;background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 18px 44px rgba(0,0,0,.26);animation:spLogo .5s cubic-bezier(.16,1,.3,1) both}
+.sp-logo img{width:100%;height:100%;object-fit:cover;display:block}
 @keyframes spLogo{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
 .sp-baseline{font:600 15.5px 'Outfit',sans-serif;color:rgba(255,255,255,.9);text-align:center;
   animation:spTxt .5s .12s cubic-bezier(.16,1,.3,1) both}
@@ -336,7 +335,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
 
 <div class="scr" id="s-recovery-bo" style="justify-content:center;align-items:center;padding:32px 24px;background:#fff">
   <div style="width:100%;max-width:340px">
-    <button onclick="showScr('s-login')" style="background:none;border:none;color:var(--m);font-size:13px;font-weight:600;cursor:pointer;margin-bottom:24px">← Retour</button>
+    <button onclick="showScr('s-login')" style="background:none;border:none;color:var(--m);font-size:13px;font-weight:600;cursor:pointer;margin-bottom:24px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg></span>Retour</button>
     <div style="text-align:center;margin-bottom:24px">
       <div style="display:flex;align-items:center;justify-content:center;margin-bottom:10px"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="8" cy="15.5" r="3.5"/><path d="m10.6 13 8-8"/><path d="m15.5 8 2.2 2.2"/><path d="m18.2 5.3 2.3 2.3"/></svg></div>
       <div style="font-size:20px;font-weight:700;font-family:Outfit,sans-serif;letter-spacing:-.015em">Récupérer mon compte</div>
@@ -357,7 +356,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
 <!-- PIN -->
 <div class="scr" id="s-pin" style="justify-content:center;align-items:center;padding:32px 24px">
   <div style="width:100%;max-width:320px;text-align:center">
-    <button onclick="showScr('s-login')" style="background:none;border:none;color:var(--m);font-size:13px;font-weight:600;cursor:pointer;margin-bottom:28px;display:block">← Retour</button>
+    <button onclick="showScr('s-login')" style="background:none;border:none;color:var(--m);font-size:13px;font-weight:600;cursor:pointer;margin-bottom:28px;display:block"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg></span>Retour</button>
     <h2 style="font-size:22px;font-weight:700;margin-bottom:6px;font-family:Outfit,sans-serif;letter-spacing:-.015em">Code PIN</h2>
     <div id="pin-sub" style="color:var(--m);font-size:14px;margin-bottom:28px;font-family:Geist Mono,monospace"></div>
     <div id="err-pin" style="display:none;background:#FEF3F2;border:1px solid #FBD3CE;color:var(--r);padding:10px;border-radius:12px;margin-bottom:14px;font-size:13px"></div>
@@ -606,14 +605,14 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
     </div>
     <!-- Onglets monitoring (masqués par défaut, affichés par JS selon le rôle) -->
     <div id="mon-tab-bar" style="display:none;overflow-x:auto;gap:0;padding-bottom:0">
-      <button id="mon-tab-alertes"     onclick="setMonTab('alertes')"     style="padding:9px 14px;font-size:11px;font-weight:600;border:none;background:none;cursor:pointer;font-family:inherit;color:var(--y2);border-bottom:2px solid var(--y);white-space:nowrap">&#x1F6A8; Alertes</button>
-      <button id="mon-tab-bo"          onclick="setMonTab('bo')"          style="padding:9px 14px;font-size:11px;font-weight:600;border:none;background:none;cursor:pointer;font-family:inherit;color:#4E6157;border-bottom:2px solid transparent;white-space:nowrap">&#x1F4BB; Back-Office</button>
-      <button id="mon-tab-sup"         onclick="setMonTab('sup')"         style="padding:9px 14px;font-size:11px;font-weight:600;border:none;background:none;cursor:pointer;font-family:inherit;color:#4E6157;border-bottom:2px solid transparent;white-space:nowrap">&#x1F3A7; Support</button>
-      <button id="mon-tab-tech"        onclick="setMonTab('tech')"        style="padding:9px 14px;font-size:11px;font-weight:600;border:none;background:none;cursor:pointer;font-family:inherit;color:#4E6157;border-bottom:2px solid transparent;white-space:nowrap">&#x1F527; Tech</button>
-      <button id="mon-tab-superviseur" onclick="setMonTab('superviseur')" style="padding:9px 14px;font-size:11px;font-weight:600;border:none;background:none;cursor:pointer;font-family:inherit;color:#4E6157;border-bottom:2px solid transparent;white-space:nowrap">&#x1F7E0; Superviseur</button>
-      <button id="mon-tab-admin"       onclick="setMonTab('admin')"       style="padding:9px 14px;font-size:11px;font-weight:600;border:none;background:none;cursor:pointer;font-family:inherit;color:#4E6157;border-bottom:2px solid transparent;white-space:nowrap">&#x1F451; Admin</button>
-      <button id="mon-tab-global"      onclick="setMonTab('global')"      style="padding:9px 14px;font-size:11px;font-weight:600;border:none;background:none;cursor:pointer;font-family:inherit;color:#4E6157;border-bottom:2px solid transparent;white-space:nowrap">&#x1F30D; Global</button>
-      <button id="mon-tab-stats"       onclick="setMonTab('stats')"       style="padding:9px 14px;font-size:11px;font-weight:600;border:none;background:none;cursor:pointer;font-family:inherit;color:#4E6157;border-bottom:2px solid transparent;white-space:nowrap">&#x1F4CA; Stats</button>
+      <button id="mon-tab-alertes"     onclick="setMonTab('alertes')"     style="padding:9px 14px;font-size:11px;font-weight:600;border:none;background:none;cursor:pointer;font-family:inherit;color:var(--y2);border-bottom:2px solid var(--y);white-space:nowrap"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M6 19v-5.5a6 6 0 0 1 12 0V19"/><path d="M4 19h16"/><path d="M12 2.5v2"/><path d="m5.2 5.6 1.4 1.4"/><path d="m18.8 5.6-1.4 1.4"/></svg></span>Alertes</button>
+      <button id="mon-tab-bo"          onclick="setMonTab('bo')"          style="padding:9px 14px;font-size:11px;font-weight:600;border:none;background:none;cursor:pointer;font-family:inherit;color:#4E6157;border-bottom:2px solid transparent;white-space:nowrap"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><rect x="2.5" y="4" width="19" height="12.5" rx="2"/><path d="M9 20.5h6"/><path d="M12 16.5v4"/></svg></span>Back-Office</button>
+      <button id="mon-tab-sup"         onclick="setMonTab('sup')"         style="padding:9px 14px;font-size:11px;font-weight:600;border:none;background:none;cursor:pointer;font-family:inherit;color:#4E6157;border-bottom:2px solid transparent;white-space:nowrap"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M4.5 15v-3a7.5 7.5 0 0 1 15 0v3"/><rect x="2.8" y="13.5" width="4" height="6" rx="2"/><rect x="17.2" y="13.5" width="4" height="6" rx="2"/><path d="M19.5 19.5a3 3 0 0 1-3 2.5h-2"/></svg></span>Support</button>
+      <button id="mon-tab-tech"        onclick="setMonTab('tech')"        style="padding:9px 14px;font-size:11px;font-weight:600;border:none;background:none;cursor:pointer;font-family:inherit;color:#4E6157;border-bottom:2px solid transparent;white-space:nowrap"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M14.2 6.4a3.8 3.8 0 0 0 5 5L21 13a5.5 5.5 0 0 1-7.6-7.6Z"/><path d="m13.4 10.6-9 9"/><path d="M4.4 15.6 8.9 20"/></svg></span>Tech</button>
+      <button id="mon-tab-superviseur" onclick="setMonTab('superviseur')" style="padding:9px 14px;font-size:11px;font-weight:600;border:none;background:none;cursor:pointer;font-family:inherit;color:#4E6157;border-bottom:2px solid transparent;white-space:nowrap"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/></svg></span>Superviseur</button>
+      <button id="mon-tab-admin"       onclick="setMonTab('admin')"       style="padding:9px 14px;font-size:11px;font-weight:600;border:none;background:none;cursor:pointer;font-family:inherit;color:#4E6157;border-bottom:2px solid transparent;white-space:nowrap"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="m3 8 3.5 3L12 4.5 17.5 11 21 8l-1.8 10.5H4.8Z"/><path d="M4.8 20.5h14.4"/></svg></span>Admin</button>
+      <button id="mon-tab-global"      onclick="setMonTab('global')"      style="padding:9px 14px;font-size:11px;font-weight:600;border:none;background:none;cursor:pointer;font-family:inherit;color:#4E6157;border-bottom:2px solid transparent;white-space:nowrap"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="8.8"/><path d="M3.4 12h17.2"/><path d="M12 3.2a13 13 0 0 1 0 17.6"/><path d="M12 3.2a13 13 0 0 0 0 17.6"/></svg></span>Global</button>
+      <button id="mon-tab-stats"       onclick="setMonTab('stats')"       style="padding:9px 14px;font-size:11px;font-weight:600;border:none;background:none;cursor:pointer;font-family:inherit;color:#4E6157;border-bottom:2px solid transparent;white-space:nowrap"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M4 4v15a1 1 0 0 0 1 1h15"/><path d="M8 16v-4"/><path d="M12.5 16V8"/><path d="M17 16v-6"/></svg></span>Stats</button>
     </div>
   </div>
   <div style="padding:14px 16px 100px">
@@ -624,7 +623,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
         <div style="font-size:13px;font-weight:600;color:#4E6157;text-transform:uppercase;letter-spacing:.05em"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M6 19v-5.5a6 6 0 0 1 12 0V19"/><path d="M4 19h16"/><path d="M12 2.5v2"/><path d="m5.2 5.6 1.4 1.4"/><path d="m18.8 5.6-1.4 1.4"/></svg></span>Alertes</div>
         <div style="display:flex;gap:6px">
           <button onclick="creerAlerteModal()" id="btn-creer-alerte" style="background:var(--y);color:#fff;border:none;border-radius:8px;padding:5px 10px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;display:none">+ Créer</button>
-          <button onclick="chargerAlertesCentralisees()" style="background:#E3EAE5;border:none;border-radius:8px;padding:5px 9px;font-size:11px;font-weight:600;color:#4E6157;cursor:pointer;font-family:inherit">↻</button>
+          <button onclick="chargerAlertesCentralisees()" style="display:flex;align-items:center;justify-content:center;background:#E3EAE5;border:none;border-radius:8px;padding:5px 9px;font-weight:600;color:#4E6157;cursor:pointer;font-family:inherit"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20.5 11.5a8.5 8.5 0 0 1-14.6 5.9"/><path d="M3.5 12.5a8.5 8.5 0 0 1 14.6-5.9"/><path d="M18.4 3.2v3.4H15"/><path d="M5.6 20.8v-3.4H9"/></svg></button>
         </div>
       </div>
       <!-- Toolbar sélection multiple (admin) -->
@@ -667,7 +666,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
     </div>
     <!-- Panel Back-Office tickets internes -->
     <div id="mon-panel-bo" style="display:none">
-      <div style="font-size:11px;font-weight:600;color:var(--m);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">&#x1F4BB; Tickets Back-Office</div>
+      <div style="font-size:11px;font-weight:600;color:var(--m);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><rect x="2.5" y="4" width="19" height="12.5" rx="2"/><path d="M9 20.5h6"/><path d="M12 16.5v4"/></svg></span>Tickets Back-Office</div>
       <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:10px" id="mon-bo-filters"></div>
       <div id="mon-bo-list-tb" style="display:none;align-items:center;gap:6px;flex-wrap:wrap;padding:7px 10px;background:#FEF3F2;border-radius:8px;border:1px solid #FBD3CE;margin-bottom:8px">
           <span style="font-size:11px;font-weight:600;color:#D92D20;flex:1" id="mon-bo-list-tb-count">0 sélectionné(s)</span>
@@ -678,7 +677,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
     </div>
     <!-- Panel Support Client tickets -->
     <div id="mon-panel-sup" style="display:none">
-      <div style="font-size:11px;font-weight:600;color:var(--m);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">&#x1F3A7; Tickets Support Client</div>
+      <div style="font-size:11px;font-weight:600;color:var(--m);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M4.5 15v-3a7.5 7.5 0 0 1 15 0v3"/><rect x="2.8" y="13.5" width="4" height="6" rx="2"/><rect x="17.2" y="13.5" width="4" height="6" rx="2"/><path d="M19.5 19.5a3 3 0 0 1-3 2.5h-2"/></svg></span>Tickets Support Client</div>
       <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:10px" id="mon-sup-filters"></div>
       <div id="mon-sup-list-tb" style="display:none;align-items:center;gap:6px;flex-wrap:wrap;padding:7px 10px;background:#FEF3F2;border-radius:8px;border:1px solid #FBD3CE;margin-bottom:8px">
           <span style="font-size:11px;font-weight:600;color:#D92D20;flex:1" id="mon-sup-list-tb-count">0 sélectionné(s)</span>
@@ -689,7 +688,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
     </div>
     <!-- Panel Support Tech tickets -->
     <div id="mon-panel-tech" style="display:none">
-      <div style="font-size:11px;font-weight:600;color:var(--m);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">&#x1F527; Tickets Support Technique</div>
+      <div style="font-size:11px;font-weight:600;color:var(--m);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M14.2 6.4a3.8 3.8 0 0 0 5 5L21 13a5.5 5.5 0 0 1-7.6-7.6Z"/><path d="m13.4 10.6-9 9"/><path d="M4.4 15.6 8.9 20"/></svg></span>Tickets Support Technique</div>
       <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:10px" id="mon-tech-filters"></div>
       <div id="mon-tech-list-tb" style="display:none;align-items:center;gap:6px;flex-wrap:wrap;padding:7px 10px;background:#FEF3F2;border-radius:8px;border:1px solid #FBD3CE;margin-bottom:8px">
           <span style="font-size:11px;font-weight:600;color:#D92D20;flex:1" id="mon-tech-list-tb-count">0 sélectionné(s)</span>
@@ -707,7 +706,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
           Accueil
         </button>
-        <button onclick="setTab('monitoring')" style="background:#FEF6E9;border:1px solid var(--y);border-radius:8px;padding:6px 12px;font-size:11px;font-weight:600;color:var(--y2);cursor:pointer;font-family:inherit">↻ Rafraîchir</button>
+        <button onclick="setTab('monitoring')" style="background:#FEF6E9;border:1px solid var(--y);border-radius:8px;padding:6px 12px;font-size:11px;font-weight:600;color:var(--y2);cursor:pointer;font-family:inherit"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20.5 11.5a8.5 8.5 0 0 1-14.6 5.9"/><path d="M3.5 12.5a8.5 8.5 0 0 1 14.6-5.9"/><path d="M18.4 3.2v3.4H15"/><path d="M5.6 20.8v-3.4H9"/></svg></span>Rafraîchir</button>
       </div>
       <!-- Onglets internes superviseur -->
       <div style="display:flex;gap:0;overflow-x:auto;margin-bottom:14px;border-bottom:1px solid #E3EAE5">
@@ -723,7 +722,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
           <div style="font-size:11px;font-weight:600;color:#4E6157;text-transform:uppercase;letter-spacing:.05em"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M6 19v-5.5a6 6 0 0 1 12 0V19"/><path d="M4 19h16"/><path d="M12 2.5v2"/><path d="m5.2 5.6 1.4 1.4"/><path d="m18.8 5.6-1.4 1.4"/></svg></span>Alertes actives</div>
           <div style="display:flex;gap:6px">
             <button onclick="creerAlerteSupModal()" style="background:#93500A;color:#fff;border:none;border-radius:8px;padding:5px 10px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit">+ Créer</button>
-            <button onclick="chargerZoneSuperviseur()" style="background:#E3EAE5;border:none;border-radius:8px;padding:5px 9px;font-size:10px;color:#4E6157;cursor:pointer;font-family:inherit">↻</button>
+            <button onclick="chargerZoneSuperviseur()" style="display:flex;align-items:center;justify-content:center;background:#E3EAE5;border:none;border-radius:8px;padding:5px 9px;color:#4E6157;cursor:pointer;font-family:inherit"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20.5 11.5a8.5 8.5 0 0 1-14.6 5.9"/><path d="M3.5 12.5a8.5 8.5 0 0 1 14.6-5.9"/><path d="M18.4 3.2v3.4H15"/><path d="M5.6 20.8v-3.4H9"/></svg></button>
           </div>
         </div>
         <!-- Formulaire création alerte inline superviseur -->
@@ -751,7 +750,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
           <div style="font-size:11px;font-weight:600;color:#4E6157;text-transform:uppercase;letter-spacing:.05em"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M3.5 8.5V7a1.5 1.5 0 0 1 1.5-1.5h14A1.5 1.5 0 0 1 20.5 7v1.5a2.5 2.5 0 0 0 0 7V17a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 17v-1.5a2.5 2.5 0 0 0 0-7Z"/><path d="M13.5 5.5v13"/></svg></span>Mes tickets à traiter</div>
           <div style="display:flex;gap:6px">
             <button onclick="creerTicketSupModal()" style="background:#1570EF;color:#fff;border:none;border-radius:8px;padding:5px 10px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit">+ Créer</button>
-            <button onclick="chargerTicketsSuperviseur()" style="background:#E3EAE5;border:none;border-radius:8px;padding:4px 9px;font-size:10px;font-weight:600;color:#4E6157;cursor:pointer;font-family:inherit">↻</button>
+            <button onclick="chargerTicketsSuperviseur()" style="display:flex;align-items:center;justify-content:center;background:#E3EAE5;border:none;border-radius:8px;padding:4px 9px;font-weight:600;color:#4E6157;cursor:pointer;font-family:inherit"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20.5 11.5a8.5 8.5 0 0 1-14.6 5.9"/><path d="M3.5 12.5a8.5 8.5 0 0 1 14.6-5.9"/><path d="M18.4 3.2v3.4H15"/><path d="M5.6 20.8v-3.4H9"/></svg></button>
           </div>
         </div>
         <!-- Formulaire création ticket inline superviseur -->
@@ -849,7 +848,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
           <div style="font-size:11px;font-weight:600;color:#DC8A00;text-transform:uppercase;letter-spacing:.05em"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M6 19v-5.5a6 6 0 0 1 12 0V19"/><path d="M4 19h16"/><path d="M12 2.5v2"/><path d="m5.2 5.6 1.4 1.4"/><path d="m18.8 5.6-1.4 1.4"/></svg></span>Alertes Admin</div>
           <div style="display:flex;gap:6px">
             <button onclick="creerAlerteAdminModal()" style="background:#DC8A00;color:#fff;border:none;border-radius:8px;padding:5px 10px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit">+ Créer</button>
-            <button onclick="chargerAdmAlertes()" style="background:#E3EAE5;border:none;border-radius:8px;padding:5px 9px;font-size:10px;color:#4E6157;cursor:pointer;font-family:inherit">↻</button>
+            <button onclick="chargerAdmAlertes()" style="display:flex;align-items:center;justify-content:center;background:#E3EAE5;border:none;border-radius:8px;padding:5px 9px;color:#4E6157;cursor:pointer;font-family:inherit"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20.5 11.5a8.5 8.5 0 0 1-14.6 5.9"/><path d="M3.5 12.5a8.5 8.5 0 0 1 14.6-5.9"/><path d="M18.4 3.2v3.4H15"/><path d="M5.6 20.8v-3.4H9"/></svg></button>
           </div>
         </div>
         <!-- Formulaire création alerte inline Admin -->
@@ -922,7 +921,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
     <!-- PANNEAU GLOBAL -->
     <div id="mon-panel-global" style="display:none">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-        <div style="font-size:11px;font-weight:600;color:var(--m);text-transform:uppercase;letter-spacing:.06em">&#x1F30D; Suivi global par entité</div>
+        <div style="font-size:11px;font-weight:600;color:var(--m);text-transform:uppercase;letter-spacing:.06em"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="8.8"/><path d="M3.4 12h17.2"/><path d="M12 3.2a13 13 0 0 1 0 17.6"/><path d="M12 3.2a13 13 0 0 0 0 17.6"/></svg></span>Suivi global par entité</div>
         <button id="btn-global-selall" onclick="_tkGlobalSelAll()" style="display:none;background:#fff;border:1.5px solid #D92D20;border-radius:8px;padding:4px 11px;font-size:10px;font-weight:600;color:#D92D20;cursor:pointer;font-family:inherit"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><rect x="4.5" y="4.5" width="15" height="15" rx="4"/></svg></span>Tout</button>
       </div>
       <!-- Toolbar globale suppression -->
@@ -935,27 +934,27 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
       <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:14px" id="mon-global-filters"></div>
       <!-- Back-Office -->
       <div style="background:#FEF6E9;border:1px solid #FDE7C7;border-radius:12px;padding:12px 14px;margin-bottom:14px">
-        <div style="font-size:11px;font-weight:600;color:#93500A;margin-bottom:8px">&#x1F4BB; Back-Office</div>
+        <div style="font-size:11px;font-weight:600;color:#93500A;margin-bottom:8px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><rect x="2.5" y="4" width="19" height="12.5" rx="2"/><path d="M9 20.5h6"/><path d="M12 16.5v4"/></svg></span>Back-Office</div>
         <div id="mon-global-bo"><div style="padding:10px;text-align:center"><div class="spin"></div></div></div>
       </div>
       <!-- Support Client -->
       <div style="background:#F0FAF4;border:1px solid #C9E7D5;border-radius:12px;padding:12px 14px;margin-bottom:14px">
-        <div style="font-size:11px;font-weight:600;color:#05512B;margin-bottom:8px">&#x1F3A7; Support Client</div>
+        <div style="font-size:11px;font-weight:600;color:#05512B;margin-bottom:8px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M4.5 15v-3a7.5 7.5 0 0 1 15 0v3"/><rect x="2.8" y="13.5" width="4" height="6" rx="2"/><rect x="17.2" y="13.5" width="4" height="6" rx="2"/><path d="M19.5 19.5a3 3 0 0 1-3 2.5h-2"/></svg></span>Support Client</div>
         <div id="mon-global-sup"><div style="padding:10px;text-align:center"><div class="spin"></div></div></div>
       </div>
       <!-- Support Tech -->
       <div style="background:#EAF2FE;border:1px solid #C7DDFE;border-radius:12px;padding:12px 14px;margin-bottom:14px">
-        <div style="font-size:11px;font-weight:600;color:#12417F;margin-bottom:8px">&#x1F527; Support Technique</div>
+        <div style="font-size:11px;font-weight:600;color:#12417F;margin-bottom:8px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M14.2 6.4a3.8 3.8 0 0 0 5 5L21 13a5.5 5.5 0 0 1-7.6-7.6Z"/><path d="m13.4 10.6-9 9"/><path d="M4.4 15.6 8.9 20"/></svg></span>Support Technique</div>
         <div id="mon-global-tech"><div style="padding:10px;text-align:center"><div class="spin"></div></div></div>
       </div>
       <!-- Superviseur -->
       <div style="background:#FEF6E9;border:1px solid #FDE7C7;border-radius:12px;padding:12px 14px;margin-bottom:14px">
-        <div style="font-size:11px;font-weight:600;color:#93500A;margin-bottom:8px">&#x1F7E0; Superviseur</div>
+        <div style="font-size:11px;font-weight:600;color:#93500A;margin-bottom:8px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/></svg></span>Superviseur</div>
         <div id="mon-global-superviseur"><div style="padding:10px;text-align:center"><div class="spin"></div></div></div>
       </div>
       <!-- Admin -->
       <div style="background:#F0FAF4;border:1px solid #fde047;border-radius:12px;padding:12px 14px;margin-bottom:14px">
-        <div style="font-size:11px;font-weight:600;color:#DC8A00;margin-bottom:8px">&#x1F451; Admin</div>
+        <div style="font-size:11px;font-weight:600;color:#DC8A00;margin-bottom:8px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="m3 8 3.5 3L12 4.5 17.5 11 21 8l-1.8 10.5H4.8Z"/><path d="M4.8 20.5h14.4"/></svg></span>Admin</div>
         <div id="mon-global-admin"><div style="padding:10px;text-align:center"><div class="spin"></div></div></div>
       </div>
     </div>
@@ -1027,14 +1026,14 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
         <div id="camp-tel-box" style="display:none;margin-bottom:8px">
           <input class="inp" id="camp-tel" placeholder="Ex: 0707000000, 0606000000" style="font-size:12px"/>
         </div>
-        <button onclick="envoyerCampagne()" style="width:100%;padding:12px;background:linear-gradient(135deg,var(--y2),var(--y));color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="m3.5 11 12-6v14l-12-6Z"/><path d="M3.5 9.5h-.2A1.3 1.3 0 0 0 2 10.8v.4a1.3 1.3 0 0 0 1.3 1.3h.2"/><path d="M18 8.5a4 4 0 0 1 0 7"/><path d="M7 13.5V18a1.5 1.5 0 0 0 3 0v-3.5"/></svg></span>Envoyer →</button>
+        <button onclick="envoyerCampagne()" style="width:100%;padding:12px;background:linear-gradient(135deg,var(--y2),var(--y));color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="m3.5 11 12-6v14l-12-6Z"/><path d="M3.5 9.5h-.2A1.3 1.3 0 0 0 2 10.8v.4a1.3 1.3 0 0 0 1.3 1.3h.2"/><path d="M18 8.5a4 4 0 0 1 0 7"/><path d="M7 13.5V18a1.5 1.5 0 0 0 3 0v-3.5"/></svg></span>Envoyer<span style="display:inline-flex;vertical-align:-2px;margin-left:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
       </div>
 
       <!-- HISTORIQUE CENTRALISÉ DES CAMPAGNES -->
       <div style="margin-top:20px">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
           <div style="font-size:13px;font-weight:600;color:#4E6157;text-transform:uppercase;letter-spacing:.04em"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><rect x="5" y="4.5" width="14" height="16" rx="2.5"/><path d="M9 4.5V3.6A1.6 1.6 0 0 1 10.6 2h2.8A1.6 1.6 0 0 1 15 3.6v.9Z"/><path d="M8.8 11h6.4"/><path d="M8.8 15h4"/></svg></span>Historique des envois</div>
-          <button onclick="chargerCampagnes()" style="background:#E3EAE5;border:none;border-radius:8px;padding:5px 10px;font-size:11px;font-weight:600;color:#4E6157;cursor:pointer;font-family:inherit">↻ Actualiser</button>
+          <button onclick="chargerCampagnes()" style="background:#E3EAE5;border:none;border-radius:8px;padding:5px 10px;font-size:11px;font-weight:600;color:#4E6157;cursor:pointer;font-family:inherit"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20.5 11.5a8.5 8.5 0 0 1-14.6 5.9"/><path d="M3.5 12.5a8.5 8.5 0 0 1 14.6-5.9"/><path d="M18.4 3.2v3.4H15"/><path d="M5.6 20.8v-3.4H9"/></svg></span>Actualiser</button>
         </div>
         <div id="camp-toolbar" style="display:none;align-items:center;gap:6px;flex-wrap:wrap;padding:8px 10px;background:#F7F9F8;border-radius:10px;border:1px solid #E3EAE5;margin-bottom:8px">
           <span id="camp-sel-count" style="font-size:11px;font-weight:600;color:#4E6157;flex:1">0 sélectionnée(s)</span>
@@ -1065,7 +1064,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
       <div class="card">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
           <div style="font-size:13px;font-weight:600"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m20 20-4.4-4.4"/></svg></span>Rechercher un client</div>
-          <button id="btn-nouvelle-recherche" onclick="nouvelleRecherche()" style="display:none;background:#E3EAE5;border:none;border-radius:8px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--m);cursor:pointer;font-family:inherit">↩ Nouvelle recherche</button>
+          <button id="btn-nouvelle-recherche" onclick="nouvelleRecherche()" style="display:none;background:#E3EAE5;border:none;border-radius:8px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--m);cursor:pointer;font-family:inherit"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20 11.5a8 8 0 1 0-2.4 5.7"/><path d="M20 6.5v5h-5"/></svg></span>Nouvelle recherche</button>
         </div>
         <div id="sup-search-zone" style="display:flex;gap:8px">
           <input class="inp" id="sup-tel" type="tel" placeholder="Numéro téléphone" inputmode="numeric" style="flex:1;padding:12px 14px;font-size:14px" onkeydown="if(event.key==='Enter')rechercherClient()"/>
@@ -1143,7 +1142,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
         <div style="font-size:13px;font-weight:600;color:#4E6157;text-transform:uppercase;letter-spacing:.05em"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 4.2 2.8 20h18.4Z"/><path d="M12 10v4"/><circle cx="12" cy="17.2" r="1" fill="currentColor" stroke="none"/></svg></span>Alertes</div>
         <div style="display:flex;gap:6px">
           <button onclick="supCreerAlerteModal()" style="background:#1570EF;color:#fff;border:none;border-radius:8px;padding:5px 10px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit">+ Créer</button>
-          <button onclick="_chargerSupClientAlertes('','')" style="background:#E3EAE5;border:none;border-radius:8px;padding:5px 9px;font-size:11px;font-weight:600;color:#4E6157;cursor:pointer;font-family:inherit">↻</button>
+          <button onclick="_chargerSupClientAlertes('','')" style="display:flex;align-items:center;justify-content:center;background:#E3EAE5;border:none;border-radius:8px;padding:5px 9px;font-weight:600;color:#4E6157;cursor:pointer;font-family:inherit"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20.5 11.5a8.5 8.5 0 0 1-14.6 5.9"/><path d="M3.5 12.5a8.5 8.5 0 0 1 14.6-5.9"/><path d="M18.4 3.2v3.4H15"/><path d="M5.6 20.8v-3.4H9"/></svg></button>
         </div>
       </div>
       <!-- Formulaire création alerte inline -->
@@ -1363,7 +1362,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
   <div id="tech-panel-journal" style="display:none;padding:16px 16px 100px">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
       <div style="font-size:13px;font-weight:600;color:#4E6157;text-transform:uppercase;letter-spacing:.05em"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><rect x="5" y="4.5" width="14" height="16" rx="2.5"/><path d="M9 4.5V3.6A1.6 1.6 0 0 1 10.6 2h2.8A1.6 1.6 0 0 1 15 3.6v.9Z"/><path d="M8.8 11h6.4"/><path d="M8.8 15h4"/></svg></span>Journal des actions</div>
-      <button onclick="chargerJournal()" style="background:#E3EAE5;border:none;border-radius:8px;padding:4px 9px;font-size:10px;font-weight:600;color:#4E6157;cursor:pointer;font-family:inherit">↻ Actualiser</button>
+      <button onclick="chargerJournal()" style="background:#E3EAE5;border:none;border-radius:8px;padding:4px 9px;font-size:10px;font-weight:600;color:#4E6157;cursor:pointer;font-family:inherit"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20.5 11.5a8.5 8.5 0 0 1-14.6 5.9"/><path d="M3.5 12.5a8.5 8.5 0 0 1 14.6-5.9"/><path d="M18.4 3.2v3.4H15"/><path d="M5.6 20.8v-3.4H9"/></svg></span>Actualiser</button>
     </div>
     <!-- Filtres par type d'action -->
     <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:12px" id="journal-filters">
@@ -1388,7 +1387,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
   <div id="tech-panel-retraits" style="display:none;padding:16px 16px 100px">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
       <div style="font-size:13px;font-weight:600;color:#4E6157;text-transform:uppercase;letter-spacing:.05em"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M5 21V4"/><path d="M5 5.2c4-2 7 2 11 0v8.4c-4 2-7-2-11 0Z"/></svg></span>Retraits suspects</div>
-      <button onclick="chargerTechRetraitsSuspects()" style="background:#E3EAE5;border:none;border-radius:8px;padding:4px 9px;font-size:10px;font-weight:600;color:#4E6157;cursor:pointer;font-family:inherit">↻ Actualiser</button>
+      <button onclick="chargerTechRetraitsSuspects()" style="background:#E3EAE5;border:none;border-radius:8px;padding:4px 9px;font-size:10px;font-weight:600;color:#4E6157;cursor:pointer;font-family:inherit"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20.5 11.5a8.5 8.5 0 0 1-14.6 5.9"/><path d="M3.5 12.5a8.5 8.5 0 0 1 14.6-5.9"/><path d="M18.4 3.2v3.4H15"/><path d="M5.6 20.8v-3.4H9"/></svg></span>Actualiser</button>
     </div>
     <div style="font-size:11px;color:#9AAAA1;margin-bottom:14px">Deux types de traçabilité anti-abus, sans créer d'alerte urgente automatique</div>
 
@@ -1413,7 +1412,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
   <div id="tech-panel-tickets" style="display:none;padding:16px 16px 100px">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
       <div style="font-size:11px;font-weight:600;color:#4E6157;text-transform:uppercase;letter-spacing:.05em"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M14.2 6.4a3.8 3.8 0 0 0 5 5L21 13a5.5 5.5 0 0 1-7.6-7.6Z"/><path d="m13.4 10.6-9 9"/><path d="M4.4 15.6 8.9 20"/></svg></span>Mes tickets techniques</div>
-      <button onclick="chargerTechTickets()" style="background:#E3EAE5;border:none;border-radius:8px;padding:4px 9px;font-size:10px;font-weight:600;color:#4E6157;cursor:pointer;font-family:inherit">↻</button>
+      <button onclick="chargerTechTickets()" style="display:flex;align-items:center;justify-content:center;background:#E3EAE5;border:none;border-radius:8px;padding:4px 9px;font-weight:600;color:#4E6157;cursor:pointer;font-family:inherit"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20.5 11.5a8.5 8.5 0 0 1-14.6 5.9"/><path d="M3.5 12.5a8.5 8.5 0 0 1 14.6-5.9"/><path d="M18.4 3.2v3.4H15"/><path d="M5.6 20.8v-3.4H9"/></svg></button>
     </div>
     <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:10px" id="tech-tk-filters"></div>
     <div id="tech-tk-list"><div style="padding:14px;text-align:center"><div class="spin"></div></div></div>
@@ -1792,7 +1791,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
 
 <div class="scr" id="s-moncompte">
   <div style="background:#fff;padding:52px 20px 12px;border-bottom:1px solid #E3EAE5;position:sticky;top:0;z-index:10">
-    <div style="font-size:22px;font-weight:700;font-family:Outfit,sans-serif;letter-spacing:-.015em">&#128100; Mon Compte</div>
+    <div style="font-size:22px;font-weight:700;font-family:Outfit,sans-serif;letter-spacing:-.015em"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg></span>Mon Compte</div>
     <div style="color:var(--m);font-size:12px;margin-top:2px">Gestion personnelle Back-office · v7.0</div>
   </div>
   <div style="padding:14px 16px 100px" id="mc-body">
@@ -1803,7 +1802,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
 <!-- SHEET TRANSFERT -->
 <div class="sh-ov" id="sh-mc-transfert">
   <div class="sh"><div class="sh-bar"></div>
-    <div class="sh-top"><div><div class="sh-title">Transferer</div><div style="color:var(--m);font-size:12px">Vers agent / master / superviseur</div></div><button class="sh-x" onclick="closeSh('mc-transfert')">&#10005;</button></div>
+    <div class="sh-top"><div><div class="sh-title">Transferer</div><div style="color:var(--m);font-size:12px">Vers agent / master / superviseur</div></div><button class="sh-x" onclick="closeSh('mc-transfert')"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div>
     <div class="sh-body">
       <div id="mc-tr-err" style="display:none;background:#FEF3F2;color:var(--r);padding:10px;border-radius:10px;margin-bottom:12px;font-size:13px"></div>
       <div style="background:#F7F9F8;border-radius:14px;padding:14px;margin-bottom:16px">
@@ -1822,7 +1821,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
 <!-- SHEET MODIFIER INFOS -->
 <div class="sh-ov" id="sh-mc-infos">
   <div class="sh"><div class="sh-bar"></div>
-    <div class="sh-top"><div><div class="sh-title">Modifier mes infos</div></div><button class="sh-x" onclick="closeSh('mc-infos')">&#10005;</button></div>
+    <div class="sh-top"><div><div class="sh-title">Modifier mes infos</div></div><button class="sh-x" onclick="closeSh('mc-infos')"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div>
     <div class="sh-body">
       <div id="mc-infos-err" style="display:none;background:#FEF3F2;color:var(--r);padding:10px;border-radius:10px;margin-bottom:12px;font-size:13px"></div>
       <label style="font-size:11px;font-weight:600;color:var(--m);text-transform:uppercase">Prenom</label>
@@ -1837,7 +1836,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
 <!-- SHEET KYC -->
 <div class="sh-ov" id="sh-mc-kyc">
   <div class="sh"><div class="sh-bar"></div>
-    <div class="sh-top"><div><div class="sh-title">Mettre a jour mon KYC</div></div><button class="sh-x" onclick="closeSh('mc-kyc')">&#10005;</button></div>
+    <div class="sh-top"><div><div class="sh-title">Mettre a jour mon KYC</div></div><button class="sh-x" onclick="closeSh('mc-kyc')"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div>
     <div class="sh-body">
       <div id="mc-kyc-err" style="display:none;background:#FEF3F2;color:var(--r);padding:10px;border-radius:10px;margin-bottom:12px;font-size:13px"></div>
       <div style="margin-bottom:14px">
@@ -1861,7 +1860,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
 <!-- SHEET VIRER ManiPay -->
 <div class="sh-ov" id="sh-mc-virer-mani">
   <div class="sh"><div class="sh-bar"></div>
-    <div class="sh-top"><div><div class="sh-title">Virer fonds ManiPay</div><div style="color:var(--m);font-size:12px">Retrait depuis le compte plateforme</div></div><button class="sh-x" onclick="closeSh('mc-virer-mani')">&#10005;</button></div>
+    <div class="sh-top"><div><div class="sh-title">Virer fonds ManiPay</div><div style="color:var(--m);font-size:12px">Retrait depuis le compte plateforme</div></div><button class="sh-x" onclick="closeSh('mc-virer-mani')"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div>
     <div class="sh-body">
       <div id="mc-virer-mani-err" style="display:none;background:#FEF3F2;color:var(--r);padding:10px;border-radius:10px;margin-bottom:12px;font-size:13px"></div>
       <div style="background:#F0EBFF;border-radius:14px;padding:14px;margin-bottom:16px">
@@ -1983,7 +1982,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
       <label style="font-size:11px;font-weight:600;color:var(--m);text-transform:uppercase;letter-spacing:.05em">Message</label>
       <textarea class="inp" id="rt-notif-message" rows="4" placeholder="Votre message..." style="margin:6px 0 14px;resize:vertical"></textarea>
       <div id="rt-notif-err" style="display:none;background:#FEF3F2;border:1px solid #FBD3CE;color:var(--r);padding:10px 14px;border-radius:10px;margin-bottom:12px;font-size:13px"></div>
-      <button onclick="envoyerNotifRattachements()" style="width:100%;background:#6941C6;color:#fff;border:none;border-radius:12px;padding:14px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit">Envoyer →</button>
+      <button onclick="envoyerNotifRattachements()" style="width:100%;background:#6941C6;color:#fff;border:none;border-radius:12px;padding:14px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit">Envoyer<span style="display:inline-flex;vertical-align:-2px;margin-left:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
     </div>
   </div>
 </div>
@@ -2125,7 +2124,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
       <div id="kyc-complete-photos"></div>
       <div id="kc-err" style="color:var(--r);font-size:12px;margin-bottom:10px;display:none"></div>
       <button onclick="soumettreCompleterKyc()" style="width:100%;background:var(--y);color:#fff;border:none;border-radius:12px;padding:14px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit">Envoyer les documents</button>
-      <div style="font-size:11px;color:var(--m);margin-top:10px;text-align:center">Une fois envoyés, ouvrez la fiche du compte dans Support &#8594; Demandes KYC pour valider.</div>
+      <div style="font-size:11px;color:var(--m);margin-top:10px;text-align:center">Une fois envoyés, ouvrez la fiche du compte dans Support → Demandes KYC pour valider.</div>
     </div>
   </div>
 </div>
@@ -3310,7 +3309,7 @@ async function chargerTxns(){
     var r=await apiGet('/transactions?limit=100');var list=r.data||[];
     var TC={depot:'#0E8A45',retrait:'#DC8A00',transfert:'#1570EF',paiement_marchand:'#6941C6',commission:'#DC8A00'};
     var TL={depot:'Depot',retrait:'Retrait',transfert:'Transfert',paiement_marchand:'Paiement',commission:'Commission'};
-    var TI={depot:'↓',retrait:'↑',transfert:'⇄',paiement_marchand:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/></svg>',commission:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="m12 3.5 2.7 5.6 6.1.8-4.4 4.3 1.1 6.1-5.5-2.9-5.5 2.9 1.1-6.1L3.2 9.9l6.1-.8Z"/></svg>'};
+    var TI={depot:'<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 4v9"/><path d="m8.5 9.5 3.5 3.5 3.5-3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>',retrait:'<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 13V4"/><path d="m8.5 7.5 3.5-3.5 3.5 3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>',transfert:'<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M4 8h13"/><path d="m14 5 3 3-3 3"/><path d="M20 16H7"/><path d="m10 13-3 3 3 3"/></svg>',paiement_marchand:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/></svg>',commission:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="m12 3.5 2.7 5.6 6.1.8-4.4 4.3 1.1 6.1-5.5-2.9-5.5 2.9 1.1-6.1L3.2 9.9l6.1-.8Z"/></svg>'};
     el.innerHTML='';
     if(!list.length){el.innerHTML='<div style="text-align:center;padding:24px;color:var(--m)">Aucune transaction</div>';return;}
     list.forEach(function(tx){
@@ -3779,7 +3778,7 @@ function filtrerTxRembLocal() {
     list = list.filter(function(tx){ return String(Math.round(tx.montant)).indexOf(String(montantNum))>=0; });
   }
   if (!list.length) { el.innerHTML = '<div style="text-align:center;padding:32px;color:#9AAAA1;font-size:13px">Aucune transaction trouvée'+(tel||montantStr?' pour ce filtre':' sur cette période')+'</div>'; return; }
-  var TYPE_REMB_CFG={depot:{l:'↓ Dépôt',bg:'#F0FAF4',col:'#05512B'},retrait:{l:'↑ Retrait',bg:'#FEF6E9',col:'#93500A'},transfert:{l:'→ Transfert',bg:'#EAF2FE',col:'#12417F'},paiement_marchand:{l:'<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/></svg></span>Paiement marchand',bg:'#f3e8ff',col:'#7e22ce'}};
+  var TYPE_REMB_CFG={depot:{l:'<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 4v9"/><path d="m8.5 9.5 3.5 3.5 3.5-3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></span>Dépôt',bg:'#F0FAF4',col:'#05512B'},retrait:{l:'<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 13V4"/><path d="m8.5 7.5 3.5-3.5 3.5 3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></span>Retrait',bg:'#FEF6E9',col:'#93500A'},transfert:{l:'<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M4 8h13"/><path d="m14 5 3 3-3 3"/><path d="M20 16H7"/><path d="m10 13-3 3 3 3"/></svg></span>Transfert',bg:'#EAF2FE',col:'#12417F'},paiement_marchand:{l:'<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/></svg></span>Paiement marchand',bg:'#f3e8ff',col:'#7e22ce'}};
   var html = '';
   list.forEach(function(tx) {
     var age = Math.floor((Date.now() - new Date(tx.dateCreation||tx.date_creation)) / 86400000);
@@ -3806,7 +3805,7 @@ function filtrerTxRembLocal() {
     if (tx.rembourse) {
       html += '<div style="font-size:11px;font-weight:600;color:#9AAAA1;text-align:center;padding:6px;background:#F7F9F8;border-radius:8px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="m4 12 5.5 5.5L20 7"/></svg></span>Déjà remboursé</div>';
     } else if (canRemb) {
-      html += '<button onclick="confirmerRemboursement(\''+tx.id+'\',\''+tx.reference+'\','+tx.montant+',\''+tx.type+'\')" style="width:100%;background:#FEF3F2;border:1.5px solid #FBD3CE;border-radius:10px;padding:9px;color:#D92D20;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">↩ Rembourser</button>';
+      html += '<button onclick="confirmerRemboursement(\''+tx.id+'\',\''+tx.reference+'\','+tx.montant+',\''+tx.type+'\')" style="width:100%;background:#FEF3F2;border:1.5px solid #FBD3CE;border-radius:10px;padding:9px;color:#D92D20;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20 11.5a8 8 0 1 0-2.4 5.7"/><path d="M20 6.5v5h-5"/></svg></span>Rembourser</button>';
     } else {
       html += '<div style="font-size:11px;color:#9AAAA1;text-align:center;padding:6px">Hors délai pour votre rôle (max '+delaiRole+'j)</div>';
     }
@@ -3828,7 +3827,7 @@ async function effetuerRemboursement(txId, ref, montant) {
   try {
     toast('Remboursement en cours...', false);
     await apiPost('/admin/transactions/'+txId+'/rembourser', { motif: 'Erreur opérateur' });
-    toast('\u2713 Remboursement effectu\u00e9 : ' + F(montant));
+    toast('<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="m4 12 5.5 5.5L20 7"/></svg></span>Remboursement effectu\u00e9 : ' + F(montant));
     // Recharger la bonne vue selon le contexte
     if(uFilter==='remb'){chargerRembComptes();}
     else{chargerTxRemb();}
@@ -3890,7 +3889,7 @@ async function chargerTicketsSupport(statut) {
         btns.appendChild(b1);
         if(t.service==='support_client'||!t.service){
           var b2=document.createElement('button');
-          b2.textContent='→ Tech';
+          b2.textContent='Tech';
           b2.style.cssText='padding:6px 11px;background:#F0EBFF;border:1px solid #d8b4fe;border-radius:8px;color:#6941C6;cursor:pointer;font-size:11px;font-weight:700;font-family:inherit';
           (function(tid){b2.onclick=function(){changerStatutTicket(tid,'transfere_tech');};})(t.id);
           btns.appendChild(b2);
@@ -4974,7 +4973,7 @@ function filtrerRembComptesLocal(){
   list.forEach(function(tx){
     var age=Math.floor((Date.now()-new Date(tx.dateCreation||tx.date_creation))/86400000);
     var ageLabel=age===0?'Aujourd\'hui':age+' j';
-    var TYPE_REMB_CFG={depot:{l:'↓ Dépôt',bg:'#F0FAF4',col:'#05512B'},retrait:{l:'↑ Retrait',bg:'#FEF6E9',col:'#93500A'},transfert:{l:'→ Transfert',bg:'#EAF2FE',col:'#12417F'},paiement_marchand:{l:'<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/></svg></span>Paiement marchand',bg:'#f3e8ff',col:'#7e22ce'}};
+    var TYPE_REMB_CFG={depot:{l:'<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 4v9"/><path d="m8.5 9.5 3.5 3.5 3.5-3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></span>Dépôt',bg:'#F0FAF4',col:'#05512B'},retrait:{l:'<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 13V4"/><path d="m8.5 7.5 3.5-3.5 3.5 3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></span>Retrait',bg:'#FEF6E9',col:'#93500A'},transfert:{l:'<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M4 8h13"/><path d="m14 5 3 3-3 3"/><path d="M20 16H7"/><path d="m10 13-3 3 3 3"/></svg></span>Transfert',bg:'#EAF2FE',col:'#12417F'},paiement_marchand:{l:'<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/></svg></span>Paiement marchand',bg:'#f3e8ff',col:'#7e22ce'}};
     var typeCfgRemb=TYPE_REMB_CFG[tx.type]||{l:tx.type,bg:'#E3EAE5',col:'#4E6157'};
     var typeLabel=typeCfgRemb.l, typeBg=typeCfgRemb.bg, typeCol=typeCfgRemb.col;
     html+='<div style="background:#fff;border:1px solid #E3EAE5;border-radius:14px;padding:14px 16px;margin-bottom:8px">'
@@ -4987,8 +4986,8 @@ function filtrerRembComptesLocal(){
         +'<div style="font-size:16px;font-weight:700;color:#4E6157;font-family:Outfit,sans-serif">'+F(tx.montant)+'</div>'
       +'</div>';
     var canRembC=age<=(_rembComptesDelai||7);
-    if(tx.rembourse){html+='<div style="font-size:11px;font-weight:600;color:#9AAAA1;text-align:center;padding:6px;background:#F7F9F8;border-radius:8px">\u2713 D\u00e9j\u00e0 rembours\u00e9</div>';}
-    else if(canRembC){html+='<button data-txid="'+tx.id+'" data-ref="'+tx.reference+'" data-m="'+tx.montant+'" onclick="effetuerRemboursementC(this)" style="width:100%;background:#FEF3F2;border:1.5px solid #FBD3CE;border-radius:10px;padding:9px;color:#D92D20;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">\u21a9 Rembourser</button>';}
+    if(tx.rembourse){html+='<div style="font-size:11px;font-weight:600;color:#9AAAA1;text-align:center;padding:6px;background:#F7F9F8;border-radius:8px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="m4 12 5.5 5.5L20 7"/></svg></span>D\u00e9j\u00e0 rembours\u00e9</div>';}
+    else if(canRembC){html+='<button data-txid="'+tx.id+'" data-ref="'+tx.reference+'" data-m="'+tx.montant+'" onclick="effetuerRemboursementC(this)" style="width:100%;background:#FEF3F2;border:1.5px solid #FBD3CE;border-radius:10px;padding:9px;color:#D92D20;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20 11.5a8 8 0 1 0-2.4 5.7"/><path d="M20 6.5v5h-5"/></svg></span>Rembourser</button>';}
     else{html+='<div style="font-size:11px;color:#9AAAA1;text-align:center;padding:6px">Hors délai pour votre rôle (max '+(_rembComptesDelai||7)+'j)</div>';}
     html+='</div>';
   });
@@ -5807,10 +5806,10 @@ function voirU(id){
   if(!isSuperAdmin() && u.telephone===SUPER_ADMIN_TEL && u.statut==='bloque'){
     var noteDiv=document.createElement('div');
     noteDiv.style.cssText='background:#FEF6E9;border:1px solid #FDE7C7;border-radius:12px;padding:12px 14px;margin-bottom:12px;font-size:12px;color:#93500A';
-    noteDiv.textContent='\ud83d\udd12 Compte protégé — visible uniquement car bloqué. Seul le déblocage est possible ici ; aucune autre action.';
+    noteDiv.textContent='Compte protégé — visible uniquement car bloqué. Seul le déblocage est possible ici ; aucune autre action.';
     body.appendChild(noteDiv);
     var btnDeb=document.createElement('button');
-    btnDeb.className='btn btn-g';btnDeb.textContent='\ud83d\udd13 Débloquer';
+    btnDeb.className='btn btn-g';btnDeb.textContent='Débloquer';
     btnDeb.style.cssText='width:100%;padding:15px;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:10px';
     btnDeb.addEventListener('click',function(){chgStatut(id,'actif');});
     body.appendChild(btnDeb);
@@ -5835,7 +5834,7 @@ function voirU(id){
     // directement depuis la fiche compte, sans devoir passer par l'onglet Support.
     var kycDemZone=document.createElement('div');
     kycDemZone.style.cssText='margin-bottom:12px;background:#FEF6E9;border:1.5px solid #FDE7C7;border-radius:14px;padding:14px';
-    kycDemZone.innerHTML='<div style="font-size:13px;font-weight:600;color:#93500A;margin-bottom:8px">\ud83e\udeaa Demande '+u.kycNiveauDemande+' en attente de validation</div><div style="text-align:center;padding:10px;color:#9AAAA1;font-size:12px">V\u00e9rification des documents...</div>';
+    kycDemZone.innerHTML='<div style="font-size:13px;font-weight:600;color:#93500A;margin-bottom:8px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><circle cx="8.5" cy="11" r="2.2"/><path d="M5 16.5a3.8 3.8 0 0 1 7 0"/><path d="M14.5 10h4"/><path d="M14.5 14h3"/></svg></span>Demande '+u.kycNiveauDemande+' en attente de validation</div><div style="text-align:center;padding:10px;color:#9AAAA1;font-size:12px">V\u00e9rification des documents...</div>';
     body.appendChild(kycDemZone);
     apiGet('/kyc/documents?userId='+id).then(function(r){
       var docs=r.data||[];
@@ -5844,20 +5843,20 @@ function voirU(id){
       var requis=KYC_DOCS_REQUIS[niveauDem]||[];
       var manq=requis.filter(function(d){return docsIds.indexOf(d)<0;});
       var complet=manq.length===0;
-      var html='<div style="font-size:13px;font-weight:600;color:#93500A;margin-bottom:8px">\ud83e\udeaa Demande '+niveauDem+' en attente de validation</div>';
+      var html='<div style="font-size:13px;font-weight:600;color:#93500A;margin-bottom:8px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><circle cx="8.5" cy="11" r="2.2"/><path d="M5 16.5a3.8 3.8 0 0 1 7 0"/><path d="M14.5 10h4"/><path d="M14.5 14h3"/></svg></span>Demande '+niveauDem+' en attente de validation</div>';
       if(manq.length){
         html+='<div style="font-size:12px;color:#93500A;margin-bottom:10px">Documents manquants : '+manq.map(function(d){return KYC_LABELS[d]||d;}).join(', ')+'</div>';
       } else {
-        html+='<div style="font-size:12px;color:#05512B;margin-bottom:10px">\u2705 Tous les documents requis sont pr\u00e9sents</div>';
+        html+='<div style="font-size:12px;color:#05512B;margin-bottom:10px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="8.8"/><path d="m8.2 12 2.6 2.6 5-5.2"/></svg></span>Tous les documents requis sont pr\u00e9sents</div>';
       }
       kycDemZone.innerHTML=html;
       var btnValDem=document.createElement('button');
-      btnValDem.textContent=complet?('\u2705 Valider '+niveauDem):'\u2705 Valider (niveau incomplet \u2014 confirmer quand m\u00eame)';
+      btnValDem.textContent=complet?('<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="8.8"/><path d="m8.2 12 2.6 2.6 5-5.2"/></svg></span>Valider '+niveauDem):'<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="8.8"/><path d="m8.2 12 2.6 2.6 5-5.2"/></svg></span>Valider (niveau incomplet \u2014 confirmer quand m\u00eame)';
       btnValDem.style.cssText='width:100%;padding:13px;border-radius:12px;background:#0E8A45;color:#fff;border:none;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:8px';
       btnValDem.addEventListener('click',function(){validerKycDepuisCompte(id,niveauDem);});
       kycDemZone.appendChild(btnValDem);
       var btnRejDem=document.createElement('button');
-      btnRejDem.textContent='\u274c Rejeter la demande';
+      btnRejDem.textContent='Rejeter la demande';
       btnRejDem.style.cssText='width:100%;padding:13px;border-radius:12px;background:#fff;color:#D92D20;border:1px solid #FBD3CE;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit';
       btnRejDem.addEventListener('click',function(){rejeterKycDepuisCompte(id,niveauDem);});
       kycDemZone.appendChild(btnRejDem);
@@ -5992,7 +5991,7 @@ async function validerKycDepuisCompte(clientId,niveau){
       var match=(tk.data||[]).find(function(t){return t.clientId===clientId && t.sujet && /KYC/i.test(t.sujet) && (/valid/i.test(t.sujet)||/upgrade/i.test(t.sujet));});
       if(match)await apiPatch('/tickets/'+match.id+'/status',{statut:'resolu'}).catch(function(){});
     }catch(e2){}
-    toast('\u2705 KYC '+niveau+' valid\u00e9 \u2014 client actif');
+    toast('<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="8.8"/><path d="m8.2 12 2.6 2.6 5-5.2"/></svg></span>KYC '+niveau+' valid\u00e9 \u2014 client actif');
     closeSh('user');chargerUsers();
   }catch(e){toast('Validation: '+e.message,true);}
 }
@@ -6230,7 +6229,7 @@ async function rechercherTxParReference(){
         html+='<div style="font-size:11px;color:#93500A;font-weight:600;margin-bottom:8px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 4.2 2.8 20h18.4Z"/><path d="M12 10v4"/><circle cx="12" cy="17.2" r="1" fill="currentColor" stroke="none"/></svg></span>Transfert entre professionnels — annulation en libre-service bloquée, uniquement possible ici</div>';
       }
       if(annulable && perm('soldes')){
-        html+='<button onclick="ouvrirAnnulationTxAdmin(\''+tx.id+'\',\''+tx.reference+'\')" style="width:100%;padding:10px;border-radius:10px;border:1px solid #FBD3CE;background:#FEF3F2;color:#D92D20;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">↩️ Annuler manuellement</button>';
+        html+='<button onclick="ouvrirAnnulationTxAdmin(\''+tx.id+'\',\''+tx.reference+'\')" style="width:100%;padding:10px;border-radius:10px;border:1px solid #FBD3CE;background:#FEF3F2;color:#D92D20;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20 11.5a8 8 0 1 0-2.4 5.7"/><path d="M20 6.5v5h-5"/></svg></span>Annuler manuellement</button>';
       } else if(tx.statut==='annule'){
         html+='<div style="font-size:11px;color:#9AAAA1">Déjà annulée'+(tx.annuleLe?(' le '+new Date(tx.annuleLe).toLocaleString('fr-FR')):'')+'</div>';
       }
@@ -6375,7 +6374,7 @@ async function _fluxAnalyticsLoad(){
     _fluxRenderB2BChart();
     _fluxRenderSingleSection('b2b',_fluxData.business2business,'Business ↔ Business','#93500A');
   }catch(e){
-    var msg='<div style="background:#FEF6E9;border:1px solid var(--y);border-radius:12px;padding:14px;text-align:center;font-size:11px;color:#93500A">'+e.message+' <button onclick="_fluxAnalyticsLoad()" style="margin-left:8px;background:var(--y);color:#fff;border:none;border-radius:6px;padding:3px 8px;font-size:10px;cursor:pointer;font-family:inherit">↻</button></div>';
+    var msg='<div style="background:#FEF6E9;border:1px solid var(--y);border-radius:12px;padding:14px;text-align:center;font-size:11px;color:#93500A">'+e.message+' <button onclick="_fluxAnalyticsLoad()" style="display:flex;align-items:center;justify-content:center;margin-left:8px;background:var(--y);color:#fff;border:none;border-radius:6px;padding:3px 8px;cursor:pointer;font-family:inherit"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20.5 11.5a8.5 8.5 0 0 1-14.6 5.9"/><path d="M3.5 12.5a8.5 8.5 0 0 1 14.6-5.9"/><path d="M18.4 3.2v3.4H15"/><path d="M5.6 20.8v-3.4H9"/></svg></button></div>';
     ['flux-transfer-table','flux-depots-section','flux-retraits-section'].forEach(function(id){var el=document.getElementById(id);if(el)el.innerHTML=msg;});
   }
 }
@@ -7210,7 +7209,7 @@ async function _chargerTechHistory() {
       el.innerHTML='<div style="background:#F7F9F8;border:1px solid #E3EAE5;border-radius:12px;padding:12px;text-align:center;color:#9AAAA1;font-size:12px">Aucune action récente</div>';
       return;
     }
-    var actionIcons={force_txn:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="3.1"/><path d="M19.6 14.6a1.6 1.6 0 0 0 .3 1.8l.1.1a1.9 1.9 0 1 1-2.7 2.7l-.1-.1a1.6 1.6 0 0 0-2.7 1.1v.3a1.9 1.9 0 1 1-3.8 0v-.2a1.6 1.6 0 0 0-2.8-1.1l-.1.1a1.9 1.9 0 1 1-2.7-2.7l.1-.1a1.6 1.6 0 0 0-1.1-2.7h-.2a1.9 1.9 0 1 1 0-3.8h.2a1.6 1.6 0 0 0 1.1-2.8l-.1-.1a1.9 1.9 0 1 1 2.7-2.7l.1.1a1.6 1.6 0 0 0 2.7-1.1v-.2a1.9 1.9 0 1 1 3.8 0v.2a1.6 1.6 0 0 0 2.7 1.1l.1-.1a1.9 1.9 0 1 1 2.7 2.7l-.1.1a1.6 1.6 0 0 0 1.1 2.7h.2a1.9 1.9 0 1 1 0 3.8h-.2a1.6 1.6 0 0 0-1.5 1.1Z"/></svg>️',resolve_ticket:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="8.8"/><path d="m8.2 12 2.6 2.6 5-5.2"/></svg>',create_alert:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M6 19v-5.5a6 6 0 0 1 12 0V19"/><path d="M4 19h16"/><path d="M12 2.5v2"/><path d="m5.2 5.6 1.4 1.4"/><path d="m18.8 5.6-1.4 1.4"/></svg>',update_status:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20.5 11.5a8.5 8.5 0 0 1-14.6 5.9"/><path d="M3.5 12.5a8.5 8.5 0 0 1 14.6-5.9"/><path d="M18.4 3.2v3.4H15"/><path d="M5.6 20.8v-3.4H9"/></svg>',relance_txn:'↻'};
+    var actionIcons={force_txn:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="3.1"/><path d="M19.6 14.6a1.6 1.6 0 0 0 .3 1.8l.1.1a1.9 1.9 0 1 1-2.7 2.7l-.1-.1a1.6 1.6 0 0 0-2.7 1.1v.3a1.9 1.9 0 1 1-3.8 0v-.2a1.6 1.6 0 0 0-2.8-1.1l-.1.1a1.9 1.9 0 1 1-2.7-2.7l.1-.1a1.6 1.6 0 0 0-1.1-2.7h-.2a1.9 1.9 0 1 1 0-3.8h.2a1.6 1.6 0 0 0 1.1-2.8l-.1-.1a1.9 1.9 0 1 1 2.7-2.7l.1.1a1.6 1.6 0 0 0 2.7-1.1v-.2a1.9 1.9 0 1 1 3.8 0v.2a1.6 1.6 0 0 0 2.7 1.1l.1-.1a1.9 1.9 0 1 1 2.7 2.7l-.1.1a1.6 1.6 0 0 0 1.1 2.7h.2a1.9 1.9 0 1 1 0 3.8h-.2a1.6 1.6 0 0 0-1.5 1.1Z"/></svg>️',resolve_ticket:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="8.8"/><path d="m8.2 12 2.6 2.6 5-5.2"/></svg>',create_alert:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M6 19v-5.5a6 6 0 0 1 12 0V19"/><path d="M4 19h16"/><path d="M12 2.5v2"/><path d="m5.2 5.6 1.4 1.4"/><path d="m18.8 5.6-1.4 1.4"/></svg>',update_status:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20.5 11.5a8.5 8.5 0 0 1-14.6 5.9"/><path d="M3.5 12.5a8.5 8.5 0 0 1 14.6-5.9"/><path d="M18.4 3.2v3.4H15"/><path d="M5.6 20.8v-3.4H9"/></svg>',relance_txn:'<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20.5 11.5a8.5 8.5 0 0 1-14.6 5.9"/><path d="M3.5 12.5a8.5 8.5 0 0 1 14.6-5.9"/><path d="M18.4 3.2v3.4H15"/><path d="M5.6 20.8v-3.4H9"/></svg>'};
     var frag=document.createDocumentFragment();
     list.forEach(function(a){
       var d=new Date(a.created_at||a.createdAt||Date.now());
@@ -7612,7 +7611,7 @@ async function chargerHistoriqueClient(userId){
     });
     var TC={depot:'#0E8A45',retrait:'#DC8A00',transfert:'#1570EF',commission:'#DC8A00',paiement_marchand:'#6941C6',remboursement:'#4E6157'};
     var TL={depot:'Dépôt',retrait:'Retrait',transfert:'Transfert',commission:'Commission',paiement_marchand:'Paiement',remboursement:'Remboursement'};
-    var TI={depot:'↓',retrait:'↑',transfert:'⇄',commission:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="m12 3.5 2.7 5.6 6.1.8-4.4 4.3 1.1 6.1-5.5-2.9-5.5 2.9 1.1-6.1L3.2 9.9l6.1-.8Z"/></svg>',paiement_marchand:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/></svg>',remboursement:'↩'};
+    var TI={depot:'<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 4v9"/><path d="m8.5 9.5 3.5 3.5 3.5-3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>',retrait:'<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 13V4"/><path d="m8.5 7.5 3.5-3.5 3.5 3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>',transfert:'<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M4 8h13"/><path d="m14 5 3 3-3 3"/><path d="M20 16H7"/><path d="m10 13-3 3 3 3"/></svg>',commission:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="m12 3.5 2.7 5.6 6.1.8-4.4 4.3 1.1 6.1-5.5-2.9-5.5 2.9 1.1-6.1L3.2 9.9l6.1-.8Z"/></svg>',paiement_marchand:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/></svg>',remboursement:'<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20 11.5a8 8 0 1 0-2.4 5.7"/><path d="M20 6.5v5h-5"/></svg>'};
     el.innerHTML='';
     var header=document.createElement('div');
     header.innerHTML='<div style="font-size:11px;font-weight:600;color:#4E6157;text-transform:uppercase;margin-bottom:10px">HISTORIQUE ('+labelPeriode+')</div>';
@@ -7642,7 +7641,7 @@ async function chargerHistoriqueClient(userId){
         +'</div>';
       if(!dejaRembourse&&estRemboursable&&peutRembourser){
         var btnR=document.createElement('button');
-        btnR.textContent='↩ Rembourser';
+        btnR.textContent='<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20 11.5a8 8 0 1 0-2.4 5.7"/><path d="M20 6.5v5h-5"/></svg></span>Rembourser';
         btnR.style.cssText='margin-top:6px;width:100%;padding:7px;background:#FEF3F2;color:#D92D20;border:1px solid #FBD3CE;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit';
         (function(b,tid,mont,ref){
           b.addEventListener('click',function(){
@@ -7669,7 +7668,7 @@ async function rembourserTransactionV2(txId,montant,ref,btn){
     toast('<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="m4 12 5.5 5.5L20 7"/></svg></span>Remboursement effectué — '+ref);
     chargerHistoriqueClient(currentClientId);
   }catch(e){
-    btn.disabled=false;btn.textContent='↩ Rembourser';
+    btn.disabled=false;btn.textContent='<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20 11.5a8 8 0 1 0-2.4 5.7"/><path d="M20 6.5v5h-5"/></svg></span>Rembourser';
     toast(e.message,true);
   }
 }
@@ -8140,7 +8139,7 @@ async function _admStatsLoadData() {
       +'<div style="display:flex;align-items:center;justify-content:center;margin-bottom:8px"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M4 4v15a1 1 0 0 0 1 1h15"/><path d="M8 16v-4"/><path d="M12.5 16V8"/><path d="M17 16v-6"/></svg></div>'
       +'<div style="font-size:13px;font-weight:600;color:var(--y2);margin-bottom:6px">Données non disponibles</div>'
       +'<div style="font-size:11px;color:#93500A">'+e.message+'</div>'
-      +'<button onclick="_admStatsLoadData()" style="margin-top:10px;padding:7px 14px;background:var(--y);color:#fff;border:none;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit">↻ Réessayer</button>'
+      +'<button onclick="_admStatsLoadData()" style="margin-top:10px;padding:7px 14px;background:var(--y);color:#fff;border:none;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20.5 11.5a8.5 8.5 0 0 1-14.6 5.9"/><path d="M3.5 12.5a8.5 8.5 0 0 1 14.6-5.9"/><path d="M18.4 3.2v3.4H15"/><path d="M5.6 20.8v-3.4H9"/></svg></span>Réessayer</button>'
       +'</div>';
     if (detEl) detEl.innerHTML = '';
   }
@@ -8708,7 +8707,7 @@ async function envoyerCampagne(){
     if(dest==='individuel'){
       // Envoi par numéros de téléphone
       var telRaw=document.getElementById('camp-tel').value.trim();
-      if(!telRaw){toast('Entrez au moins un numéro',true);btns.forEach(function(b){b.disabled=false;b.textContent='Envoyer →';});return;}
+      if(!telRaw){toast('Entrez au moins un numéro',true);btns.forEach(function(b){b.disabled=false;b.textContent='Envoyer';});return;}
       var tels=telRaw.split(',').map(function(t){return t.trim();}).filter(Boolean);
       r=await apiPost('/notifications/multi',{telephones:tels,titre:titre,message:msg,type:'systeme'});
     } else {
@@ -8720,7 +8719,7 @@ async function envoyerCampagne(){
       var roles=rolesMap[dest]||[dest];
       r=await apiPost('/notifications/masse',{titre:titre,message:msg,type:'systeme',roles:roles});
     }
-    if(!r){toast('Erreur: session expirée',true);btns.forEach(function(b){b.disabled=false;b.textContent='Envoyer →';});return;}
+    if(!r){toast('Erreur: session expirée',true);btns.forEach(function(b){b.disabled=false;b.textContent='Envoyer';});return;}
     var total=(r.data&&r.data.total!=null)?r.data.total:(r.total||0);
     if(total===0){
       toast('Aucun destinataire trouvé',true);
@@ -8732,7 +8731,7 @@ async function envoyerCampagne(){
       setTimeout(chargerCampagnes, 800);
     }
   }catch(e){toast('Erreur: '+e.message,true);}
-  btns.forEach(function(b){b.disabled=false;b.textContent='Envoyer →';});
+  btns.forEach(function(b){b.disabled=false;b.textContent='Envoyer';});
 }
 
 function logout(){
@@ -8742,7 +8741,7 @@ function logout(){
   ov.style.cssText='position:fixed;inset:0;background:rgba(10,31,20,.5);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
   var box=document.createElement('div');
   box.style.cssText='background:#fff;border-radius:20px;padding:28px 24px;max-width:320px;width:100%;text-align:center';
-  box.innerHTML='<div style="font-size:36px;margin-bottom:12px">&#x1F6AA;</div>'
+  box.innerHTML='<div style="display:flex;align-items:center;justify-content:center;margin-bottom:12px"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M14 3.5H6.5A1.5 1.5 0 0 0 5 5v14a1.5 1.5 0 0 0 1.5 1.5H14"/><path d="M17.5 12H10"/><path d="m14.5 8.5 3.5 3.5-3.5 3.5"/></svg></div>'
     +'<div style="font-size:17px;font-weight:700;color:#0A1F14;margin-bottom:8px;font-family:Outfit,sans-serif">D&#233;connexion</div>'
     +'<div style="font-size:13px;color:#4E6157;margin-bottom:24px">Voulez-vous vraiment vous d&#233;connecter ?</div>'
     +'<div style="display:flex;gap:10px">'
@@ -8807,10 +8806,10 @@ function ouvrirNotifsBO() {
   var sheet = document.createElement('div');
   sheet.style.cssText = 'background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:480px;max-height:80vh;display:flex;flex-direction:column;overflow:hidden';
   sheet.innerHTML = '<div style="padding:14px 20px 10px;border-bottom:1px solid #E3EAE5;display:flex;justify-content:space-between;align-items:center">'
-    + '<div style="font-size:15px;font-weight:600;color:#0A1F14;font-family:Outfit,sans-serif">&#x1F514; Mes notifications</div>'
+    + '<div style="font-size:15px;font-weight:600;color:#0A1F14;font-family:Outfit,sans-serif"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M18 9a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16S18 14 18 9Z"/><path d="M13.7 19a2 2 0 0 1-3.4 0"/></svg></span>Mes notifications</div>'
     + '<div style="display:flex;gap:8px">'
     + '<button id="bo-tout-lire-btn" style="font-size:11px;font-weight:600;color:#0E8A45;background:#F0FAF4;border:none;border-radius:8px;padding:5px 10px;cursor:pointer;font-family:inherit">Tout lire</button>'
-    + '<button id="bo-close-panel-btn" style="background:#E3EAE5;border:none;border-radius:8px;width:28px;height:28px;cursor:pointer;font-size:14px">&#x2715;</button>'
+    + '<button id="bo-close-panel-btn" style="display:flex;align-items:center;justify-content:center;background:#E3EAE5;border:none;border-radius:8px;width:28px;height:28px;cursor:pointer;"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>'
     + '</div></div>'
     + '<div id="bo-notif-list" style="flex:1;overflow-y:auto;padding:12px 16px 20px"><div style="text-align:center;padding:20px"><div class="spin"></div></div></div>';
   panel.appendChild(sheet);
@@ -8938,7 +8937,7 @@ async function _boLoadMesNotifs() {
     _boNotifCount = Number((r.data && r.data.nonLues != null ? r.data.nonLues : r.nonLues) || 0);
     chargerBadgeNotifsBO();
     if (!list.length) { el.innerHTML = '<div style="text-align:center;padding:24px;color:#9AAAA1;font-size:12px">Aucune notification</div>'; return; }
-    var icons = {transaction:'&#x1F4B3;',kyc:'&#x1F4CB;',securite:'&#x1F510;',systeme:'&#x1F4E2;',parrainage:'&#x1F91D;'};
+    var icons = {transaction:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19"/><path d="M6.5 15h3"/></svg>',kyc:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><rect x="5" y="4.5" width="14" height="16" rx="2.5"/><path d="M9 4.5V3.6A1.6 1.6 0 0 1 10.6 2h2.8A1.6 1.6 0 0 1 15 3.6v.9Z"/><path d="M8.8 11h6.4"/><path d="M8.8 15h4"/></svg>',securite:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><rect x="4.5" y="10" width="15" height="10.5" rx="2.5"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10"/><path d="M12 13.6v3.2"/><path d="m10.6 14.4 2.8 1.6"/><path d="m13.4 14.4-2.8 1.6"/></svg>',systeme:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="m3.5 11 12-6v14l-12-6Z"/><path d="M3.5 9.5h-.2A1.3 1.3 0 0 0 2 10.8v.4a1.3 1.3 0 0 0 1.3 1.3h.2"/><path d="M18 8.5a4 4 0 0 1 0 7"/><path d="M7 13.5V18a1.5 1.5 0 0 0 3 0v-3.5"/></svg>',parrainage:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 3.2 5 6v5.4c0 4.2 2.8 7.6 7 9.4 4.2-1.8 7-5.2 7-9.4V6Z"/><circle cx="12" cy="10.2" r="2.1"/><path d="M8.6 16.4a3.7 3.7 0 0 1 6.8 0"/></svg>'};
     var cols = {transaction:'#1570EF',kyc:'#0E8A45',securite:'#DC8A00',systeme:'#6941C6',parrainage:'#DC8A00'};
     var nonLues = list.filter(function(n){return !n.lu;});
     var lues = list.filter(function(n){return n.lu;});
@@ -8954,7 +8953,7 @@ async function _boLoadMesNotifs() {
       row.onclick = function() { boLireNotif(this); };
       var icon = document.createElement('div');
       icon.style.cssText = 'width:32px;height:32px;border-radius:8px;background:' + col + '18;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;opacity:' + (n.lu?'.5':'1');
-      icon.innerHTML = icons[n.type] || '&#x1F514;';
+      icon.innerHTML = icons[n.type] || '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M18 9a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16S18 14 18 9Z"/><path d="M13.7 19a2 2 0 0 1-3.4 0"/></svg>';
       var body = document.createElement('div');
       body.style.cssText = 'flex:1;min-width:0';
       var head = document.createElement('div');
@@ -9022,7 +9021,7 @@ async function _boLoadHist(append) {
       tsEl.textContent = ds;
       var delBtn = document.createElement('button');
       delBtn.dataset.notifId = n.id;
-      delBtn.innerHTML = '&#x2715;';
+      delBtn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
       delBtn.style.cssText = 'background:#FEF3F2;border:none;border-radius:5px;padding:1px 6px;font-size:10px;color:#D92D20;cursor:pointer;font-family:inherit';
       delBtn.onclick = function() { _boDeleteNotif(this.dataset.notifId, this); };
       metaDiv.appendChild(tsEl); metaDiv.appendChild(delBtn);
@@ -9305,7 +9304,7 @@ function _boBuildKeypad() {
       btn.textContent = 'Quitter';
       btn.onclick = boLockLogout;
     } else if (k === 'D') {
-      btn.innerHTML = '&#x232B;';
+      btn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20 5H9l-6 7 6 7h11a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1Z"/><path d="m16 9-5 6"/><path d="m11 9 5 6"/></svg>';
       btn.onclick = boLockDel;
     } else {
       btn.textContent = String(k);
@@ -9828,7 +9827,7 @@ function _tkRender(el, list, listId) {
     rmeta.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin-bottom:8px';
     var rdate = document.createElement('div');
     rdate.style.cssText = 'font-size:9px;color:#9AAAA1';
-    rdate.innerHTML = '&#x1F552; ' + ds;
+    rdate.innerHTML = '<span style="display:inline-flex;vertical-align:-2px;margin-right:5px"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="12" cy="13.4" r="7.4"/><path d="M12 9.8v3.6l2.4 1.5"/><path d="M9.6 2.6h4.8"/><path d="M12 2.6v3.4"/></svg></span>' + ds;
     rmeta.appendChild(rdate);
     if (tk.reference || tk.id) {
       var rref = document.createElement('div');
@@ -9853,7 +9852,7 @@ function _tkRender(el, list, listId) {
     if (tk.statut === 'ouvert') {
       addBtn('<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M20.5 11.5a8.5 8.5 0 0 1-14.6 5.9"/><path d="M3.5 12.5a8.5 8.5 0 0 1 14.6-5.9"/><path d="M18.4 3.2v3.4H15"/><path d="M5.6 20.8v-3.4H9"/></svg></span>Prendre', 'background:#EAF2FE;border:1px solid #C7DDFE;color:#12417F', 'en_cours');
       if (tk.service === 'support_client' || !tk.service) {
-        addBtn('<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M14.2 6.4a3.8 3.8 0 0 0 5 5L21 13a5.5 5.5 0 0 1-7.6-7.6Z"/><path d="m13.4 10.6-9 9"/><path d="M4.4 15.6 8.9 20"/></svg> → Tech', 'background:#F0EBFF;border:1px solid #d8b4fe;color:#6941C6', 'transfere_tech');
+        addBtn('<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M14.2 6.4a3.8 3.8 0 0 0 5 5L21 13a5.5 5.5 0 0 1-7.6-7.6Z"/><path d="m13.4 10.6-9 9"/><path d="M4.4 15.6 8.9 20"/></svg> Tech', 'background:#F0EBFF;border:1px solid #d8b4fe;color:#6941C6', 'transfere_tech');
       }
     }
     if (tk.statut === 'ouvert' || tk.statut === 'en_cours' || tk.statut === 'transfere_tech') {
@@ -11385,7 +11384,7 @@ chargerMonitoring = async function() {
     if (!el) return;
     el.innerHTML = '';
     if (!list.length) {
-      el.innerHTML = '<div style="background:#F0FAF4;border:1px solid #C9E7D5;border-radius:12px;padding:14px;text-align:center;color:#0E8A45;font-size:12px;font-weight:600">&#x2714; Aucune alerte active</div>';
+      el.innerHTML = '<div style="background:#F0FAF4;border:1px solid #C9E7D5;border-radius:12px;padding:14px;text-align:center;color:#0E8A45;font-size:12px;font-weight:600"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="m4 12 5.5 5.5L20 7"/></svg></span>Aucune alerte active</div>';
     } else {
       list.forEach(function(a) {
         var div = document.createElement('div');
@@ -12229,7 +12228,7 @@ async function ouvrirHistoriqueAvancesTontine(){
     list.forEach(function(m){
       var sortie=m.sens==='sortie';
       html+='<div style="display:flex;justify-content:space-between;align-items:center;background:'+(sortie?'#FEF6E9':'#F0FAF4')+';border-radius:10px;padding:12px 14px;margin-bottom:6px">';
-      html+='<div><div style="font-size:12px;font-weight:600;color:'+(sortie?'#DC8A00':'#0E8A45')+'">'+(sortie?'↗️ Sortie (avance)':'↘️ Entrée (recouvrement)')+'</div>';
+      html+='<div><div style="font-size:12px;font-weight:600;color:'+(sortie?'#DC8A00':'#0E8A45')+'">'+(sortie?'<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></span>Sortie (avance)':'<span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></span>Entrée (recouvrement)')+'</div>';
       html+='<div style="font-size:10px;color:#9AAAA1;margin-top:2px">'+new Date(m.dateCreation).toLocaleString('fr-FR')+' · '+m.reference+'</div></div>';
       html+='<b style="font-size:13px;color:'+(sortie?'#DC8A00':'#0E8A45')+'">'+(sortie?'-':'+')+F(m.montant)+' F</b>';
       html+='</div>';
@@ -12587,8 +12586,8 @@ async function chargerGainsSysteme(){
     var h='';
     //  Onglets navigation
     h+='<div style="display:flex;border-radius:14px;background:#E3EAE5;padding:4px;gap:4px;margin-bottom:16px">';
-    h+='<button id="mc-tab-ap" onclick="mcShowTab(\'ap\')" style="flex:1;border:none;border-radius:11px;padding:10px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;background:#6941C6;color:#fff">&#128200; ManiPay</button>';
-    h+='<button id="mc-tab-util" onclick="mcShowTab(\'util\')" style="flex:1;border:none;border-radius:11px;padding:10px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;background:transparent;color:#4E6157">&#128101; Utilisateurs</button>';
+    h+='<button id="mc-tab-ap" onclick="mcShowTab(\'ap\')" style="flex:1;border:none;border-radius:11px;padding:10px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;background:#6941C6;color:#fff"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M4 4v15a1 1 0 0 0 1 1h15"/><path d="M8 16v-4"/><path d="M12.5 16V8"/><path d="M17 16v-6"/></svg></span>ManiPay</button>';
+    h+='<button id="mc-tab-util" onclick="mcShowTab(\'util\')" style="flex:1;border:none;border-radius:11px;padding:10px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;background:transparent;color:#4E6157"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><circle cx="9" cy="8.4" r="3.3"/><path d="M2.8 19.4a6.4 6.4 0 0 1 12.4 0"/><path d="M16.4 5.4a3.3 3.3 0 0 1 0 6"/><path d="M18.2 19.4a5.6 5.6 0 0 0-2.2-4.4"/></svg></span>Utilisateurs</button>';
     h+='</div>';
 
     //  PAGE ManiPay 
@@ -12611,15 +12610,15 @@ async function chargerGainsSysteme(){
     h+='<div style="font-size:32px;font-weight:700;margin-bottom:4px'+(netManiNeg?';color:#FBD3CE':'')+';font-family:Outfit,sans-serif;letter-spacing:-.015em">'+F(netMani)+'</div>';
     h+='<div style="font-size:11px;opacity:.7">Gains − charges — toutes opérations</div>';
     if(netManiNeg){
-      h+='<button id="mc-btn-virer-mani" disabled style="margin-top:14px;width:100%;background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:12px;font-size:13px;font-weight:600;cursor:not-allowed;font-family:inherit">&#128184; Virer ces fonds</button>';
+      h+='<button id="mc-btn-virer-mani" disabled style="margin-top:14px;width:100%;background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:12px;font-size:13px;font-weight:600;cursor:not-allowed;font-family:inherit"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 19V6"/><path d="m5.5 12.5 6.5-7 6.5 7"/><path d="M4 21h16"/></svg></span>Virer ces fonds</button>';
       h+='<div style="font-size:10px;opacity:.7;margin-top:6px;text-align:center">Résultat négatif — aucun virement possible</div>';
     } else {
-      h+='<button id="mc-btn-virer-mani" style="margin-top:14px;width:100%;background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:12px;padding:12px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit">&#128184; Virer ces fonds</button>';
+      h+='<button id="mc-btn-virer-mani" style="margin-top:14px;width:100%;background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:12px;padding:12px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 19V6"/><path d="m5.5 12.5 6.5-7 6.5 7"/><path d="M4 21h16"/></svg></span>Virer ces fonds</button>';
     }
     h+='</div>';
     //  Tableau P&L détaillé
     h+='<div style="background:#fff;border:1px solid #E3EAE5;border-radius:14px;padding:16px;margin-bottom:14px">';
-    h+='<div style="font-size:13px;font-weight:600;margin-bottom:14px">&#128200; Détail du calcul</div>';
+    h+='<div style="font-size:13px;font-weight:600;margin-bottom:14px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M4 4v15a1 1 0 0 0 1 1h15"/><path d="M8 16v-4"/><path d="M12.5 16V8"/><path d="M17 16v-6"/></svg></span>Détail du calcul</div>';
     // Produits
     h+='<div style="font-size:10px;font-weight:600;color:#6941C6;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">+ Produits (gains)</div>';
     h+=pnlLigne('Frais retraits (100% − réseau)',pnl.gains_retrait||0,pnl.gains_retrait_nb||0,'#6941C6','+');
@@ -12640,7 +12639,7 @@ async function chargerGainsSysteme(){
     h+='<div>5 000 000 – 9 999 999 F</div><div style="text-align:right;font-weight:700">17%</div>';
     h+='<div>10 000 000 F et plus</div><div style="text-align:right;font-weight:700">12%</div>';
     h+='</div>';
-    h+='<div style="margin-top:7px;padding-top:7px;border-top:1px solid #E3EAE5;color:#4E6157">Exemple : 400 000 F dépôt + 400 000 F retrait (800k total, palier 35%) &#8594; 800 F + 1 400 F = <strong>2 200 F</strong>. Le détail des 5 paliers avec exemples complets est visible par les agents/mini-masters/masters dans leur onglet \u00ab Palier et frais \u00bb.</div>';
+    h+='<div style="margin-top:7px;padding-top:7px;border-top:1px solid #E3EAE5;color:#4E6157">Exemple : 400 000 F dépôt + 400 000 F retrait (800k total, palier 35%) → 800 F + 1 400 F = <strong>2 200 F</strong>. Le détail des 5 paliers avec exemples complets est visible par les agents/mini-masters/masters dans leur onglet \u00ab Palier et frais \u00bb.</div>';
     h+='</div>';
     h+='<div style="display:flex;justify-content:space-between;padding:8px 0;margin-bottom:10px;border-top:2px solid #D92D2022">';
     h+='<div style="font-size:12px;font-weight:600;color:#D92D20">Sous-total charges</div>';
@@ -12657,7 +12656,7 @@ async function chargerGainsSysteme(){
     h+='<div style="font-size:16px;font-weight:700;color:#6941C6;font-family:Outfit,sans-serif">'+F(netMani)+'</div></div>';
     h+='</div>';
     h+='<div style="background:#fff;border:1px solid #E3EAE5;border-radius:14px;padding:16px;margin-bottom:14px">';
-    h+='<div style="font-size:13px;font-weight:600;margin-bottom:14px">&#128197; Gains ManiPay par période</div>';
+    h+='<div style="font-size:13px;font-weight:600;margin-bottom:14px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 9.5h17"/><path d="M8 3v4"/><path d="M16 3v4"/><circle cx="8.5" cy="13.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="12" cy="13.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="15.5" cy="13.5" r="1.1" fill="currentColor" stroke="none"/></svg></span>Gains ManiPay par période</div>';
     h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">';
     h+=mcPeriodCardV2("Aujourd'hui",apP.aujourdhui,'#6941C6');
     h+=mcPeriodCardV2('Cette semaine',apP.semaine,'#6941C6');
@@ -12670,7 +12669,7 @@ async function chargerGainsSysteme(){
 
     //  Courbe interactive avec filtres période + type
     h+='<div style="background:#fff;border:1px solid #E3EAE5;border-radius:14px;padding:16px;margin-bottom:14px">';
-    h+='<div style="font-size:13px;font-weight:600;margin-bottom:12px">&#128202; Évolution des gains</div>';
+    h+='<div style="font-size:13px;font-weight:600;margin-bottom:12px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M4 4v15a1 1 0 0 0 1 1h15"/><path d="M8 16v-4"/><path d="M12.5 16V8"/><path d="M17 16v-6"/></svg></span>Évolution des gains</div>';
     // Filtres période
     h+='<div style="font-size:10px;font-weight:600;color:#4E6157;text-transform:uppercase;margin-bottom:6px">Période</div>';
     h+='<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">';
@@ -12691,7 +12690,7 @@ async function chargerGainsSysteme(){
     if(ap.parType&&ap.parType.length){
       var apTotType=(apP.total||{}).total||1;
       h+='<div style="background:#fff;border:1px solid #E3EAE5;border-radius:14px;padding:16px;margin-bottom:14px">';
-      h+='<div style="font-size:13px;font-weight:600;margin-bottom:12px">&#128202; Détail par opération</div>';
+      h+='<div style="font-size:13px;font-weight:600;margin-bottom:12px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M4 4v15a1 1 0 0 0 1 1h15"/><path d="M8 16v-4"/><path d="M12.5 16V8"/><path d="M17 16v-6"/></svg></span>Détail par opération</div>';
       ap.parType.forEach(function(g){
         var label=(g.type_commission||'').replace(/gain_plateforme_/g,'').replace(/_/g,' ');
         var pct=Math.min(100,(g.total/apTotType*100)).toFixed(1);
@@ -12706,7 +12705,7 @@ async function chargerGainsSysteme(){
     // Historique virements — toujours affiché avec total
     h+='<div style="background:#fff;border:1px solid #E3EAE5;border-radius:14px;padding:16px;margin-bottom:14px">';
     h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">';
-    h+='<div style="font-size:13px;font-weight:600">&#128196; Historique virements</div>';
+    h+='<div style="font-size:13px;font-weight:600"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M13.5 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.5Z"/><path d="M13.5 3v5.5H19"/></svg></span>Historique virements</div>';
     h+='<div style="font-size:12px;font-weight:600;color:var(--r)">Total viré : '+F(totalVirements)+'</div>';
     h+='</div>';
     if(ap.virements&&ap.virements.length){
@@ -12737,7 +12736,7 @@ async function chargerGainsSysteme(){
     h+='<div style="font-size:28px;font-weight:700;font-family:Outfit,sans-serif;letter-spacing:-.015em">'+F((uP.total||{}).total||0)+'</div></div>';
     // Cartes période globales
     h+='<div style="background:#fff;border:1px solid #E3EAE5;border-radius:14px;padding:16px;margin-bottom:14px">';
-    h+='<div style="font-size:13px;font-weight:600;margin-bottom:14px">&#128197; Vue globale par période</div>';
+    h+='<div style="font-size:13px;font-weight:600;margin-bottom:14px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 9.5h17"/><path d="M8 3v4"/><path d="M16 3v4"/><circle cx="8.5" cy="13.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="12" cy="13.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="15.5" cy="13.5" r="1.1" fill="currentColor" stroke="none"/></svg></span>Vue globale par période</div>';
     h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">';
     h+=mcPeriodCardV2("Aujourd'hui",uP.aujourdhui,'#DC8A00');
     h+=mcPeriodCardV2('Cette semaine',uP.semaine,'#DC8A00');
@@ -12795,7 +12794,7 @@ async function chargerGainsSysteme(){
 
     //  Graphique comparatif interactif
     h+='<div style="background:#fff;border:1px solid #E3EAE5;border-radius:14px;padding:16px;margin-bottom:14px">';
-    h+='<div style="font-size:13px;font-weight:600;margin-bottom:14px">&#128202; Courbes comparatives</div>';
+    h+='<div style="font-size:13px;font-weight:600;margin-bottom:14px"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M4 4v15a1 1 0 0 0 1 1h15"/><path d="M8 16v-4"/><path d="M12.5 16V8"/><path d="M17 16v-6"/></svg></span>Courbes comparatives</div>';
     // Chips rôles
     h+='<div style="font-size:10px;font-weight:600;color:var(--m);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Rôle</div>';
     h+='<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px" id="mc-chips-role">';
@@ -12839,7 +12838,7 @@ async function chargerGainsSysteme(){
     }, 80);
 
   }catch(e){
-    if(wrap)wrap.innerHTML='<div style="color:var(--r);padding:12px;font-size:12px;text-align:center"><div style="font-size:20px;margin-bottom:8px">&#9888;</div><div>'+e.message+'</div></div>';
+    if(wrap)wrap.innerHTML='<div style="color:var(--r);padding:12px;font-size:12px;text-align:center"><div style="display:flex;align-items:center;justify-content:center;margin-bottom:8px"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 4.2 2.8 20h18.4Z"/><path d="M12 10v4"/><circle cx="12" cy="17.2" r="1" fill="currentColor" stroke="none"/></svg></div><div>'+e.message+'</div></div>';
   }
 }
 
@@ -13000,7 +12999,7 @@ function pnlLigne(label, montant, nb, col, signe){
 function mcPeriodCardV2(label, data, col){
   var d=data||{};
   var vs=d.vs;
-  var arrow=vs===null?'':vs>0?'&#8679; +'+vs+'%':vs<0?'&#8681; '+vs+'%':'=0%';
+  var arrow=vs===null?'':vs>0?'<span style="display:inline-flex;vertical-align:-2px;margin-right:5px"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></span>+'+vs+'%':vs<0?'<span style="display:inline-flex;vertical-align:-2px;margin-right:5px"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></span>'+vs+'%':'=0%';
   var arrowCol=vs===null?'#9AAAA1':vs>0?'#0E8A45':vs<0?'#D92D20':'#9AAAA1';
   return '<div style="background:#F7F9F8;border-radius:12px;padding:14px">'
     +'<div style="font-size:10px;color:var(--m);font-weight:600;text-transform:uppercase;margin-bottom:6px">'+label+'</div>'
@@ -13242,7 +13241,7 @@ async function uploaderKycBO(){
           <option value="securite"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><rect x="4.5" y="10" width="15" height="10.5" rx="2.5"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10"/><path d="M12 13.6v3.2"/><path d="m10.6 14.4 2.8 1.6"/><path d="m13.4 14.4-2.8 1.6"/></svg></span>Sécurité</option>
           <option value="transaction"><span style="display:inline-flex;vertical-align:-2px;margin-right:6px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19"/><path d="M6.5 15h3"/></svg></span>Transaction</option>
         </select>
-        <button onclick="envoyerNotifDirecte()" style="width:100%;padding:12px;background:#6941C6;color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit">Envoyer →</button>
+        <button onclick="envoyerNotifDirecte()" style="width:100%;padding:12px;background:#6941C6;color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit">Envoyer<span style="display:inline-flex;vertical-align:-2px;margin-left:6px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
       </div>
       <!-- Historique -->
       <div id="notif-sel-toolbar" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px;padding:10px 12px;background:#F7F9F8;border-radius:12px;border:1px solid #E3EAE5">
