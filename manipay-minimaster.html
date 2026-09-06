@@ -3,6 +3,7 @@
 <head>
 <script src="mock-api.js"></script>
 <script src="manipay-icons.js"></script>
+<script src="manipay-manipot.js"></script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
 <meta name="version" content="v9.1-2026-09-04"/>
@@ -678,6 +679,7 @@ function setTab(t){
   </div>
   <!-- Opérations rapides -->
   <div style="padding:16px;margin-bottom:0;background:#fff;border-radius:0">
+    <div id="mp-hote"></div>
     <div style="font-size:11px;font-weight:600;color:#6941C6;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px">OPÉRATIONS RAPIDES</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
       <button onclick="ouvrirDepot()" style="background:#fff;border:2px solid #6941C6;border-radius:16px;padding:16px 12px;cursor:pointer;text-align:center;box-shadow:0 2px 8px rgba(10,31,20,.08)">
@@ -1712,6 +1714,51 @@ function entrerApp(){
 }
 
 //  ACCUEIL 
+/* ── ManiPot ────────────────────────────────────────────────────────────
+   Pour un Mini-Master, le fait qui compte est la liquidité : ses agents
+   viennent s'y réapprovisionner. Registre 2 quand elle manque — nommer le
+   problème et donner la sortie — registre 1 sinon, sur l'état du réseau. */
+var MP_SEUIL_LIQUIDITE = 500000;
+
+function majManiPot(){
+  if(!window.ManiPot) return;
+  var hote=document.getElementById('mp-hote'); if(!hote) return;
+  var u=G.user||{}, c=G.compte||{};
+  var liq=Number(c.solde||0);
+  var lire=function(id){var e=document.getElementById(id);var n=e?parseInt(e.textContent,10):0;return isNaN(n)?0:n;};
+  var agents=lire('h-agents'), bus=lire('h-business'), clients=lire('h-clients');
+  var prenom=(u.prenom||'').trim();
+
+  if(liq < MP_SEUIL_LIQUIDITE){
+    hote.innerHTML=ManiPot.carte({
+      registre:'R2', expression:'inquiet',
+      texte:'Ta liquidité est à '+ManiPot.montant(liq)+'. Tes agents viennent se recharger chez toi : '+
+            'en dessous, ils devront refuser des retraits.',
+      faits:[
+        {label:'Liquidité disponible', valeur:ManiPot.montant(liq)},
+        {label:'Agents rattachés', valeur:String(agents)},
+        {label:'Zone', valeur:u.zone||'—'}
+      ],
+      actions:[
+        {texte:'Demande un réapprovisionnement à ton Master'},
+        {texte:'Encaisse les dépôts de tes agents pour remonter'}
+      ]
+    });
+    return;
+  }
+
+  hote.innerHTML=ManiPot.carte({
+    registre:'R1', expression:'content', compact:true,
+    texte:(prenom?prenom+', ton':'Ton')+' réseau tourne : '+agents+' agent'+(agents>1?'s':'')+
+          ', '+bus+' commerce'+(bus>1?'s':'')+', '+clients+' client'+(clients>1?'s':'')+
+          '. Tu touches 10 % sur chaque paiement marchand de ta zone.',
+    faits:[
+      {label:'Liquidité disponible', valeur:ManiPot.montant(liq)},
+      {label:'Ta zone', valeur:u.zone||'—'}
+    ]
+  });
+}
+
 async function chargerAccueil(){
   var u=G.user;if(!u)return;
   document.getElementById('h-name').textContent=(u.prenom||'')+' '+(u.nom||'');
@@ -1754,6 +1801,7 @@ async function chargerAccueil(){
   }
   // Charger txns APRÈS que G.compte est défini
   chargerTxns();
+  majManiPot();
 }
 async function rafraichir(){await chargerAccueil();}
 

@@ -3,6 +3,7 @@
 <head>
 <script src="mock-api.js"></script>
 <script src="manipay-icons.js"></script>
+<script src="manipay-manipot.js"></script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <meta name="version" content="v3.4-2026-09-04"/>
@@ -455,6 +456,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
     </div>
   </div>
   <div style="padding:20px 16px 0">
+    <div id="mp-hote"></div>
     <div class="card" style="margin-bottom:14px">
       <div style="font-size:12px;font-weight:600;color:var(--m);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px">Navigation</div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px" id="nav-grid"></div>
@@ -2935,6 +2937,39 @@ function _setBadge(id, count, urgentColor) {
   }
 }
 
+/* ── ManiPot vu du back-office ──────────────────────────────────────────
+   Décision de conception. La charte pose que « ManiPot tutoie, ManiPay
+   vouvoie » : la voix familière s'adresse aux utilisateurs, pas aux
+   opérateurs internes. Ici, ce n'est donc pas ManiPot qui assiste l'équipe,
+   c'est l'équipe qui surveille ManiPot.
+
+   La carte emprunte le registre 4 — vouvoiement, aucun personnage, aucune
+   pastille violette — exactement comme la planche 17h. C'est le seul registre
+   cohérent quand l'institution se parle à elle-même.
+
+   Elle rappelle aussi les deux garde-fous que la supervision doit vérifier :
+   l'assistant prépare sans jamais exécuter, et ne demande jamais de code
+   secret. */
+function majManiPot(){
+  if(!window.ManiPot) return;
+  var hote=document.getElementById('mp-hote'); if(!hote) return;
+  var lire=function(id){var e=document.getElementById(id);return e?(e.textContent||'').trim():'—';};
+
+  hote.innerHTML=ManiPot.carte({
+    registre:'R4',
+    titre:'Assistant ManiPot — supervision',
+    texte:'L\'assistant prépare les opérations et ne les exécute jamais : chacune passe par '+
+          'un écran de confirmation avec saisie du code secret. Il ne demande jamais ce code. '+
+          'Toute conversation signalée par un utilisateur remonte dans les tickets.',
+    faits:[
+      {label:'Utilisateurs actifs', valeur:lire('h-users')},
+      {label:'Transactions du jour', valeur:lire('h-txns')},
+      {label:'Alertes ouvertes', valeur:lire('h-alertes')}
+    ],
+    boutons:[{texte:'Voir les tickets', onclick:"setTab('support')"}]
+  });
+}
+
 async function chargerAccueil(){
   var u=G.user;if(!u)return;
   var roleLabel={admin:'BACK-OFFICE',superviseur:'SUPERVISEUR',support_client:'SUPPORT CLIENT',support_tech:'SUPPORT TECH',backoffice:'ADMINISTRATION'};
@@ -2969,6 +3004,7 @@ async function chargerAccueil(){
       }
     }
   }catch(e){}
+  majManiPot();
 }
 
 //  USERS 
@@ -4880,6 +4916,7 @@ async function chargerAccueil(){
       }
     }
   }catch(e){}
+  majManiPot();
 }
 
 //  USERS 

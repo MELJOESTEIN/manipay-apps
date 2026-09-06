@@ -3,6 +3,7 @@
 <head>
 <script src="mock-api.js"></script>
 <script src="manipay-icons.js"></script>
+<script src="manipay-manipot.js"></script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
 <meta name="version" content="v1.6-2026-08-09-k"/>
@@ -388,6 +389,7 @@ textarea.inp{min-height:0;padding:14px 15px;line-height:1.55}
   </div>
 
   <div class="sc" style="padding-top:0">
+    <div id="mp-hote"></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
       <button onclick="openEncaisser()" class="btn btn-g" style="padding:16px 8px;font-size:13px;flex-direction:column;gap:6px;box-shadow:0 6px 18px rgba(14,138,69,.3)">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="3" height="3" rx=".5" fill="#fff"/><rect x="19" y="14" width="2" height="2" rx=".5" fill="#fff"/><rect x="14" y="19" width="2" height="2" rx=".5" fill="#fff"/></svg>
@@ -1106,6 +1108,36 @@ async function doLogin(){
 }
 
 //  ACCUEIL 
+/* ── ManiPot ────────────────────────────────────────────────────────────
+   Chez le marchand, ManiPot dit ce que l'encaissement rapporte et ce qu'il
+   coûte (planche 17b) : « chaque réplique se termine sur une information
+   utilisable ». Les taux viennent des règles métier — 0,5 % de frais à la
+   charge du marchand, 20 000 F par jour de transfert entre marchands offerts,
+   par sens. */
+var MP_FRAIS_VENTE = 0.005;      // 0,5 % à la charge du marchand
+var MP_QUOTA_B2B   = 20000;      // gratuit par jour, dans chaque sens
+
+function majManiPot(){
+  if(!window.ManiPot) return;
+  var hote=document.getElementById('mp-hote'); if(!hote) return;
+  var u=G.user||{}, c=G.compte||{};
+  var solde=Number(c.solde||0);
+  var nom=(u.nomCommercial||u.prenom||'').trim();
+  var exemple=8500, frais=Math.round(exemple*MP_FRAIS_VENTE);
+
+  hote.innerHTML=ManiPot.carte({
+    registre:'R1', expression:'content',
+    texte:(nom?'Salut '+nom+' ! ':'')+'Tu encaisses par QR : le client scanne, c\'est réglé. '+
+          'Sur une vente de '+ManiPot.montant(exemple)+', il te reste '+ManiPot.montant(exemple-frais)+'.',
+    faits:[
+      {label:'Frais par vente', valeur:'0,5 % — '+ManiPot.montant(frais)+' sur '+ManiPot.montant(exemple)},
+      {label:'Transfert entre marchands', valeur:ManiPot.montant(MP_QUOTA_B2B)+'/jour offerts'},
+      {label:'Ton solde', valeur:ManiPot.montant(solde)}
+    ],
+    boutons:[{texte:'Afficher mon QR', onclick:'afficherQR()', primaire:true}]
+  });
+}
+
 async function chargerAccueil(){
   var u=G.user;if(!u)return;
   document.getElementById('h-name').textContent=(u.nomEntreprise||((u.prenom||'')+' '+(u.nom||'')));
@@ -1116,6 +1148,7 @@ async function chargerAccueil(){
   afficherSolde();
   chargerTxns();
   chargerCompteursReseau();
+  majManiPot();
 }
 async function chargerCompteursReseau(){
   try{

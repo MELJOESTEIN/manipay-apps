@@ -3,6 +3,7 @@
 <head>
 <script src="mock-api.js"></script>
 <script src="manipay-icons.js"></script>
+<script src="manipay-manipot.js"></script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
 <meta name="version" content="v9.1-2026-09-04"/>
@@ -682,6 +683,7 @@ function setTab(t){
   </div>
   <!-- Opérations rapides -->
   <div style="padding:16px;margin-bottom:0;background:#fff;border-radius:0">
+    <div id="mp-hote"></div>
     <div style="font-size:11px;font-weight:600;color:#B78103;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px">OPÉRATIONS RAPIDES</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
       <button onclick="ouvrirDepot()" style="background:#fff;border:2px solid #B78103;border-radius:16px;padding:16px 12px;cursor:pointer;text-align:center;box-shadow:0 2px 8px rgba(10,31,20,.08)">
@@ -1727,6 +1729,51 @@ function entrerApp(){
 }
 
 //  ACCUEIL 
+/* ── ManiPot ────────────────────────────────────────────────────────────
+   Un Master pilote plusieurs zones. Le fait utile n'est pas son solde mais
+   la profondeur de son réseau, et la liquidité qu'il doit tenir pour ses
+   Mini-Masters. */
+var MP_SEUIL_LIQUIDITE = 2000000;
+
+function majManiPot(){
+  if(!window.ManiPot) return;
+  var hote=document.getElementById('mp-hote'); if(!hote) return;
+  var u=G.user||{}, c=G.compte||{};
+  var liq=Number(c.solde||0);
+  var lire=function(id){var e=document.getElementById(id);var n=e?parseInt(e.textContent,10):0;return isNaN(n)?0:n;};
+  var mm=lire('h-minimasters'), agents=lire('h-agents'), bus=lire('h-business');
+  var prenom=(u.prenom||'').trim();
+
+  if(liq < MP_SEUIL_LIQUIDITE){
+    hote.innerHTML=ManiPot.carte({
+      registre:'R2', expression:'inquiet',
+      texte:'Ta liquidité est à '+ManiPot.montant(liq)+'. Tes Mini-Masters se rechargent chez toi — '+
+            'sous ce seuil, la chaîne se bloque à partir des agents.',
+      faits:[
+        {label:'Liquidité disponible', valeur:ManiPot.montant(liq)},
+        {label:'Mini-Masters rattachés', valeur:String(mm)},
+        {label:'Agents dans le réseau', valeur:String(agents)}
+      ],
+      actions:[
+        {texte:'Réapprovisionne ton compte auprès de ManiPay'},
+        {texte:'Priorise les Mini-Masters dont les agents sont à sec'}
+      ]
+    });
+    return;
+  }
+
+  hote.innerHTML=ManiPot.carte({
+    registre:'R1', expression:'content', compact:true,
+    texte:(prenom?prenom+', ton':'Ton')+' réseau couvre '+mm+' Mini-Master'+(mm>1?'s':'')+', '+
+          agents+' agent'+(agents>1?'s':'')+' et '+bus+' commerce'+(bus>1?'s':'')+
+          '. Tu touches 7 % en direct sur les retraits, 5 % via un Mini-Master.',
+    faits:[
+      {label:'Liquidité disponible', valeur:ManiPot.montant(liq)},
+      {label:'Ta région', valeur:u.zone||'—'}
+    ]
+  });
+}
+
 async function chargerAccueil(){
   var u=G.user;if(!u)return;
   document.getElementById('h-name').textContent=(u.prenom||'')+' '+(u.nom||'');
@@ -1771,6 +1818,7 @@ async function chargerAccueil(){
   }
   // Charger txns APRÈS que G.compte est défini
   chargerTxns();
+  majManiPot();
 }
 async function rafraichir(){await chargerAccueil();}
 

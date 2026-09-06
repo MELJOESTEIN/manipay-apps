@@ -3,6 +3,7 @@
 <head>
 <script src="mock-api.js"></script>
 <script src="manipay-icons.js"></script>
+<script src="manipay-manipot.js"></script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
 <meta name="version" content="v2.1-2026-09-04"/>
@@ -543,6 +544,7 @@ function setTab(t){
     </div>
   </div>
   <div class="sc">
+    <div id="mp-hote"></div>
     <span class="lbl">Op&#233;rations rapides</span>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px">
       <button onclick="ouvrirDepot()" style="background:#F0FAF4;border:1.5px solid #C9E7D5;border-radius:16px;padding:18px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer">
@@ -1860,6 +1862,53 @@ function confirmerPositionObligatoire(){
   },{enableHighAccuracy:true,timeout:20000,maximumAge:0});
 }
 
+/* ── ManiPot ────────────────────────────────────────────────────────────
+   L'assistant ouvre sur un fait, pas sur une formule (planche 17a). Ici, le
+   fait qui décide de la journée d'un agent est sa caisse : sans espèces, il
+   ne peut plus servir de retrait. Registre 2 quand elle baisse — ManiPot
+   nomme le problème et donne la sortie — registre 1 sinon.
+   Il ne décide rien et n'appelle aucune API : il lit l'état déjà chargé. */
+var MP_SEUIL_CAISSE = 100000;   // en dessous, l'agent risque de refuser un retrait
+var MP_RETRAIT_TYPE = 50000;    // retrait courant, pour estimer ce qu'il peut servir
+
+function majManiPot(){
+  if(!window.ManiPot) return;
+  var hote=document.getElementById('mp-hote'); if(!hote) return;
+  var u=G.user||{}, c=G.compte||{};
+  var caisse=Number(c.solde||0);
+  var prenom=(u.prenom||'').trim();
+  var possibles=Math.floor(caisse/MP_RETRAIT_TYPE);
+
+  if(caisse < MP_SEUIL_CAISSE){
+    hote.innerHTML=ManiPot.carte({
+      registre:'R2', expression:'inquiet',
+      texte:(prenom?prenom+', ta':'Ta')+' caisse baisse. Avec '+ManiPot.montant(caisse)+
+            ', tu peux encore servir '+possibles+' retrait'+(possibles>1?'s':'')+' de 50 000. Après, tu devras refuser.',
+      faits:[
+        {label:'Espèces en caisse', valeur:ManiPot.montant(caisse)},
+        {label:'Retraits de 50 000 possibles', valeur:String(possibles)},
+        {label:'Zone', valeur:u.zone||'—'}
+      ],
+      actions:[
+        {texte:'Encaisse des dépôts : chaque dépôt recharge ta caisse'},
+        {texte:'Demande une avance de liquidité à ton Mini-Master'}
+      ],
+      boutons:[{texte:'Voir mes paliers', onclick:'ouvrirPaliers()'}]
+    });
+    return;
+  }
+
+  hote.innerHTML=ManiPot.carte({
+    registre:'R1', expression:'content', compact:true,
+    texte:(prenom?'Salut '+prenom+' ! ':'')+'Ta caisse tient : '+possibles+
+          ' retraits de 50 000 servables aujourd\'hui. Chaque dépôt te rapporte 0,2 %.',
+    faits:[
+      {label:'Espèces en caisse', valeur:ManiPot.montant(caisse)},
+      {label:'Ton code de parrainage', valeur:u.codeParrainage||'—'}
+    ]
+  });
+}
+
 async function chargerAccueil(){
   var u=G.user;if(!u)return;
   document.getElementById('h-name').textContent=(u.prenom||'')+' '+(u.nom||'');
@@ -1888,6 +1937,7 @@ async function chargerAccueil(){
   }catch(e){}
   // Charger txns APRÈS que G.compte est défini
   chargerTxns();
+  majManiPot();
 }
 async function rafraichir(){await chargerAccueil();}
 

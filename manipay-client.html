@@ -3,6 +3,7 @@
 <head>
 <script src="mock-api.js"></script>
 <script src="manipay-icons.js"></script>
+<script src="manipay-manipot.js"></script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <meta name="version" content="v2.9-2026-08-21-final"/>
@@ -494,6 +495,8 @@ textarea.inp{height:auto;padding:14px 15px;line-height:1.55}
         <div style="font-size:11px;color:#93500A;margin-bottom:10px">Communiquez ce code uniquement si vous êtes d'accord avec le montant ci-dessus.</div>
         <button onclick="refuserDemandeOtp()" style="width:100%;padding:10px;background:#fff;border:1.5px solid #D92D20;border-radius:10px;color:#D92D20;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit">Refuser cette demande</button>
       </div>
+
+      <div id="mp-hote"></div>
 
       <div style="background:rgba(255,255,255,.14);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.28);border-radius:20px;padding:16px">
         <div class="row" style="margin-bottom:12px">
@@ -1116,6 +1119,53 @@ function setTab(t){
 
 function chkLogin(){var v=document.getElementById('login-tel').value.trim();document.getElementById('lg-btn').disabled=!v;document.getElementById('lg-btn').style.opacity=v?'1':'.4';}
 
+/* ── ManiPot sur l'accueil ──────────────────────────────────────────────
+   Le fil de messagerie porte déjà la voix de ManiPot. Cette carte-ci reprend
+   deux cas de l'écosystème que le fil ne couvre pas :
+   — la relance KYC (planche 17e), au registre 2 : « celle qui nomme le
+     blocage », sans reproche, puisque la personne n'a rien fait de mal ;
+   — l'accueil du matin (planche 17a), au registre 1 : un fait réel plutôt
+     qu'une formule.
+   ManiPot prépare, il n'exécute pas : les boutons ouvrent des écrans. */
+var MP_PLAFONDS = { KYC1:20000, KYC2:50000, KYC3:100000 };
+
+function majManiPot(){
+  if(!window.ManiPot) return;
+  var hote=document.getElementById('mp-hote'); if(!hote) return;
+  var u=G.user||{}, c=G.compte||{};
+  var niveau=String(u.kycNiveau||'KYC1').toUpperCase();
+  var prenom=(u.prenom||'').trim();
+  var solde=Number(c.solde||0);
+
+  if(niveau==='KYC1' || niveau==='KYC2'){
+    var actuel=MP_PLAFONDS[niveau]||20000;
+    var suivant=niveau==='KYC1'?MP_PLAFONDS.KYC2:MP_PLAFONDS.KYC3;
+    hote.innerHTML=ManiPot.carte({
+      registre:'R2', expression:'inquiet',
+      texte:'Ton plafond de gains est à '+ManiPot.montant(actuel)+' par mois. '+
+            'Une photo de ta pièce d\'identité et tu passes à '+ManiPot.montant(suivant)+'.',
+      faits:[
+        {label:'Niveau actuel', valeur:niveau},
+        {label:'Plafond de gains', valeur:ManiPot.montant(actuel)+' / mois'},
+        {label:'Après vérification', valeur:ManiPot.montant(suivant)+' / mois'}
+      ],
+      boutons:[{texte:'Compléter mon dossier', onclick:'ouvrirKycUpgrade()', primaire:true}]
+    });
+    return;
+  }
+
+  hote.innerHTML=ManiPot.carte({
+    registre:'R1', expression:'content', compact:true,
+    texte:(prenom?'Salut '+prenom+' ! ':'')+'Ton compte est au niveau '+niveau+
+          '. Envoyer de l\'argent à un proche ne te coûte rien, et le dépôt chez un agent non plus.',
+    faits:[
+      {label:'Ton solde', valeur:ManiPot.montant(solde)},
+      {label:'Envoi entre particuliers', valeur:'gratuit'},
+      {label:'Dépôt chez un agent', valeur:'gratuit'}
+    ]
+  });
+}
+
 async function chargerAccueil(){
   var u=G.user;if(!u)return;
   document.getElementById('h-name').textContent=(u.prenom||'')+' '+(u.nom||'');
@@ -1132,6 +1182,7 @@ async function chargerAccueil(){
   document.getElementById('h-badges').innerHTML=b;
   if(u.codeParrainage){document.getElementById('h-code').textContent=u.codeParrainage;document.getElementById('h-parrain').style.display='';}
   chargerTxns();
+  majManiPot();
 }
 function afficherSolde(){var s=G.compte?Number(G.compte.solde):0;document.getElementById('h-solde').textContent=G.soldeVisible?F(s):'••••• FCFA';}
 function toggleSolde(){G.soldeVisible=!G.soldeVisible;afficherSolde();}
