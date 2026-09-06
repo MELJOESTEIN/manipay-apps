@@ -192,7 +192,7 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
     <div style="display:flex;align-items:center;justify-content:space-between">
       <div style="display:flex;align-items:center;gap:12px">
         <button onclick="S('s-home')" style="background:#F0F9F3;border:none;border-radius:10px;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center">
-          <svg width="16" height="16" fill="none" stroke="#33473C" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          <svg width="16" height="16" fill="none" stroke="#33473C" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
         </button>
         <div style="font-size:20px;font-weight:900;font-family:Outfit,sans-serif">Notifications</div>
       </div>
@@ -243,7 +243,7 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
       <!-- Barre : quitter | LOGO centré | notifs + refresh -->
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
         <button onclick="confirmLogout()" style="background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:10px;width:38px;height:38px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" width="16" height="16"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
         </button>
 
         <!-- Logo centré -->
@@ -253,15 +253,15 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
 
         <div style="display:flex;gap:8px;align-items:center">
           <button onclick="ouvrirMessages()" style="background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:12px;width:38px;height:38px;cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative">
-            <svg width="18" height="18" fill="none" stroke="#fff" stroke-width="2.2" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+            <svg width="18" height="18" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
             <span id="msg-badge" style="display:none;position:absolute;top:4px;right:4px;min-width:15px;height:15px;background:#6941C6;border-radius:99px;border:2px solid rgba(255,255,255,.3);font-size:8px;font-weight:800;color:#fff;align-items:center;justify-content:center;padding:0 2px"></span>
           </button>
           <button onclick="ouvrirNotifications()" style="background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:12px;width:38px;height:38px;cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative">
-            <svg width="18" height="18" fill="none" stroke="#fff" stroke-width="2.2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
+            <svg width="18" height="18" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
             <span id="notif-badge" style="display:none;position:absolute;top:4px;right:4px;min-width:15px;height:15px;background:#D92D20;border-radius:99px;border:2px solid rgba(255,255,255,.3);font-size:8px;font-weight:800;color:#fff;align-items:center;justify-content:center;padding:0 2px"></span>
           </button>
           <button onclick="rafraichir()" style="background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:12px;width:38px;height:38px;cursor:pointer;display:flex;align-items:center;justify-content:center">
-            <svg width="16" height="16" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 013.51 15"/></svg>
+            <svg width="16" height="16" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 013.51 15"/></svg>
           </button>
         </div>
       </div>
@@ -271,7 +271,7 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
         <div style="display:flex;align-items:center;justify-content:center;gap:10px">
           <div id="h-solde" style="color:#fff;font-size:36px;font-weight:900;font-family:Outfit,sans-serif;letter-spacing:-.5px;text-shadow:0 2px 10px rgba(10,31,20,.22)">&#x2022;&#x2022;&#x2022;&#x2022;&#x2022; FCFA</div>
           <button onclick="toggleSolde()" style="background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:10px;width:34px;height:34px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-            <svg width="17" height="17" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg width="17" height="17" fill="none" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           </button>
         </div>
         <!-- KYC + téléphone (h-badges) -->
@@ -299,11 +299,11 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
             <div id="h-qr-canvas" style="width:200px;height:200px;margin:0 auto"></div>
           </div>
           <button onclick="ouvrirScannerDirect()" style="margin:10px auto 0;background:rgba(255,255,255,.22);border:none;border-radius:12px;padding:10px 24px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:8px">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="7" height="7" rx="1"/><rect x="15" y="3" width="7" height="7" rx="1"/><rect x="2" y="14" width="7" height="7" rx="1"/><path d="M15 14h2m0 0h5m-5 0v2m0 3v2m5-7v7h-3"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="7" height="7" rx="1"/><rect x="15" y="3" width="7" height="7" rx="1"/><rect x="2" y="14" width="7" height="7" rx="1"/><path d="M15 14h2m0 0h5m-5 0v2m0 3v2m5-7v7h-3"/></svg>
             Scanner QR
           </button>
           <div style="text-align:center;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:6px">
-            <svg width="14" height="14" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="2" viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+            <svg width="14" height="14" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
             <span style="color:rgba(255,255,255,.85);font-size:12px;font-weight:700">Appuyer pour scanner</span>
           </div>
         </div>
@@ -376,10 +376,10 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
   </div>
 
   <nav class="bnav">
-    <button class="nb on" id="nb-home" onclick="setTab('home')"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>Accueil</button>
-    <button class="nb" id="nb-history" onclick="setTab('history')"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Historique</button>
-    <button class="nb" id="nb-commissions-n1" onclick="setTab('commissions')"><svg viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Gains</button>
-    <button class="nb" id="nb-profile" onclick="setTab('profile')"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg>Paramètres</button>
+    <button class="nb on" id="nb-home" onclick="setTab('home')"><svg viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>Accueil</button>
+    <button class="nb" id="nb-history" onclick="setTab('history')"><svg viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Historique</button>
+    <button class="nb" id="nb-commissions-n1" onclick="setTab('commissions')"><svg viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Gains</button>
+    <button class="nb" id="nb-profile" onclick="setTab('profile')"><svg viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg>Paramètres</button>
   </nav>
 </div>
 <div class="scr" id="s-history">
@@ -390,13 +390,13 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
     <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:10px" id="hist-chips"></div>
     <div style="display:flex;gap:6px;align-items:center;margin-bottom:14px">
       <div style="position:relative;flex:5">
-        <svg id="hist-icon-tel" style="position:absolute;left:9px;top:50%;transform:translateY(-50%);opacity:.35" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013 8.79a19.79 19.79 0 01-3.07-8.67A2 2 0 011.91 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14z"/></svg>
-        <svg id="hist-icon-date" style="display:none;position:absolute;left:9px;top:50%;transform:translateY(-50%);opacity:.35" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        <svg id="hist-icon-tel" style="position:absolute;left:9px;top:50%;transform:translateY(-50%);opacity:.35" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013 8.79a19.79 19.79 0 01-3.07-8.67A2 2 0 011.91 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14z"/></svg>
+        <svg id="hist-icon-date" style="display:none;position:absolute;left:9px;top:50%;transform:translateY(-50%);opacity:.35" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
         <input id="hist-search-tel" type="tel" inputmode="numeric" placeholder="Num&#233;ro" oninput="filtrerHistorique()" style="width:100%;padding:9px 8px 9px 28px;border:1.5px solid #E3EAE5;border-radius:10px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;background:#F7F9F8"/>
         <input id="hist-search-date" type="date" oninput="filtrerHistorique()" style="display:none;width:100%;padding:9px 8px 9px 28px;border:1.5px solid #E3EAE5;border-radius:10px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;background:#F7F9F8"/>
       </div>
       <div style="position:relative;flex:4">
-        <svg style="position:absolute;left:9px;top:50%;transform:translateY(-50%);opacity:.35" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8V7m0 9v1"/></svg>
+        <svg style="position:absolute;left:9px;top:50%;transform:translateY(-50%);opacity:.35" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8V7m0 9v1"/></svg>
         <input id="hist-search-amt" type="tel" inputmode="numeric" placeholder="Montant" oninput="filtrerHistorique()" style="width:100%;padding:9px 8px 9px 28px;border:1.5px solid #E3EAE5;border-radius:10px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;background:#F7F9F8"/>
       </div>
       <button onclick="document.getElementById('hist-search-tel').value='';document.getElementById('hist-search-date').value='';document.getElementById('hist-search-amt').value='';filtrerHistorique()" style="padding:9px 10px;background:#F0F9F3;border:none;border-radius:10px;cursor:pointer;font-size:11px;color:#4E6157;font-family:inherit;flex-shrink:0">✕</button>
@@ -405,10 +405,10 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
   </div>
   <div style="height:80px"></div>
   <nav class="bnav">
-    <button class="nb" id="nb-home" onclick="setTab('home')"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>Accueil</button>
-    <button class="nb on" id="nb-history" onclick="setTab('history')"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Historique</button>
-    <button class="nb" id="nb-commissions-h" onclick="setTab('commissions')"><svg viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Gains</button>
-    <button class="nb" id="nb-profile" onclick="setTab('profile')"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg>Paramètres</button>
+    <button class="nb" id="nb-home" onclick="setTab('home')"><svg viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>Accueil</button>
+    <button class="nb on" id="nb-history" onclick="setTab('history')"><svg viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Historique</button>
+    <button class="nb" id="nb-commissions-h" onclick="setTab('commissions')"><svg viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Gains</button>
+    <button class="nb" id="nb-profile" onclick="setTab('profile')"><svg viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg>Paramètres</button>
   </nav>
 </div>
 
@@ -416,10 +416,10 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
 
   <div id="wqr-scanner" style="flex:1;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;">
     <button onclick="fermerPopupQR()" style="position:absolute;top:20px;left:20px;background:rgba(255,255,255,.15);border:none;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;">
-      <svg width="20" height="20" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      <svg width="20" height="20" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
     </button>
     <button id="wqr-flash-btn" onclick="toggleFlash()" style="position:absolute;top:20px;right:20px;background:rgba(255,255,255,.15);border:none;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;">
-      <svg width="20" height="20" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      <svg width="20" height="20" fill="none" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
     </button>
     <input type="file" id="wqr-native-input" accept="image/*" style="display:none"/>
     <canvas id="wqr-canvas" style="display:none"></canvas>
@@ -441,7 +441,7 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
 
   <div id="wqr-carte" style="display:none;flex:1;background:#fff;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;position:relative;">
     <button onclick="fermerPopupQR()" style="position:absolute;top:20px;left:20px;background:#F0F9F3;border:none;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
-      <svg width="20" height="20" fill="none" stroke="#0A1F14" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      <svg width="20" height="20" fill="none" stroke="#0A1F14" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
     </button>
     <div style="background:linear-gradient(135deg,var(--g2),var(--g));border-radius:24px;padding:24px;width:100%;max-width:300px;text-align:center;box-shadow:0 12px 40px rgba(5,150,105,.25);position:relative;overflow:hidden;">
       <div style="position:absolute;inset:0;opacity:.08;background-image:repeating-linear-gradient(45deg,#fff 0,#fff 2px,transparent 0,transparent 50%);background-size:12px 12px;"></div>
@@ -464,7 +464,7 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
 <!-- ═══════════ ManiPot / Messagerie ═══════════ -->
 <div class="scr" id="s-messages">
   <div style="background:#fff;padding:16px 20px 12px;border-bottom:1px solid #F0F9F3;position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px">
-    <button onclick="S('s-home')" style="background:none;border:none;cursor:pointer;padding:4px;display:flex;flex-shrink:0"><svg viewBox="0 0 24 24" fill="none" stroke="#0A1F14" stroke-width="2.2" width="20" height="20"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+    <button onclick="S('s-home')" style="background:none;border:none;cursor:pointer;padding:4px;display:flex;flex-shrink:0"><svg viewBox="0 0 24 24" fill="none" stroke="#0A1F14" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
     <div style="font-size:20px;font-weight:800;font-family:'Outfit',sans-serif">Messages</div>
   </div>
   <div id="messages-list"></div>
@@ -473,7 +473,7 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
 
 <div class="scr" id="s-thread" style="height:100vh;max-height:100vh;overflow:hidden">
   <div style="background:#fff;padding:12px 16px;border-bottom:1px solid #F0F9F3;display:flex;align-items:center;gap:10px;flex-shrink:0">
-    <button onclick="S('s-messages');chargerMessages()" style="background:none;border:none;cursor:pointer;padding:4px;display:flex;flex-shrink:0"><svg viewBox="0 0 24 24" fill="none" stroke="#0A1F14" stroke-width="2.2" width="20" height="20"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+    <button onclick="S('s-messages');chargerMessages()" style="background:none;border:none;cursor:pointer;padding:4px;display:flex;flex-shrink:0"><svg viewBox="0 0 24 24" fill="none" stroke="#0A1F14" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
     <img id="th-avatar-img" class="av" src="" style="display:none"/>
     <img id="th-avatar-manipot" class="mp-avatar-img" src="manipot.png" alt="ManiPot" style="display:none"/>
     <div style="font-size:16px;font-weight:800;font-family:'Outfit',sans-serif;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" id="th-titre">—</div>
@@ -482,7 +482,7 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
   <div style="display:flex;gap:8px;padding:10px 14px;border-top:1px solid #F0F9F3;background:#fff;flex-shrink:0">
     <input id="thread-input" type="text" placeholder="Écrire un message..." style="flex:1;border:1.5px solid #E3EAE5;border-radius:999px;padding:11px 16px;font-size:14px;font-family:'Instrument Sans',sans-serif;outline:none;background:#FBFCFB;min-width:0" onkeydown="if(event.key==='Enter')envoyerMessageManipot()"/>
     <button onclick="envoyerMessageManipot()" style="width:42px;height:42px;border-radius:999px;border:none;background:#0E8A45;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.3" width="18" height="18"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
     </button>
   </div>
 </div>
@@ -515,33 +515,33 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
     <button class="params-item" onclick="ouvrirInfos()">
       <div class="params-icon" style="background:#F0F9F3">👤</div>
       <div><div class="params-label">Mes informations</div><div class="params-sub">Nom, Prenom, Telephone, KYC</div></div>
-      <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" fill="none" stroke="#9AAAA1" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" fill="none" stroke="#9AAAA1" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
     </button>
     <button class="params-item" onclick="ouvrirKycUpgrade()">
       <div class="params-icon" style="background:#EFF6FF">🪪</div>
       <div><div class="params-label">Compléter mon KYC</div><div class="params-sub" id="kyc-sub-label">Documents d'identité</div></div>
-      <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" fill="none" stroke="#9AAAA1" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" fill="none" stroke="#9AAAA1" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
     </button>
     <button class="params-item" id="params-mes-docs" style="display:none" onclick="ouvrirMesDocuments()">
       <div class="params-icon" style="background:#fdf2f8">🆔</div>
       <div><div class="params-label">Mes documents d'identité</div><div class="params-sub">Voir ma CNI — protégé par un code</div></div>
-      <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" fill="none" stroke="#9AAAA1" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" fill="none" stroke="#9AAAA1" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
     </button>
     <button class="params-item" onclick="ouvrirTontine()">
       <div class="params-icon" style="background:#f5f3ff">🎡</div>
       <div><div class="params-label">Tontine ManiPay</div><div class="params-sub">Épargne collective — réservé au KYC3</div></div>
-      <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" fill="none" stroke="#9AAAA1" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" fill="none" stroke="#9AAAA1" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
     </button>
     <button class="params-item" onclick="ouvrirCautionsRecues()">
       <div class="params-icon" style="background:#FFF8EB">🤝</div>
       <div><div class="params-label">Invitations de caution</div><div class="params-sub" id="cautions-recues-sub">On me demande de me porter garant</div></div>
       <span id="cautions-recues-badge" style="display:none;background:#D92D20;color:#fff;font-size:11px;font-weight:800;padding:2px 8px;border-radius:99px;margin-right:8px"></span>
-      <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" fill="none" stroke="#9AAAA1" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" fill="none" stroke="#9AAAA1" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
     </button>
     <button class="params-item" onclick="openSh('change-pin')">
       <div class="params-icon" style="background:#FFF8EB">🔐</div>
       <div><div class="params-label">Modifier le code secret</div><div class="params-sub">Changer votre PIN de connexion</div></div>
-      <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" fill="none" stroke="#9AAAA1" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" fill="none" stroke="#9AAAA1" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
     </button>
     <div style="background:#EFF6FF;border:1px solid #C7DDFE;border-radius:12px;padding:12px 14px;margin:10px 0 4px">
       <div style="font-size:11px;font-weight:800;color:#1d4ed8;margin-bottom:4px">🛡️ Politique du code secret (PIN)</div>
@@ -550,28 +550,28 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
     <button class="params-item" onclick="voirPlafond()">
       <div class="params-icon" style="background:#EFF6FF">📊</div>
       <div><div class="params-label">Verifier mon plafond</div><div class="params-sub">Limites KYC et transactions</div></div>
-      <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" fill="none" stroke="#9AAAA1" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" fill="none" stroke="#9AAAA1" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
     </button>
     <button class="params-item" onclick="contacterSupport()">
       <div class="params-icon" style="background:#F0F9F3">🎧</div>
       <div><div class="params-label">Contacter le service client</div><div class="params-sub">WhatsApp — 24h/7j</div></div>
-      <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" fill="none" stroke="#9AAAA1" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" fill="none" stroke="#9AAAA1" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
     </button>
     <div style="font-size:12px;font-weight:700;color:#9AAAA1;text-transform:uppercase;letter-spacing:.08em;margin-top:18px;margin-bottom:10px">Services</div>
     <button class="params-item" onclick="trouverAgents()">
       <div class="params-icon" style="background:#fdf4ff">📍</div>
       <div><div class="params-label">Trouver des agents ou commerces</div><div class="params-sub">Agents ManiPay pres de vous</div></div>
-      <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" fill="none" stroke="#9AAAA1" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" fill="none" stroke="#9AAAA1" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
     </button>
     <button class="params-item" onclick="inviterAmi()">
       <div class="params-icon" style="background:#F0F9F3">🎁</div>
       <div><div class="params-label">Inviter un ami</div><div class="params-sub">Partager votre code parrainage</div></div>
-      <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" fill="none" stroke="#9AAAA1" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" fill="none" stroke="#9AAAA1" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
     </button>
     <button class="params-item" onclick="ouvrirCreationFilleul()">
       <div class="params-icon" style="background:#F0F9F3">➕</div>
       <div><div class="params-label">Créer un compte</div><div class="params-sub">Pour un proche, parrainé automatiquement par vous</div></div>
-      <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" fill="none" stroke="#9AAAA1" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" fill="none" stroke="#9AAAA1" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
     </button>
     <div style="font-size:12px;font-weight:700;color:#9AAAA1;text-transform:uppercase;letter-spacing:.08em;margin-top:18px;margin-bottom:10px">Partenaires</div>
     <div style="background:#fff;border-radius:14px;border:1px solid #F0F9F3;padding:16px;margin-bottom:8px">
@@ -593,11 +593,11 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
   </div>
   <div style="height:80px"></div>
   <nav class="bnav">
-    <button class="nb" id="nb-home" onclick="setTab('home')"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>Accueil</button>
-    <button class="nb" id="nb-history" onclick="setTab('history')"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Historique</button>
+    <button class="nb" id="nb-home" onclick="setTab('home')"><svg viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>Accueil</button>
+    <button class="nb" id="nb-history" onclick="setTab('history')"><svg viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Historique</button>
 
-    <button class="nb" id="nb-commissions-a0" onclick="setTab('commissions')"><svg viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Gains</button>
-    <button class="nb on" id="nb-profile" onclick="setTab('profile')"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg>Paramètres</button>
+    <button class="nb" id="nb-commissions-a0" onclick="setTab('commissions')"><svg viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Gains</button>
+    <button class="nb on" id="nb-profile" onclick="setTab('profile')"><svg viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg>Paramètres</button>
   </nav>
 </div>
 
@@ -608,17 +608,17 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
   </div>
   <div id="comm-content" style="padding:16px 16px 100px"><div style="padding:32px;text-align:center"><div class="spin"></div></div></div>
   <nav class="bnav">
-    <button class="nb" id="nb-home-c" onclick="setTab('home')"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>Accueil</button>
-    <button class="nb" id="nb-history-c" onclick="setTab('history')"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Historique</button>
-    <button class="nb on" id="nb-commissions-c" onclick="setTab('commissions')"><svg viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Gains</button>
-    <button class="nb" id="nb-profile-c" onclick="setTab('profile')"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg>Paramètres</button>
+    <button class="nb" id="nb-home-c" onclick="setTab('home')"><svg viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>Accueil</button>
+    <button class="nb" id="nb-history-c" onclick="setTab('history')"><svg viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Historique</button>
+    <button class="nb on" id="nb-commissions-c" onclick="setTab('commissions')"><svg viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Gains</button>
+    <button class="nb" id="nb-profile-c" onclick="setTab('profile')"><svg viewBox="0 0 24 24" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg>Paramètres</button>
   </nav>
 </div>
 
 <div class="scr" id="s-trouver-agents" style="background:#fff;flex-direction:column">
   <div style="background:#fff;padding:52px 20px 14px;border-bottom:1px solid #F0F9F3;position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px">
     <button onclick="S('s-profile')" style="background:#F0F9F3;border:none;border-radius:10px;width:36px;height:36px;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center">
-      <svg width="18" height="18" fill="none" stroke="#0A1F14" stroke-width="2" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      <svg width="18" height="18" fill="none" stroke="#0A1F14" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
     </button>
     <div>
       <div style="font-size:18px;font-weight:800">Trouver des agents ou commerces</div>
@@ -687,7 +687,7 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
           <button id="send-ok-btn" onclick="selDest(document.getElementById('send-tel').value)" disabled style="opacity:.4;padding:0 18px;background:var(--g);color:#fff;border:none;border-radius:12px;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif">OK</button>
         </div>
         <button id="contacts-btn" onclick="choisirContact()" style="width:100%;padding:12px;background:#F0F9F3;border:1.5px solid #C9E7D5;border-radius:12px;color:#0E8A45;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:4px">
-          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
           Choisir dans les contacts
         </button>
         <div id="contacts-list" style="max-height:200px;overflow-y:auto;margin-bottom:4px"></div>
@@ -723,14 +723,14 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
 
   <div style="background:#fff;padding:16px 20px 12px;display:flex;align-items:center;gap:14px;border-bottom:1px solid #F0F9F3;position:sticky;top:0;z-index:5;">
     <button onclick="fermerPaiements()" style="background:none;border:none;cursor:pointer;padding:4px;display:flex;align-items:center;">
-      <svg width="22" height="22" fill="none" stroke="#0A1F14" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      <svg width="22" height="22" fill="none" stroke="#0A1F14" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
     </button>
     <div style="font-size:20px;font-weight:800;flex:1">Paiements</div>
   </div>
 
   <div style="padding:12px 16px;background:#fff;border-bottom:1px solid #F0F9F3;">
     <div style="display:flex;align-items:center;gap:10px;background:#F0F9F3;border-radius:12px;padding:10px 14px;">
-      <svg width="18" height="18" fill="none" stroke="#9AAAA1" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <svg width="18" height="18" fill="none" stroke="#9AAAA1" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
       <input id="pay-search" type="text" placeholder="Rechercher un service..." style="border:none;background:none;font-size:15px;font-family:'Instrument Sans',sans-serif;color:#0A1F14;outline:none;flex:1;" oninput="filtrerPaiements(this.value)"/>
       <button id="pay-search-cancel" onclick="annulerRecherche()" style="display:none;background:none;border:none;color:#4E6157;font-size:14px;font-weight:600;cursor:pointer;font-family:'Instrument Sans',sans-serif;">Annuler</button>
     </div>
@@ -743,7 +743,7 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
 
   <div style="background:#fff;padding:16px 20px 12px;display:flex;align-items:center;gap:14px;border-bottom:1px solid #F0F9F3;position:sticky;top:0;z-index:5;flex-shrink:0;">
     <button onclick="fermerDetailPaiement()" style="background:none;border:none;cursor:pointer;padding:4px;display:flex;align-items:center;">
-      <svg width="22" height="22" fill="none" stroke="#0A1F14" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      <svg width="22" height="22" fill="none" stroke="#0A1F14" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
     </button>
     <div style="font-size:18px;font-weight:800;flex:1" id="pay-det-title">Payer</div>
   </div>
@@ -801,7 +801,7 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
 <div class="scr" id="s-tx-detail" style="background:#F0F9F3;">
   <div style="background:#F0F9F3;padding:52px 20px 12px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:5;flex-shrink:0;">
     <button onclick="setTab('history')" style="background:none;border:none;cursor:pointer;padding:4px;display:flex;align-items:center;">
-      <svg width="22" height="22" fill="none" stroke="#0A1F14" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      <svg width="22" height="22" fill="none" stroke="#0A1F14" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
     </button>
   </div>
   <div id="tx-detail-content" style="flex:1;overflow-y:auto;padding-bottom:40px"></div>
@@ -810,7 +810,7 @@ html,body{height:100%;background:var(--bg);font-family:'Instrument Sans',sans-se
 <div class="scr" id="s-send-wave" style="background:#fff;flex-direction:column;">
   <div style="background:#fff;padding:16px 20px 12px;display:flex;align-items:center;gap:14px;border-bottom:1px solid #F0F9F3;position:sticky;top:0;z-index:5;flex-shrink:0;">
     <button onclick="setTab('home')" style="background:none;border:none;cursor:pointer;padding:4px;display:flex;align-items:center;">
-      <svg width="22" height="22" fill="none" stroke="#0A1F14" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      <svg width="22" height="22" fill="none" stroke="#0A1F14" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
     </button>
     <div style="font-size:18px;font-weight:800;flex:1">Envoyer de l'Argent</div>
   </div>
@@ -1903,7 +1903,7 @@ function renderListePaiements(liste){
         +'<div style="width:52px;height:52px;border-radius:14px;'+iconStyle+';display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">'+s.icon+'</div>'
         +'<div style="flex:1"><div style="font-size:15px;font-weight:600;color:#0A1F14;">'+s.nom+'</div>'
         +'<div style="font-size:12px;color:#9AAAA1;margin-top:2px;">'+s.cat+(s.bientot?' · <span style=\"color:#FBB034;font-weight:700;\">Bientôt</span>':'')+'</div></div>'
-        +'<svg width="16" height="16" fill="none" stroke="#C3CFC8" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>';
+        +'<svg width="16" height="16" fill="none" stroke="#C3CFC8" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>';
     });
   });
   if(!html)html='<div style="text-align:center;padding:48px 24px;color:#9AAAA1;font-size:14px;">Aucun service trouvé</div>';
